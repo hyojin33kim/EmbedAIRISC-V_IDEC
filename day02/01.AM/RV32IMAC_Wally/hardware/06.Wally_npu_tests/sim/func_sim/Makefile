@@ -25,6 +25,8 @@ WORK	= simv
 TOP	= testbench
 
 VCS ?= vcs
+VERILATOR ?= verilator
+JOBS ?= 2
 VCS_OPTS = +vcs+lic+wait +lint=all
 SW := ../../../../software/npu
 SAMPLES ?= 124
@@ -55,6 +57,18 @@ $(WORK): run.f $(RTL) $(HEADERS) Makefile | build
 run: all
 	python3 run_npu.py --samples $(SAMPLES)
 
+.PHONY: verilator run-verilator regression-verilator
+verilator: build/verilator/simv_verilator
+
+build/verilator/simv_verilator: run.f $(RTL) $(HEADERS) Makefile verilator_env.cpp | build
+	$(VERILATOR) --binary --timing -Wno-fatal --timescale 1ns/1ps +incdir+. -f run.f $(abspath verilator_env.cpp) --Mdir build/verilator -o simv_verilator -j $(JOBS) > build/verilator_compile.log 2>&1
+
+run-verilator: firmware vectors verilator
+	python3 run_npu.py --simulator verilator --samples $(SAMPLES)
+
+regression-verilator: firmware vectors verilator
+	python3 run_npu.py --simulator verilator --samples 0 124 248
+
 regression: all
 	python3 run_npu.py --samples 0 124 248
 
@@ -65,6 +79,12 @@ compare-build: | build
 compare: compare-build vcs
 	python3 run_npu.py --firmware compare --backend npu --samples $(SAMPLES)
 	python3 run_npu.py --firmware compare --backend cpu --samples $(SAMPLES)
+	python3 compare_results.py
+
+.PHONY: compare-verilator
+compare-verilator: compare-build verilator
+	python3 run_npu.py --simulator verilator --firmware compare --backend npu --samples $(SAMPLES)
+	python3 run_npu.py --simulator verilator --firmware compare --backend cpu --samples $(SAMPLES)
 	python3 compare_results.py
 
 compare-npu: compare-build vcs

@@ -11,6 +11,7 @@ HERE=Path(__file__).resolve().parent
 BUILD=HERE/"build"
 SW=HERE.parents[3]/"software/npu"
 parser=argparse.ArgumentParser()
+parser.add_argument("--simulator",choices=("vcs","verilator"),default="vcs")
 parser.add_argument("--samples",type=int,nargs="+",default=[124])
 parser.add_argument("--firmware",choices=("npu","compare"),default="npu")
 parser.add_argument("--backend",choices=("npu","cpu"),default="npu")
@@ -25,6 +26,8 @@ if hashlib.sha256(elf.read_bytes()).hexdigest()!=manifest["firmware_sha256"]:
     raise SystemExit("[FAIL] ELF changed; regenerate vectors before simulation")
 source_files={(HERE/line).resolve() for line in (HERE/"run.f").read_text().splitlines() if line.startswith(".")}
 source_files.update((HERE/"run.f",HERE/"Makefile"))
+if args.simulator=="verilator":
+    source_files.add(HERE/"verilator_env.cpp")
 source_files.update((HERE/"../../testbench").glob("*.svh"))
 source_files.update((HERE/"../../testbench").glob("*.vh"))
 for folder in ("rv32imac_cache","shared"):
@@ -45,7 +48,8 @@ for index in args.samples:
             raise SystemExit(f"[FAIL] golden vector changed: {filename}; regenerate vectors")
     log=BUILD/f"{prefix}sample_{index}.log"
     uart=BUILD/f"{prefix}uart_{index}.log"
-    command=[str(HERE/"simv"),"-no_save","+vcs+lic+wait","+TEST=npu",
+    executable=HERE/("simv" if args.simulator=="vcs" else "build/verilator/simv_verilator")
+    command=[str(executable)]+(["-no_save","+vcs+lic+wait"] if args.simulator=="vcs" else [])+ ["+TEST=npu",
              "+ElfFile="+str(elf),"+UART_LOG=1","+UART_LOG_FILE="+str(uart),
              "+sim_log_prefix="+str(BUILD/f"{prefix}sample_{index}_"),
              f"+NPU_SAMPLE={index}","+NPU_VECTORS="+case["directory"]]
@@ -65,7 +69,7 @@ for index in args.samples:
             raise SystemExit(f"[FAIL] simulation exceeded 900 seconds; see {log}")
     content=log.read_text(errors="replace")
     if result.returncode or re.search(r"^(?:Error[-:]|Fatal:|FAILURE:|\[FAIL\])",content,re.M):
-        raise SystemExit(f"[FAIL] VCS sample {index}; see {log}")
+        raise SystemExit(f"[FAIL] {args.simulator} sample {index}; see {log}")
     commands=0 if args.backend=="cpu" else 12
     if not re.search(rf"^\[PASS\] {backend_label} firmware sample={index} commands={commands}\b",content,re.M):
         raise SystemExit(f"[FAIL] missing full NPU verification marker; see {log}")
@@ -82,7 +86,7 @@ for index in args.samples:
         print(f"[PASS] sample={sample} run={run} CPU={cpu} NPU={npu} q={case['q']}",flush=True)
     for values in layers:
         metrics.append(dict(zip(("sample","run","layer","cpu_cycles","npu_cycles","polls"),map(int,values))))
-report={"firmware":args.firmware,"backend":args.backend,
+report={"firmware":args.firmware,"backend":args.backend,"simulator":args.simulator,
         "firmware_sha256":manifest["firmware_sha256"],"model_sha256":manifest["model_sha256"],
         "simulation_sources_sha256":fingerprint.hexdigest(),"repeats":2,
         "network":records,"layers":metrics,"verified_layer_bytes":0 if args.backend=="cpu" else len(records)*3747,
