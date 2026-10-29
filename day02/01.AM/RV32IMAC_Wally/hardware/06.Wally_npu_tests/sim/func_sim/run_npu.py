@@ -1,4 +1,4 @@
-# 실제 VCS 펌웨어 실행의 계층별 결과와 UART 완료 및 사이클 측정값을 수집한다.
+# 실제 RTL 펌웨어 실행의 계층별 결과와 UART 완료 및 사이클 측정값을 수집한다.
 import argparse
 import csv
 import hashlib
@@ -14,7 +14,15 @@ parser=argparse.ArgumentParser()
 parser.add_argument("--samples",type=int,nargs="+",default=[124])
 parser.add_argument("--firmware",choices=("npu","compare"),default="npu")
 parser.add_argument("--backend",choices=("npu","cpu"),default="npu")
+parser.add_argument("--simulator",choices=("vcs","verilator"),default="vcs")
+parser.add_argument("--sim",type=Path,help="RTL simulator executable")
+parser.add_argument("--output-dir",type=Path,help="Run logs/results (golden vectors stay in build/golden)")
 args=parser.parse_args()
+sim=(args.sim or HERE/"simv").resolve()
+output_dir=(args.output_dir or BUILD).resolve()
+output_dir.mkdir(parents=True,exist_ok=True)
+if not sim.is_file():
+    raise SystemExit(f"[FAIL] simulator executable not found: {sim}")
 if args.backend=="cpu" and args.firmware!="compare":
     parser.error("CPU-only requires --firmware compare")
 manifest_name="manifest.json" if args.firmware=="npu" else "manifest_compare.json"
@@ -24,7 +32,9 @@ elf=SW/f"{args.firmware}.elf"
 if hashlib.sha256(elf.read_bytes()).hexdigest()!=manifest["firmware_sha256"]:
     raise SystemExit("[FAIL] ELF changed; regenerate vectors before simulation")
 source_files={(HERE/line).resolve() for line in (HERE/"run.f").read_text().splitlines() if line.startswith(".")}
-source_files.update((HERE/"run.f",HERE/"Makefile"))
+source_files.update((HERE/"run.f",HERE/"Makefile",HERE/"run_npu.py",HERE/"prepare_vectors.py"))
+if args.simulator=="verilator":
+    source_files.update((HERE/"Makefile.verilator",HERE/"verilator_env.cpp",HERE/"testbench_verilator.sv"))
 source_files.update((HERE/"../../testbench").glob("*.svh"))
 source_files.update((HERE/"../../testbench").glob("*.vh"))
 for folder in ("rv32imac_cache","shared"):
@@ -43,12 +53,14 @@ for index in args.samples:
         data=bytes(int(v,16) for v in (Path(case["directory"])/filename).read_text().split())
         if hashlib.sha256(data).hexdigest()!=case[key]:
             raise SystemExit(f"[FAIL] golden vector changed: {filename}; regenerate vectors")
-    log=BUILD/f"{prefix}sample_{index}.log"
-    uart=BUILD/f"{prefix}uart_{index}.log"
-    command=[str(HERE/"simv"),"-no_save","+vcs+lic+wait","+TEST=npu",
+    log=output_dir/f"{prefix}sample_{index}.log"
+    uart=output_dir/f"{prefix}uart_{index}.log"
+    command=[str(sim)]
+    if args.simulator=="vcs": command.extend(["-no_save","+vcs+lic+wait"])
+    command.extend(["+TEST=npu",
              "+ElfFile="+str(elf),"+UART_LOG=1","+UART_LOG_FILE="+str(uart),
-             "+sim_log_prefix="+str(BUILD/f"{prefix}sample_{index}_"),
-             f"+NPU_SAMPLE={index}","+NPU_VECTORS="+case["directory"]]
+             "+sim_log_prefix="+str(output_dir/f"{prefix}sample_{index}_"),
+             f"+NPU_SAMPLE={index}","+NPU_VECTORS="+case["directory"]])
     for name,key in (("FRAME","demo_frame"),("RESULT","firmware_result"),
                      ("CYCLES","firmware_cycles"),("STATS","firmware_layer_stats")):
         command.append(f"+NPU_{name}_ADDR={symbols[key]:08x}")
@@ -56,7 +68,7 @@ for index in args.samples:
         command.extend([f"+COMPARE_MODE_ADDR={symbols['firmware_backend']:08x}",
                         f"+COMPARE_RESULTS_ADDR={symbols['firmware_run_results']:08x}"])
     if args.backend=="cpu": command.append("+CPU_ONLY")
-    print(f"[RUN] {args.firmware}/{args.backend} sample={index}, two complete CNN inferences",flush=True)
+    print(f"[RUN] {args.simulator} {args.firmware}/{args.backend} sample={index}, two complete CNN inferences",flush=True)
     with log.open("w") as stream:
         try:
             result=subprocess.run(command,cwd=HERE,stdout=stream,stderr=subprocess.STDOUT,
@@ -65,7 +77,7 @@ for index in args.samples:
             raise SystemExit(f"[FAIL] simulation exceeded 900 seconds; see {log}")
     content=log.read_text(errors="replace")
     if result.returncode or re.search(r"^(?:Error[-:]|Fatal:|FAILURE:|\[FAIL\])",content,re.M):
-        raise SystemExit(f"[FAIL] VCS sample {index}; see {log}")
+        raise SystemExit(f"[FAIL] {args.simulator} sample {index}, exit={result.returncode}; see {log}")
     commands=0 if args.backend=="cpu" else 12
     if not re.search(rf"^\[PASS\] {backend_label} firmware sample={index} commands={commands}\b",content,re.M):
         raise SystemExit(f"[FAIL] missing full NPU verification marker; see {log}")
@@ -82,13 +94,17 @@ for index in args.samples:
         print(f"[PASS] sample={sample} run={run} CPU={cpu} NPU={npu} q={case['q']}",flush=True)
     for values in layers:
         metrics.append(dict(zip(("sample","run","layer","cpu_cycles","npu_cycles","polls"),map(int,values))))
-report={"firmware":args.firmware,"backend":args.backend,
+report={"firmware":args.firmware,"backend":args.backend,"simulator":args.simulator,
+        "simulation_executable_sha256":hashlib.sha256(sim.read_bytes()).hexdigest(),
         "firmware_sha256":manifest["firmware_sha256"],"model_sha256":manifest["model_sha256"],
         "simulation_sources_sha256":fingerprint.hexdigest(),"repeats":2,
         "network":records,"layers":metrics,"verified_layer_bytes":0 if args.backend=="cpu" else len(records)*3747,
         "cycle_scope":"Inference-call CPU mcycle; excludes LUT, UART and validation; NPU path includes cache/DMA/wait."}
-(BUILD/f"{prefix}results.json").write_text(json.dumps(report,indent=2)+"\n")
-with (BUILD/f"{prefix}cycles.csv").open("w",newline="") as stream:
+tool_file=sim.parent/"tool_versions.json"
+if args.simulator=="verilator" and tool_file.is_file():
+    report["tools"]=json.loads(tool_file.read_text())
+(output_dir/f"{prefix}results.json").write_text(json.dumps(report,indent=2)+"\n")
+with (output_dir/f"{prefix}cycles.csv").open("w",newline="") as stream:
     writer=csv.DictWriter(stream,fieldnames=("sample","run","cpu_cycles","npu_cycles"))
     writer.writeheader()
     for row in records: writer.writerow({k:row[k] for k in writer.fieldnames})

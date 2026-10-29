@@ -1,0 +1,55 @@
+[BOOT] Wally RV32IMAC + tinyNPU firmware=/workspace/scratch/dd125fdb94db/EmbedAIRISC-V_IDEC/day02/01.AM/RV32IMAC_Wally/software/npu/npu.elf
+Firmware C main start
+status: 0
+[NPU_LAYER] sample=124 run=0 layer=0 bytes=2048 npu_cycles=343559
+[PROGRESS] cycles=1000000 PC=8000033e completed_layers=1 DMA=1542
+[NPU_LAYER] sample=124 run=0 layer=1 bytes=1024 npu_cycles=1210606
+[PROGRESS] cycles=2000000 PC=8000033e completed_layers=2 DMA=2672
+[NPU_LAYER] sample=124 run=0 layer=2 bytes=512 npu_cycles=1205354
+[PROGRESS] cycles=3000000 PC=80000334 completed_layers=3 DMA=4572
+[NPU_LAYER] sample=124 run=0 layer=3 bytes=128 npu_cycles=616446
+[NPU_LAYER] sample=124 run=0 layer=4 bytes=32 npu_cycles=27734
+[NPU_LAYER] sample=124 run=0 layer=5 bytes=3 npu_cycles=857
+[NPU_LAYER] sample=124 run=1 layer=0 bytes=2048 npu_cycles=343558
+[PROGRESS] cycles=4000000 PC=80000342 completed_layers=7 DMA=8753
+[NPU_LAYER] sample=124 run=1 layer=1 bytes=1024 npu_cycles=1210606
+[PROGRESS] cycles=5000000 PC=8000033e completed_layers=8 DMA=9547
+[PROGRESS] cycles=6000000 PC=8000032e completed_layers=8 DMA=10567
+[NPU_LAYER] sample=124 run=1 layer=2 bytes=512 npu_cycles=1205354
+[NPU_LAYER] sample=124 run=1 layer=3 bytes=128 npu_cycles=616446
+[NPU_LAYER] sample=124 run=1 layer=4 bytes=32 npu_cycles=27734
+[NPU_LAYER] sample=124 run=1 layer=5 bytes=3 npu_cycles=857
+NPU CNN run 0 CPU cycles: 3413193
+  layer 0 features.0 CPU=345451 NPU=343559 polls=28627
+  layer 1 features.3 CPU=1211989 NPU=1210606 polls=100884
+  layer 2 features.6 CPU=1206870 NPU=1205354 polls=100447
+  layer 3 features.9 CPU=618177 NPU=616446 polls=51371
+  layer 4 classifier.1 CPU=29095 NPU=27734 polls=2311
+  layer 5 classifier.3 CPU=1240 NPU=857 polls=72
+NPU CNN run 1 CPU cycles: 3411308
+  layer 0 features.0 CPU=344409 NPU=343558 polls=28631
+  [PROGRESS] cycles=7000000 PC=80000c8a completed_layers=12 DMA=14638
+layer 1 features.3 CPU=1211600 NPU=1210606 polls=100885
+  layer 2 features.6 CPU=1206782 NPU=1205354 polls=100447
+  layer 3 features.9 CPU=618051 NPU=616446 polls=51371
+  layer 4 classifier.1 CPU=28983 NPU=27734 polls=2311
+  layer 5 classifier.3 CPU=1218 NPU=857 polls=72
+Firmware C main: rock; q=54,87,41; source=32x32; workspace=4096
+[PASS] 7110060 cycles, 4684074 instrs
+[NPU_METRIC] sample=124 run=0 layer=0 cpu_cycles=345451 npu_cycles=343559 polls=28627
+[NPU_METRIC] sample=124 run=0 layer=1 cpu_cycles=1211989 npu_cycles=1210606 polls=100884
+[NPU_METRIC] sample=124 run=0 layer=2 cpu_cycles=1206870 npu_cycles=1205354 polls=100447
+[NPU_METRIC] sample=124 run=0 layer=3 cpu_cycles=618177 npu_cycles=616446 polls=51371
+[NPU_METRIC] sample=124 run=0 layer=4 cpu_cycles=29095 npu_cycles=27734 polls=2311
+[NPU_METRIC] sample=124 run=0 layer=5 cpu_cycles=1240 npu_cycles=857 polls=72
+[NPU_NETWORK] sample=124 run=0 cpu_cycles=3413193 npu_cycles=3404556
+[NPU_METRIC] sample=124 run=1 layer=0 cpu_cycles=344409 npu_cycles=343558 polls=28631
+[NPU_METRIC] sample=124 run=1 layer=1 cpu_cycles=1211600 npu_cycles=1210606 polls=100885
+[NPU_METRIC] sample=124 run=1 layer=2 cpu_cycles=1206782 npu_cycles=1205354 polls=100447
+[NPU_METRIC] sample=124 run=1 layer=3 cpu_cycles=618051 npu_cycles=616446 polls=51371
+[NPU_METRIC] sample=124 run=1 layer=4 cpu_cycles=28983 npu_cycles=27734 polls=2311
+[NPU_METRIC] sample=124 run=1 layer=5 cpu_cycles=1218 npu_cycles=857 polls=72
+[NPU_NETWORK] sample=124 run=1 cpu_cycles=3411308 npu_cycles=3404555
+[PASS] NPU firmware sample=124 commands=12 trace_bytes=7494 q=54,87,41 predicted=1 DMA=14638 CSR=567603
+[SIM_DONE] host_clock_cycles=7122413
+- testbench_verilator.sv:57: Verilog $finish
