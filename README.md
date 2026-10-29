@@ -1,6 +1,6 @@
 # Embedded RISC-V AI Accelerator
 
-IDEC 교육용 Embedded RISC-V AI Accelerator 실습 자료입니다.  
+교육용 Embedded RISC-V AI Accelerator 실습 자료입니다.
 RV32IMAC Wally 환경, Rock-Paper-Scissors CNN 학습·양자화, 정수 C 추론 및 NPU 연동 예제를 포함합니다.
 
 ## 구성
@@ -14,6 +14,18 @@ RV32IMAC Wally 환경, Rock-Paper-Scissors CNN 학습·양자화, 정수 C 추�
 | `day02/01.AM/RV32IMAC_Wally` | CNN 펌웨어 및 NPU 연동 Wally 환경 |
 
 ## 빠른 시작
+
+### Ubuntu + Verilator SW/HW 통합 seed
+
+기존 INT8 모델을 사용해 실제 Wally CPU가 tinyNPU를 구동하는 sample 124를 실행합니다.
+
+```bash
+bash run_verilator_seed.sh SAMPLES=124 JOBS=2
+```
+
+Verilator >= 5.020 및 RV32 ILP32 RISC-V ELF 툴체인이 필요합니다.
+설치, PASS 조건, 로그 및 LLM 확장 경계는
+[Verilator 통합 가이드](day02/01.AM/RV32IMAC_Wally/hardware/06.Wally_npu_tests/sim/func_sim/README_verilator.md)를 확인하십시오.
 
 ### 1. PyTorch/양자화 실습
 

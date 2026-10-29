@@ -6,3 +6,4 @@
 /sim/func_sim/logs/
 /sim/func_sim/*.vpd
 /sim/func_sim/*.fsdb
+/sim/func_sim/__pycache__/

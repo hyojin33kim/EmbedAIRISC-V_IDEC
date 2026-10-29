@@ -1,0 +1,154 @@
+{
+  "firmware": "npu",
+  "backend": "npu",
+  "simulator": "verilator",
+  "simulation_executable_sha256": "33c59e33b936387e7a93ebe1804ff262977e96bc551f44b1e445c3f5f1c0d132",
+  "firmware_sha256": "2bb8b4709512786b6cfabbf0bd5a2d98d8b5fdb5a3e6d1ab335474def9643f4b",
+  "model_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+  "simulation_sources_sha256": "95194bceed3f9fa5304d298f676e4967fbef701fbc89a72575d7e1e02647b5ff",
+  "repeats": 2,
+  "network": [
+    {
+      "sample": 124,
+      "run": 0,
+      "cpu_cycles": 3413193,
+      "npu_cycles": 3404556,
+      "predicted_index": 1,
+      "q": [
+        54,
+        87,
+        41
+      ],
+      "input_sha256": "187f2d71e74424138f75996ef1ee65a671abaa7398533e65263c8e2f37f491b7"
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "cpu_cycles": 3411308,
+      "npu_cycles": 3404555,
+      "predicted_index": 1,
+      "q": [
+        54,
+        87,
+        41
+      ],
+      "input_sha256": "187f2d71e74424138f75996ef1ee65a671abaa7398533e65263c8e2f37f491b7"
+    }
+  ],
+  "layers": [
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 0,
+      "cpu_cycles": 345451,
+      "npu_cycles": 343559,
+      "polls": 28627
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 1,
+      "cpu_cycles": 1211989,
+      "npu_cycles": 1210606,
+      "polls": 100884
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 2,
+      "cpu_cycles": 1206870,
+      "npu_cycles": 1205354,
+      "polls": 100447
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 3,
+      "cpu_cycles": 618177,
+      "npu_cycles": 616446,
+      "polls": 51371
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 4,
+      "cpu_cycles": 29095,
+      "npu_cycles": 27734,
+      "polls": 2311
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 5,
+      "cpu_cycles": 1240,
+      "npu_cycles": 857,
+      "polls": 72
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 0,
+      "cpu_cycles": 344409,
+      "npu_cycles": 343558,
+      "polls": 28631
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 1,
+      "cpu_cycles": 1211600,
+      "npu_cycles": 1210606,
+      "polls": 100885
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 2,
+      "cpu_cycles": 1206782,
+      "npu_cycles": 1205354,
+      "polls": 100447
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 3,
+      "cpu_cycles": 618051,
+      "npu_cycles": 616446,
+      "polls": 51371
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 4,
+      "cpu_cycles": 28983,
+      "npu_cycles": 27734,
+      "polls": 2311
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 5,
+      "cpu_cycles": 1218,
+      "npu_cycles": 857,
+      "polls": 72
+    }
+  ],
+  "verified_layer_bytes": 7494,
+  "cycle_scope": "Inference-call CPU mcycle; excludes LUT, UART and validation; NPU path includes cache/DMA/wait.",
+  "tools": {
+    "verilator": "Verilator 5.020 2024-01-01 rev (Debian 5.020-1)",
+    "host_gcc": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "host_gxx": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "riscv_gcc": "riscv64-unknown-elf-gcc (13.2.0-11ubuntu1+12) 13.2.0",
+    "riscv_arch": "rv32imac_zicsr_zifencei_zicbom/ilp32",
+    "verilator_executable": "/usr/bin/verilator",
+    "verilator_flags": "-O2 --assert -Wno-fatal --output-split 20000 --output-split-cfuncs 500 -CFLAGS -O3"
+  },
+  "source_base_commit": "5950766742919b2cf2b634624f9d5e1b48d6477b",
+  "execution_command": "bash run_verilator_seed.sh SAMPLES=124 JOBS=2",
+  "pass_scope": "Actual Wally firmware, AHB/DMA, 12 tinyNPU commands, shared layer checker and UART completion",
+  "passed": true,
+  "raw_log_sha256": "3a17bfe0247d0f611a0ec2518e6949be89294ca8272504edfa2b59d6d3d23350",
+  "archived_log_sha256": "d425267a5141450b025fad2123037ba3c70b21d618a01087db19323d5b31265f",
+  "archived_log_line_endings": "UART CRLF normalized to LF; other content preserved"
+}

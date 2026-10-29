@@ -1,0 +1,84 @@
+# Run the existing CPU + tinyNPU firmware/checkers with an open simulator.
+# Invoke from this directory: make -f Makefile.verilator run
+SHELL := /bin/bash
+VERILATOR ?= verilator
+RISCV ?= riscv64-unknown-elf
+JOBS ?= 2
+SAMPLES ?= 124
+TRACE ?= 0
+SW := ../../../../software/npu
+BUILD ?= build/verilator
+SIM := $(abspath $(BUILD)/Vtestbench)
+RTL := $(shell sed -n '/^\./p' run.f)
+HEADERS := $(wildcard ../../testbench/*.vh ../../testbench/*.svh \
+             ../../../source/wally/config/rv32imac_cache/*.vh \
+             ../../../source/wally/config/shared/*.vh)
+VERILATOR_FLAGS ?= -O2 --assert -Wno-fatal --output-split 20000 --output-split-cfuncs 500 -CFLAGS -O3
+ifeq ($(TRACE),1)
+SIM_MODE := --cc --exe --build --trace-fst --trace-depth 1 --trace-max-array 1 --trace-max-width 64 -DSTORY_TRACE
+SIM_MAIN := $(abspath story_main.cpp)
+RUN_FLAGS := --waveform
+else
+SIM_MODE := --binary
+SIM_MAIN :=
+RUN_FLAGS :=
+endif
+
+.DELETE_ON_ERROR:
+.PHONY: all check-tools firmware vectors simulator run regression wave clean FORCE compare compare-build
+all: firmware vectors simulator
+
+$(BUILD):
+	mkdir -p $@
+
+check-tools: $(BUILD)/tool_versions.json
+
+FORCE:
+
+$(BUILD)/tool_versions.json: FORCE | $(BUILD)
+	python3 check_verilator_tools.py --verilator $(VERILATOR) \
+	  --riscv-prefix $(RISCV) --output $(BUILD)/tool_versions.json \
+	  --build-flags="$(SIM_MODE) $(VERILATOR_FLAGS)"
+
+firmware: check-tools
+	$(MAKE) -C $(SW) RISCV=$(RISCV)
+
+vectors: firmware
+	python3 prepare_vectors.py
+
+simulator: $(SIM)
+
+$(SIM): run.f $(RTL) $(HEADERS) Makefile.verilator verilator_env.cpp testbench_verilator.sv story_signals.svh story_main.cpp $(BUILD)/tool_versions.json | $(BUILD)
+	sed -e '/^-top /d' -e '\|^../../testbench/|d' run.f > $(BUILD)/run.f
+	$(VERILATOR) $(SIM_MODE) --timing --top-module testbench -j $(JOBS) \
+	  --Mdir $(abspath $(BUILD)/obj_dir) -o $(SIM) \
+	  $(VERILATOR_FLAGS) -f $(BUILD)/run.f testbench_verilator.sv \
+	  ../../testbench/common/riscvassertions.sv ../../testbench/common/riscvassertions_wally.sv \
+	  $(abspath verilator_env.cpp) $(SIM_MAIN) \
+	  > $(BUILD)/compile.log 2>&1 || { tail -n 60 $(BUILD)/compile.log; exit 1; }
+
+run: all
+	python3 run_npu.py --simulator verilator --sim $(SIM) \
+	  --output-dir $(BUILD)/results --samples $(SAMPLES) $(RUN_FLAGS)
+
+regression: all
+	python3 run_npu.py --simulator verilator --sim $(SIM) \
+	  --output-dir $(BUILD)/results --samples 0 124 248 $(RUN_FLAGS)
+
+compare-build: check-tools
+	$(MAKE) -C $(SW) compare RISCV=$(RISCV)
+	python3 prepare_vectors.py --firmware compare
+
+compare: compare-build simulator
+	@comparison_id=$$(python3 -c 'import uuid; print(uuid.uuid4())'); \
+	python3 run_npu.py --simulator verilator --sim $(SIM) --output-dir $(BUILD)/results \
+	  --firmware compare --backend npu --samples $(SAMPLES) --comparison-id $$comparison_id && \
+	python3 run_npu.py --simulator verilator --sim $(SIM) --output-dir $(BUILD)/results \
+	  --firmware compare --backend cpu --samples $(SAMPLES) --comparison-id $$comparison_id && \
+	python3 compare_results.py --output-dir $(BUILD)/results --comparison-id $$comparison_id
+
+wave:
+	$(MAKE) -f Makefile.verilator run TRACE=1 BUILD=build/verilator_wave SAMPLES=$(SAMPLES)
+
+clean:
+	rm -rf $(BUILD)
