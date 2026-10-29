@@ -1,0 +1,231 @@
+{
+  "comparison": {
+    "firmware_sha256": "c03f08c232f517ced0c91e83c3fc5dbb0665563b54a8f33e4a4921be2ed00bf0",
+    "model_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+    "simulation_sources_sha256": "be9f4912844e3a3b0000153b43c99b1829579a12a757a7dac5620056a0d9e76f",
+    "repeats": 2,
+    "simulator": "verilator",
+    "simulation_executable_sha256": "a5403951d9ac2eec6c070e46f4b982838c64ae9430a94f8500192269e6103fb0",
+    "comparison_id": "439790ea-c89d-4937-9b39-e1c1db3112d1",
+    "rows": [
+      {
+        "sample": 124,
+        "run": 0,
+        "cpu_only_cycles": 24844161,
+        "npu_end_to_end_cycles": 3413063,
+        "npu_csr_cycles": 3404488,
+        "speedup": 7.279139295114096
+      },
+      {
+        "sample": 124,
+        "run": 1,
+        "cpu_only_cycles": 24843327,
+        "npu_end_to_end_cycles": 3411151,
+        "npu_csr_cycles": 3404487,
+        "speedup": 7.282974866841133
+      }
+    ],
+    "definition": "CPU-only mcycle / NPU end-to-end mcycle; DMA/cache/polling included"
+  },
+  "compare_cpu_results": {
+    "firmware": "compare",
+    "backend": "cpu",
+    "simulator": "verilator",
+    "comparison_id": "439790ea-c89d-4937-9b39-e1c1db3112d1",
+    "simulation_executable_sha256": "a5403951d9ac2eec6c070e46f4b982838c64ae9430a94f8500192269e6103fb0",
+    "firmware_sha256": "c03f08c232f517ced0c91e83c3fc5dbb0665563b54a8f33e4a4921be2ed00bf0",
+    "model_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+    "simulation_sources_sha256": "be9f4912844e3a3b0000153b43c99b1829579a12a757a7dac5620056a0d9e76f",
+    "repeats": 2,
+    "network": [
+      {
+        "sample": 124,
+        "run": 0,
+        "cpu_cycles": 24844161,
+        "npu_cycles": 0,
+        "predicted_index": 1,
+        "q": [
+          54,
+          87,
+          41
+        ],
+        "input_sha256": "187f2d71e74424138f75996ef1ee65a671abaa7398533e65263c8e2f37f491b7"
+      },
+      {
+        "sample": 124,
+        "run": 1,
+        "cpu_cycles": 24843327,
+        "npu_cycles": 0,
+        "predicted_index": 1,
+        "q": [
+          54,
+          87,
+          41
+        ],
+        "input_sha256": "187f2d71e74424138f75996ef1ee65a671abaa7398533e65263c8e2f37f491b7"
+      }
+    ],
+    "layers": [],
+    "waveforms": [],
+    "verified_layer_bytes": 0,
+    "cycle_scope": "Inference-call CPU mcycle; excludes LUT, UART and validation; NPU path includes cache/DMA/wait.",
+    "tools": {
+      "verilator": "Verilator 5.038 2025-07-08 rev v5.038",
+      "host_gcc": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "host_gxx": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "riscv_gcc": "riscv64-unknown-elf-gcc (13.2.0-11ubuntu1+12) 13.2.0",
+      "riscv_arch": "rv32imac_zicsr_zifencei_zicbom/ilp32",
+      "verilator_executable": "/usr/local/bin/verilator",
+      "verilator_flags": "--binary -O2 --assert -Wno-fatal --output-split 20000 --output-split-cfuncs 500 -CFLAGS -O3"
+    }
+  },
+  "compare_npu_results": {
+    "firmware": "compare",
+    "backend": "npu",
+    "simulator": "verilator",
+    "comparison_id": "439790ea-c89d-4937-9b39-e1c1db3112d1",
+    "simulation_executable_sha256": "a5403951d9ac2eec6c070e46f4b982838c64ae9430a94f8500192269e6103fb0",
+    "firmware_sha256": "c03f08c232f517ced0c91e83c3fc5dbb0665563b54a8f33e4a4921be2ed00bf0",
+    "model_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+    "simulation_sources_sha256": "be9f4912844e3a3b0000153b43c99b1829579a12a757a7dac5620056a0d9e76f",
+    "repeats": 2,
+    "network": [
+      {
+        "sample": 124,
+        "run": 0,
+        "cpu_cycles": 3413063,
+        "npu_cycles": 3404488,
+        "predicted_index": 1,
+        "q": [
+          54,
+          87,
+          41
+        ],
+        "input_sha256": "187f2d71e74424138f75996ef1ee65a671abaa7398533e65263c8e2f37f491b7"
+      },
+      {
+        "sample": 124,
+        "run": 1,
+        "cpu_cycles": 3411151,
+        "npu_cycles": 3404487,
+        "predicted_index": 1,
+        "q": [
+          54,
+          87,
+          41
+        ],
+        "input_sha256": "187f2d71e74424138f75996ef1ee65a671abaa7398533e65263c8e2f37f491b7"
+      }
+    ],
+    "layers": [
+      {
+        "sample": 124,
+        "run": 0,
+        "layer": 0,
+        "cpu_cycles": 345419,
+        "npu_cycles": 343559,
+        "polls": 28627
+      },
+      {
+        "sample": 124,
+        "run": 0,
+        "layer": 1,
+        "cpu_cycles": 1211984,
+        "npu_cycles": 1210606,
+        "polls": 100884
+      },
+      {
+        "sample": 124,
+        "run": 0,
+        "layer": 2,
+        "cpu_cycles": 1206895,
+        "npu_cycles": 1205354,
+        "polls": 100447
+      },
+      {
+        "sample": 124,
+        "run": 0,
+        "layer": 3,
+        "cpu_cycles": 618118,
+        "npu_cycles": 616394,
+        "polls": 51366
+      },
+      {
+        "sample": 124,
+        "run": 0,
+        "layer": 4,
+        "cpu_cycles": 29089,
+        "npu_cycles": 27718,
+        "polls": 2310
+      },
+      {
+        "sample": 124,
+        "run": 0,
+        "layer": 5,
+        "cpu_cycles": 1218,
+        "npu_cycles": 857,
+        "polls": 72
+      },
+      {
+        "sample": 124,
+        "run": 1,
+        "layer": 0,
+        "cpu_cycles": 344356,
+        "npu_cycles": 343558,
+        "polls": 28630
+      },
+      {
+        "sample": 124,
+        "run": 1,
+        "layer": 1,
+        "cpu_cycles": 1211587,
+        "npu_cycles": 1210606,
+        "polls": 100885
+      },
+      {
+        "sample": 124,
+        "run": 1,
+        "layer": 2,
+        "cpu_cycles": 1206781,
+        "npu_cycles": 1205354,
+        "polls": 100447
+      },
+      {
+        "sample": 124,
+        "run": 1,
+        "layer": 3,
+        "cpu_cycles": 618002,
+        "npu_cycles": 616394,
+        "polls": 51367
+      },
+      {
+        "sample": 124,
+        "run": 1,
+        "layer": 4,
+        "cpu_cycles": 28971,
+        "npu_cycles": 27718,
+        "polls": 2310
+      },
+      {
+        "sample": 124,
+        "run": 1,
+        "layer": 5,
+        "cpu_cycles": 1200,
+        "npu_cycles": 857,
+        "polls": 72
+      }
+    ],
+    "waveforms": [],
+    "verified_layer_bytes": 7494,
+    "cycle_scope": "Inference-call CPU mcycle; excludes LUT, UART and validation; NPU path includes cache/DMA/wait.",
+    "tools": {
+      "verilator": "Verilator 5.038 2025-07-08 rev v5.038",
+      "host_gcc": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "host_gxx": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "riscv_gcc": "riscv64-unknown-elf-gcc (13.2.0-11ubuntu1+12) 13.2.0",
+      "riscv_arch": "rv32imac_zicsr_zifencei_zicbom/ilp32",
+      "verilator_executable": "/usr/local/bin/verilator",
+      "verilator_flags": "--binary -O2 --assert -Wno-fatal --output-split 20000 --output-split-cfuncs 500 -CFLAGS -O3"
+    }
+  }
+}

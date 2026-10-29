@@ -18,6 +18,7 @@ parser.add_argument("--simulator",choices=("vcs","verilator"),default="vcs")
 parser.add_argument("--sim",type=Path,help="RTL simulator executable")
 parser.add_argument("--output-dir",type=Path,help="Run logs/results (golden vectors stay in build/golden)")
 parser.add_argument("--waveform",action="store_true",help="Capture native first-layer FST (make wave)")
+parser.add_argument("--comparison-id",help="Shared identifier for a fresh CPU/NPU comparison")
 args=parser.parse_args()
 sim=(args.sim or HERE/"simv").resolve()
 output_dir=(args.output_dir or BUILD).resolve()
@@ -107,6 +108,7 @@ for index in args.samples:
     for values in layers:
         metrics.append(dict(zip(("sample","run","layer","cpu_cycles","npu_cycles","polls"),map(int,values))))
 report={"firmware":args.firmware,"backend":args.backend,"simulator":args.simulator,
+        "comparison_id":args.comparison_id,
         "simulation_executable_sha256":hashlib.sha256(sim.read_bytes()).hexdigest(),
         "firmware_sha256":manifest["firmware_sha256"],"model_sha256":manifest["model_sha256"],
         "simulation_sources_sha256":fingerprint.hexdigest(),"repeats":2,

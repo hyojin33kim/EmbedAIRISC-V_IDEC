@@ -25,7 +25,7 @@ RUN_FLAGS :=
 endif
 
 .DELETE_ON_ERROR:
-.PHONY: all check-tools firmware vectors simulator run regression wave clean FORCE
+.PHONY: all check-tools firmware vectors simulator run regression wave clean FORCE compare compare-build
 all: firmware vectors simulator
 
 $(BUILD):
@@ -64,6 +64,18 @@ run: all
 regression: all
 	python3 run_npu.py --simulator verilator --sim $(SIM) \
 	  --output-dir $(BUILD)/results --samples 0 124 248 $(RUN_FLAGS)
+
+compare-build: check-tools
+	$(MAKE) -C $(SW) compare RISCV=$(RISCV)
+	python3 prepare_vectors.py --firmware compare
+
+compare: compare-build simulator
+	@comparison_id=$$(python3 -c 'import uuid; print(uuid.uuid4())'); \
+	python3 run_npu.py --simulator verilator --sim $(SIM) --output-dir $(BUILD)/results \
+	  --firmware compare --backend npu --samples $(SAMPLES) --comparison-id $$comparison_id && \
+	python3 run_npu.py --simulator verilator --sim $(SIM) --output-dir $(BUILD)/results \
+	  --firmware compare --backend cpu --samples $(SAMPLES) --comparison-id $$comparison_id && \
+	python3 compare_results.py --output-dir $(BUILD)/results --comparison-id $$comparison_id
 
 wave:
 	$(MAKE) -f Makefile.verilator run TRACE=1 BUILD=build/verilator_wave SAMPLES=$(SAMPLES)

@@ -1,13 +1,17 @@
 # 같은 ELF와 SoC 조건에서 얻은 CPU 및 NPU의 전체 추론 사이클을 비교한다.
 import csv
+import argparse
 import json
 from pathlib import Path
 
 BUILD=Path(__file__).resolve().parent/"build"
 
 def compare(cpu,npu):
-    for key in ("firmware_sha256","model_sha256","simulation_sources_sha256","repeats"):
+    for key in ("firmware_sha256","model_sha256","simulation_sources_sha256","repeats",
+                "simulator","simulation_executable_sha256"):
         if cpu[key]!=npu[key]: raise ValueError(f"different comparison condition: {key}")
+    if cpu.get("comparison_id")!=npu.get("comparison_id"):
+        raise ValueError("different comparison invocation")
     if cpu["firmware"]!="compare" or npu["firmware"]!="compare" or cpu["backend"]!="cpu" or npu["backend"]!="npu":
         raise ValueError("both results must use compare.elf with different backends")
     cpu_rows={(r["sample"],r["run"]):r for r in cpu["network"]}
@@ -32,15 +36,24 @@ def compare(cpu,npu):
     return rows
 
 if __name__=="__main__":
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--output-dir",type=Path,default=BUILD)
+    parser.add_argument("--comparison-id")
+    args=parser.parse_args()
+    BUILD=args.output_dir.resolve()
     if not (BUILD/"compare_cpu_results.json").exists() or not (BUILD/"compare_npu_results.json").exists():
         raise SystemExit("[FAIL] run make compare, or both make compare-npu and make compare-cpu, first")
     cpu=json.loads((BUILD/"compare_cpu_results.json").read_text())
     npu=json.loads((BUILD/"compare_npu_results.json").read_text())
     try:
+        if args.comparison_id and any(r.get("comparison_id")!=args.comparison_id for r in (cpu,npu)):
+            raise ValueError("stale results: comparison ID does not match requested invocation")
         rows=compare(cpu,npu)
     except (KeyError,ValueError) as error:
         raise SystemExit(f"[FAIL] {error}; rerun both comparison backends")
-    report={key:cpu[key] for key in ("firmware_sha256","model_sha256","simulation_sources_sha256","repeats")}
+    report={key:cpu[key] for key in ("firmware_sha256","model_sha256","simulation_sources_sha256","repeats",
+                                    "simulator","simulation_executable_sha256")}
+    report["comparison_id"]=cpu.get("comparison_id")
     report.update(rows=rows,definition="CPU-only mcycle / NPU end-to-end mcycle; DMA/cache/polling included")
     (BUILD/"comparison.json").write_text(json.dumps(report,indent=2)+"\n")
     with (BUILD/"comparison.csv").open("w",newline="") as stream:

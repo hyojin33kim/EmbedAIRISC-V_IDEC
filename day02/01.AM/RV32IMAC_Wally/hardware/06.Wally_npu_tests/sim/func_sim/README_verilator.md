@@ -95,6 +95,38 @@ PASS는 아래 조건을 모두 만족해야 한다.
 사이클 측정은 inference call 구간이며 드라이버, cache, DMA, polling을 포함한다.
 LUT 전처리, UART 출력, Checker 검증은 이 측정 구간에서 제외한다.
 
+## 동일 입력 CPU/NPU 성능 비교
+
+통합 시뮬레이션 디렉터리에서 다음을 실행한다:
+
+```bash
+make compare-verilator SAMPLES=124
+```
+
+원격에서 가져온 전용 Verilator 테스트벤치를 사용해 동일 `compare.elf`의
+NPU 경로와 CPU 단독 경로를 각각 두 번 새로 실행한다.
+결과는 기존 결과와 분리된 `build/verilator_compare/results/`에 저장한다.
+`comparison.csv`와 `comparison.json`의 가속 배율은 CPU 단독 mcycle을
+NPU 전체 추론 mcycle로 나눈 값이며 cache/DMA/polling 비용을 포함한다.
+
+두 결과의 입력, 점수, 모델/ELF/RTL 해시, 시뮬레이터 종류와 실행파일 해시를 검사한다.
+매 비교 실행마다 새 공통 ID를 부여해 이전 실행 결과와의 혼합도 거부한다.
+CPU 실행이 오래 걸릴 수 있으며 `[PROGRESS]` 로그에서 진행 사이클을 확인할 수 있다.
+`make -f Makefile.verilator compare BUILD=build/my_compare SAMPLES=124`로
+별도의 빌드·결과 경로를 지정할 수 있다.
+
+통합 후 sample 124 재실행 결과 (GCC 13.2.0 / Verilator 5.038):
+
+| 실행 | CPU 단독 mcycle | NPU 전체 mcycle | 가속 배율 |
+| --- | ---: | ---: | ---: |
+| 1 | 24,844,161 | 3,413,063 | 7.279배 |
+| 2 | 24,843,327 | 3,411,151 | 7.283배 |
+
+두 경로와 반복 실행의 점수는 모두 `[54, 87, 41]`로 일치했다.
+합산 사이클 기준 가속 배율은 7.281배이며, 단일 입력의 RTL 측정값이다.
+[동일 실행 ID와 양쪽 해시·계측 결과](seed_evidence/sample_124_comparison_verilator.json)를 보관한다.
+기존 환경의 CPU/NPU 측정값을 재사용하지 않고 양쪽을 새로 실행했다.
+
 ## START -> AHB -> DMA -> MAC -> DONE 실측 파형
 
 통합 시뮬레이션 디렉터리에서 실행한다:

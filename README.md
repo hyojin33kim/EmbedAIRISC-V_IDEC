@@ -1,6 +1,6 @@
 # Embedded RISC-V AI Accelerator
 
-교육용 Embedded RISC-V AI Accelerator 실습 자료입니다.  
+교육용 Embedded RISC-V AI Accelerator 실습 자료입니다.
 RV32IMAC Wally 환경, Rock-Paper-Scissors CNN 학습·양자화, 정수 C 추론 및 NPU 연동 예제를 포함합니다.
 
 ## 구성

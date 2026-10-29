@@ -25,6 +25,8 @@ WORK	= simv
 TOP	= testbench
 
 VCS ?= vcs
+VERILATOR ?= verilator
+JOBS ?= 2
 VCS_OPTS = +vcs+lic+wait +lint=all
 SW := ../../../../software/npu
 SAMPLES ?= 124
@@ -55,6 +57,16 @@ $(WORK): run.f $(RTL) $(HEADERS) Makefile | build
 run: all
 	python3 run_npu.py --samples $(SAMPLES)
 
+.PHONY: verilator run-verilator regression-verilator
+verilator:
+	$(MAKE) -f Makefile.verilator simulator
+
+run-verilator:
+	$(MAKE) -f Makefile.verilator run SAMPLES="$(SAMPLES)"
+
+regression-verilator:
+	$(MAKE) -f Makefile.verilator regression
+
 regression: all
 	python3 run_npu.py --samples 0 124 248
 
@@ -66,6 +78,10 @@ compare: compare-build vcs
 	python3 run_npu.py --firmware compare --backend npu --samples $(SAMPLES)
 	python3 run_npu.py --firmware compare --backend cpu --samples $(SAMPLES)
 	python3 compare_results.py
+
+.PHONY: compare-verilator
+compare-verilator:
+	$(MAKE) -f Makefile.verilator compare SAMPLES="$(SAMPLES)" BUILD=build/verilator_compare
 
 compare-npu: compare-build vcs
 	python3 run_npu.py --firmware compare --backend npu --samples $(SAMPLES)
