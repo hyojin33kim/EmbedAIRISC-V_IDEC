@@ -15,6 +15,18 @@ RV32IMAC Wally 환경, Rock-Paper-Scissors CNN 학습·양자화, 정수 C 추�
 
 ## 빠른 시작
 
+### Ubuntu + Verilator SW/HW 통합 seed
+
+기존 INT8 모델을 사용해 실제 Wally CPU가 tinyNPU를 구동하는 sample 124를 실행합니다.
+
+```bash
+bash run_verilator_seed.sh SAMPLES=124 JOBS=2
+```
+
+Verilator >= 5.020 및 RV32 ILP32 RISC-V ELF 툴체인이 필요합니다.
+설치, PASS 조건, 로그 및 LLM 확장 경계는
+[Verilator 통합 가이드](day02/01.AM/RV32IMAC_Wally/hardware/06.Wally_npu_tests/sim/func_sim/README_verilator.md)를 확인하십시오.
+
 ### 1. PyTorch/양자화 실습
 
 아래 예시는 `ver2` 기준입니다. 각 단계의 Python 의존성은 해당 디렉터리의 `requirements.txt`를 사용합니다.
