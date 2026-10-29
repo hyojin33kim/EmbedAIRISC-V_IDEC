@@ -5,7 +5,11 @@
 `include "BranchPredictorType.vh"
 import cvw::*;
 
+`ifdef STORY_TRACE
+module testbench(output logic story_capture=1'b1);
+`else
 module testbench;
+`endif
   `include "parameter-defs.vh"
   logic clk=1'b0, reset_ext=1'b1, reset;
   logic LoadMem=1'b0, Validate=1'b0;
@@ -71,4 +75,7 @@ module testbench;
   end
 
   `include "npu_monitor.svh"
+`ifdef STORY_TRACE
+  `include "story_signals.svh"
+`endif
 endmodule

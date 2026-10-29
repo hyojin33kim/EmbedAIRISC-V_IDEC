@@ -1,0 +1,58 @@
+// Read-only aliases for a compact, native VCD of the first NPU layer.
+// All bus accept signals refer to the AHB ADDRESS phase; CSR commit is separate.
+  wire [31:0] story_cpu_pc_m=dut.core.PCM;
+  wire [31:0] story_cpu_instr_m=InstrM;
+  wire [33:0] story_cpu_haddr=dut.cpu_HADDR;
+  wire [31:0] story_cpu_hwdata=dut.cpu_HWDATA;
+  wire [1:0] story_cpu_htrans=dut.cpu_HTRANS;
+  wire story_cpu_hwrite=dut.cpu_HWRITE;
+  wire story_cpu_hready=dut.cpu_HREADY;
+  wire [33:0] story_csr_haddr=dut.npugen.csr_HADDR;
+  wire [31:0] story_csr_hwdata=dut.npugen.csr_HWDATA;
+  wire [1:0] story_csr_htrans=dut.npugen.csr_HTRANS;
+  wire story_csr_hsel=dut.npugen.csr_HSEL;
+  wire story_csr_hwrite=dut.npugen.csr_HWRITE;
+  wire story_csr_hready=dut.npugen.csr_HREADY;
+  wire story_reg_commit=dut.npugen.npu.reg_commit;
+  wire story_reg_write=dut.npugen.npu.reg_write;
+  wire [11:0] story_reg_offset=dut.npugen.npu.reg_offset;
+  wire [31:0] story_reg_wdata=dut.npugen.npu.reg_wdata;
+  wire [31:0] story_reg_rdata=dut.npugen.npu.reg_rdata;
+  wire story_start_accept=dut.npugen.npu.csr.start_accept;
+  wire story_start_valid=dut.npugen.npu.start_valid;
+  wire story_start_ready=dut.npugen.npu.start_ready;
+  wire story_busy=dut.npugen.npu.csr.busy;
+  wire story_done_event=dut.npugen.npu.done_event;
+  wire story_done_flag=dut.npugen.npu.csr.done_flag;
+  wire story_status_read=story_reg_commit && !story_reg_write && story_reg_offset==12'h00c;
+  wire story_cpu_saw_done=story_status_read && story_reg_rdata[1] && !story_reg_rdata[0];
+  wire [4:0] story_controller_state=dut.npugen.npu.controller.state;
+  wire [4:0] story_compute_state=dut.npugen.npu.compute.state;
+  wire story_dma_cmd_valid=dut.npugen.npu.dma_cmd_valid;
+  wire story_dma_cmd_ready=dut.npugen.npu.dma_cmd_ready;
+  wire [1:0] story_dma_space=dut.npugen.npu.dma_cmd.space;
+  wire [15:0] story_dma_length=dut.npugen.npu.dma_cmd.byte_len;
+  wire story_dma_rsp_valid=dut.npugen.npu.dma_rsp_valid;
+  wire story_dma_rsp_ready=dut.npugen.npu.dma_rsp_ready;
+  wire [33:0] story_dma_haddr=dut.npugen.npu_HADDR;
+  wire [31:0] story_dma_hwdata=dut.npugen.npu_HWDATA;
+  wire [31:0] story_dma_hrdata=dut.npugen.npu_HRDATA;
+  wire [1:0] story_dma_htrans=dut.npugen.npu_HTRANS;
+  wire story_dma_hwrite=dut.npugen.npu_HWRITE;
+  wire story_dma_hready=dut.npugen.npu_HREADY;
+  wire story_dma_hresp=dut.npugen.npu_HRESP;
+  wire story_dma_read_accept=story_dma_htrans[1] && story_dma_hready && !story_dma_hwrite;
+  wire story_dma_write_accept=story_dma_htrans[1] && story_dma_hready && story_dma_hwrite;
+  wire story_mac_clear=dut.npugen.npu.compute.u_mac.clear_i;
+  wire story_mac_valid=dut.npugen.npu.compute.u_mac.tap_valid_i;
+  wire story_mac_done=dut.npugen.npu.compute.u_mac.tap_done_o;
+  wire signed [8:0] story_mac_a=dut.npugen.npu.compute.u_mac.a_i;
+  wire signed [8:0] story_mac_b=dut.npugen.npu.compute.u_mac.b_i;
+  wire signed [17:0] story_mac_product=dut.npugen.npu.compute.u_mac.product;
+  wire signed [31:0] story_mac_acc=dut.npugen.npu.compute.u_mac.acc_o;
+  integer story_tail=-1;
+  always @(negedge clk) begin
+    if (story_tail<0 && story_done_flag) story_tail=96;
+    else if (story_tail>0) story_tail--;
+    else if (story_tail==0) story_capture=1'b0;
+  end

@@ -95,6 +95,30 @@ PASS는 아래 조건을 모두 만족해야 한다.
 사이클 측정은 inference call 구간이며 드라이버, cache, DMA, polling을 포함한다.
 LUT 전처리, UART 출력, Checker 검증은 이 측정 구간에서 제외한다.
 
+## START -> AHB -> DMA -> MAC -> DONE 실측 파형
+
+통합 시뮬레이션 디렉터리에서 실행한다:
+
+```bash
+make -f Makefile.verilator wave SAMPLES=124
+```
+
+`build/verilator_wave/results/sample_124_first_layer.fst`에 첫 계층과 DONE 이후
+약 100클록의 실제 신호를 기록한다. 파형 기록을 끝낸 후에도 전체 CNN 두 번을 계속
+실행하여 기존 Golden/완료 검사를 통과해야 한다.
+
+상세 그림과 확대용 HTML을 만들려면 GTKWave의 `fst2vcd`와 matplotlib/plotly를 사용한다:
+
+```bash
+fst2vcd -f build/verilator_wave/results/sample_124_first_layer.fst -o build/verilator_wave/results/story_full.vcd
+python3 render_story.py build/verilator_wave/results/story_full.vcd --output build/verilator_wave/plots
+```
+
+그림은 네 개의 실제 시각 구간을 별도 축으로 보여준다. 분석기는 AHB 주소 승인과
+CSR 데이터 commit을 구분하고, 첫 계층의 73,728 MAC에 대해 곱셈과 ACC 갱신을 검증한다.
+이 RTL은 padding 위치도 0값으로 MAC을 실행하므로, padding을 건너뛰는 C 커널보다
+실행 MAC 수가 많다. 최종 계층 출력은 같은 Golden과 일치해야 한다.
+
 ## 확장 경계
 
 현재 tinyNPU는 INT8 CNN용 CONV/FC 가속기이다. 이 Gate의 PASS는 LLM 실행이나
