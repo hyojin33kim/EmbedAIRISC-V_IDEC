@@ -1,0 +1,47 @@
+source ~/RV32IMAC_Wally/env.sh
+
+
+## RV32IMAC_Wally 환경 설정 ##
+
+cd ~/RV32IMAC_Wally
+
+# 1. env.sh
+sed -i 's|RV32IMAFC_Wally|RV32IMAC_Wally|g' env.sh
+
+# ②2. config 폴더명 + F 2줄
+cd hardware/source/wally/config
+mv rv32imafc_cache rv32imac_cache
+sed -i 's/^localparam logic F_SUPPORTED   = 1;/localparam logic F_SUPPORTED   = 0;/' rv32imac_cache/config.vh
+sed -i 's/^localparam logic ZCF_SUPPORTED = 1;/localparam logic ZCF_SUPPORTED = 0;/' rv32imac_cache/config.vh
+grep -E "^localparam logic (F|ZCF)_SUPPORTED" rv32imac_cache/config.vh      # 둘 다 0 확인
+
+# 3. CONFIG
+cd .. && echo rv32imac_cache > CONFIG
+
+# 4. run.f (4개 디렉터리)
+cd ~/RV32IMAC_Wally/hardware
+sed -i 's|config/rv32imafc_cache$|config/rv32imac_cache|' [0-9]*/sim/func_sim/run.f
+grep -h "config/rv32" [0-9]*/sim/func_sim/run.f                              # 4줄 모두 imac
+
+# 5. Makefrag
+cd ~/RV32IMAC_Wally/software
+sed -i 's/^ISA ?= imafc/ISA ?= imac/' Makefrag
+
+# 6. ISA 테스트 Makefile
+cd riscv-isa-tests
+sed -i 's/^SUITES_NOC := rv32ui rv32um rv32ua rv32uf$/SUITES_NOC := rv32ui rv32um rv32ua/' Makefile
+sed -i 's/^MARCH       = rv32imaf_zicsr_zifencei$/MARCH       = rv32ima_zicsr_zifencei/' Makefile
+sed -i 's/MARCH = rv32imafc_zicsr_zifencei$/MARCH = rv32imac_zicsr_zifencei/' Makefile
+sed -i 's/-mabi=ilp32f /-mabi=ilp32 /' Makefile
+
+# 7. riscv_test.h — FPU 초기화 3줄
+sed -i '/li t0, MSTATUS_FS & (MSTATUS_FS >> 1);/d; /csrs mstatus, t0;/d; /csrwi fcsr, 0;/d' env_wally/riscv_test.h
+grep -c "fcsr" env_wally/riscv_test.h                                        # 0 확인
+
+# 8. start.s — FPU 활성화 2줄
+cd ~/RV32IMAC_Wally/software
+for f in $(find . -name start.s); do sed -i '/li      t0, (1 << 13)/d; /csrs    mstatus, t0/d' $f; done
+
+# 9. 01.Wally_sync_isa_tests 수정
+cd ~/RV32IMAC_Wally/hardware/01.Wally_sync_isa_tests/sim/func_sim
+# Makefile: TESTS에서 fadd fclass fcmp fcvt fcvt_w fdiv fmadd fmin ldst move recoding 제거

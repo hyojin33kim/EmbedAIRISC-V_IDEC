@@ -1,0 +1,2910 @@
+{
+  "description": "VCS V-2023.12-SP2-4, pre-CMSDK Wally RTL at d51b803, same rv32imac_cache and lint harness; new cvw/config fields retained; RV32 subwordread negative-repeat fix retained to permit elaboration. Key is severity/tag/file/body, independent of line number. Original six changed Wally modules came from git show d51b803.",
+  "diagnostics": [
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/cache/cachefsm.sv",
+      "detail": "Continuous assignment width mismatch 1 bits (lhs) versus 32 bits (rhs). Source info: assign CacheCommitted = ((CurrState != STATE_ACCESS) & (~(READ_ONLY_CACHE & (CurrState == STATE_ADDRESS_SETUP))));",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/cache/cacheway.sv",
+      "detail": "Continuous assignment width mismatch 22 bits (lhs) versus 32 bits (rhs). Source info: assign TagWay = (SelectedWay ? ReadTag : 0);",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/ebu/buscachefsm.sv",
+      "detail": "Continuous assignment width mismatch 1 bits (lhs) versus 32 bits (rhs). Source info: assign BusCommitted = ((CurrState != ADR_PHASE) & (~(READ_ONLY_CACHE & (CurrState == MEM3))));",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/ebu/buscachefsm.sv",
+      "detail": "Continuous assignment width mismatch 1 bits (lhs) versus 32 bits (rhs). Source info: assign BusWrite = ((CacheBusRW[0] | BusCMOZero) & (~READ_ONLY_CACHE));",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/ebu/buscachefsm.sv",
+      "detail": "Continuous assignment width mismatch 1 bits (lhs) versus 32 bits (rhs). Source info: assign HWRITE = (((((BusRW[0] & (~BusAtomic)) | (BusWrite & (~Flush))) | ((CurrState == ATOMIC_READ_DATA_PHASE) & BusAtomic)) | ((CurrState == CACHE_WRITEBACK ...",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/generic/counter.sv",
+      "detail": "Continuous assignment width mismatch 4 bits (lhs) versus 32 bits (rhs). Source info: assign qnext = (q + 1);",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/generic/decoder.sv",
+      "detail": "Continuous assignment width mismatch 4 bits (lhs) versus 32 bits (rhs). Source info: assign onehot = (1 << binary);",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/ifu/bpred/RASPredictor.sv",
+      "detail": "Continuous assignment width mismatch 4 bits (lhs) versus 32 bits (rhs). Source info: assign P1 = 1;",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/ifu/ifu.sv",
+      "detail": "Continuous assignment width mismatch 30 bits (lhs) versus 32 bits (rhs). Source info: assign PCPlus4F = (PCF[31:2] + 1);",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/lsu/swbytemask.sv",
+      "detail": "Continuous assignment width mismatch 4 bits (lhs) versus 32 bits (rhs). Source info: assign ByteMask = ((('d2 ** ('d2 ** Size)) - 'b1) << Adr);",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/privileged/privdec.sv",
+      "detail": "Continuous assignment width mismatch 17 bits (lhs) versus 32 bits (rhs). Source info: assign wfi.WFICountPlus1 = (wfiM ? (wfi.WFICount + 1) : '0);",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/uncore/pwm_apb.sv",
+      "detail": "Continuous assignment width mismatch 31 bits (lhs) versus 32 bits (rhs). Source info: assign ScaleMask = (({{(16 + 14) {1'b0}}, 1'b1} << PWMScale) - 1);",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "Continuous assignment width mismatch 1 bits (lhs) versus 32 bits (rhs). Source info: assign SOUT = (loop ? 1 : (LCR[6] ? '0 : SOUTbit));",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "CAWM-L",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "Continuous assignment width mismatch 4 bits (lhs) versus 32 bits (rhs). Source info: assign rxfifoentries = ((rxfifohead >= rxfifotail) ? (rxfifohead - rxfifotail) : ((rxfifohead + 16) - rxfifotail));",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "NS",
+      "file": "wally/src/ifu/decompress.sv",
+      "detail": "Null statement is used in following verilog source. Source info: default: ; // illegal instruction",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/cache/cache.sv",
+      "detail": "Following is an unused input. Source info: BeatCount",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/cache/cache.sv",
+      "detail": "Following is an unused input. Source info: ByteMask",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/cache/cache.sv",
+      "detail": "Following is an unused input. Source info: SelBusBeat",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/cache/cache.sv",
+      "detail": "Following is an unused input. Source info: WriteData",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/cache/cacheway.sv",
+      "detail": "Following is an unused input. Source info: FlushCache",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/cache/cacheway.sv",
+      "detail": "Following is an unused input. Source info: FlushWay",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ebu/controllerinput.sv",
+      "detail": "Following is an unused input. Source info: HCLK",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ebu/controllerinput.sv",
+      "detail": "Following is an unused input. Source info: HRESETn",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ebu/controllerinput.sv",
+      "detail": "Following is an unused input. Source info: Restore",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ebu/controllerinput.sv",
+      "detail": "Following is an unused input. Source info: Save",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ebu/ebu.sv",
+      "detail": "Following is an unused input. Source info: HRESP",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/alu.sv",
+      "detail": "Following is an unused input. Source info: BMUActive",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/alu.sv",
+      "detail": "Following is an unused input. Source info: BSelect",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/alu.sv",
+      "detail": "Following is an unused input. Source info: CZero",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/alu.sv",
+      "detail": "Following is an unused input. Source info: Funct7",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/alu.sv",
+      "detail": "Following is an unused input. Source info: Rs2E",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/alu.sv",
+      "detail": "Following is an unused input. Source info: UW64",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/alu.sv",
+      "detail": "Following is an unused input. Source info: ZBBSelect",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/datapath.sv",
+      "detail": "Following is an unused input. Source info: FCvtIntResW",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/datapath.sv",
+      "detail": "Following is an unused input. Source info: FCvtIntW",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/datapath.sv",
+      "detail": "Following is an unused input. Source info: FIntDivResultW",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/datapath.sv",
+      "detail": "Following is an unused input. Source info: FIntResM",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/datapath.sv",
+      "detail": "Following is an unused input. Source info: FWriteIntM",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/datapath.sv",
+      "detail": "Following is an unused input. Source info: IntDivW",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/shifter.sv",
+      "detail": "Following is an unused input. Source info: Rotate",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ieu/shifter.sv",
+      "detail": "Following is an unused input. Source info: W64",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/ifu/bpred/icpred.sv",
+      "detail": "Following is an unused input. Source info: PostSpillInstrRawF",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/lsu/lsu.sv",
+      "detail": "Following is an unused input. Source info: FWriteDataM",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/lsu/lsu.sv",
+      "detail": "Following is an unused input. Source info: LSUPrefetchM",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/lsu/lsu.sv",
+      "detail": "Following is an unused input. Source info: MemRWE",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mdu/mdu.sv",
+      "detail": "Following is an unused input. Source info: MDUActiveE",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/pmpadrdec.sv",
+      "detail": "Following is an unused input. Source info: FirstMatch",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/pmpadrdec.sv",
+      "detail": "Following is an unused input. Source info: Size",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/tlb/tlbcamline.sv",
+      "detail": "Following is an unused input. Source info: SV39Mode",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/tlb/tlbcamline.sv",
+      "detail": "Following is an unused input. Source info: SV48Mode",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/tlb/tlbcontrol.sv",
+      "detail": "Following is an unused input. Source info: STATUS_MPP",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/tlb/tlbcontrol.sv",
+      "detail": "Following is an unused input. Source info: STATUS_MPRV",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/tlb/tlbcontrol.sv",
+      "detail": "Following is an unused input. Source info: STATUS_MXR",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/tlb/tlbcontrol.sv",
+      "detail": "Following is an unused input. Source info: STATUS_SUM",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/tlb/tlbmixer.sv",
+      "detail": "Following is an unused input. Source info: PTE_N",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/tlb/vm64check.sv",
+      "detail": "Following is an unused input. Source info: SATP_MODE",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/mmu/tlb/vm64check.sv",
+      "detail": "Following is an unused input. Source info: VAdr",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/privileged/csr.sv",
+      "detail": "Following is an unused input. Source info: SetFflagsM",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/gpio_apb.sv",
+      "detail": "Following is an unused input. Source info: PSTRB",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "Following is an unused input. Source info: PSTRB",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/pwm_apb.sv",
+      "detail": "Following is an unused input. Source info: PSTRB",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/rom_ahb.sv",
+      "detail": "Following is an unused input. Source info: HREADY",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/rom_ahb.sv",
+      "detail": "Following is an unused input. Source info: HRESETn",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/rom_ahb.sv",
+      "detail": "Following is an unused input. Source info: HSELRom",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/rom_ahb.sv",
+      "detail": "Following is an unused input. Source info: HTRANS",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/spi_apb.sv",
+      "detail": "Following is an unused input. Source info: PSTRB",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/uart_apb.sv",
+      "detail": "Following is an unused input. Source info: PSTRB",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/uncore.sv",
+      "detail": "Following is an unused input. Source info: HBURST",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/uncore.sv",
+      "detail": "Following is an unused input. Source info: HMASTLOCK",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/uncore.sv",
+      "detail": "Following is an unused input. Source info: HPROT",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/uncore.sv",
+      "detail": "Following is an unused input. Source info: SDCIn",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "UI",
+      "file": "wally/src/uncore/uncore.sv",
+      "detail": "Following is an unused input. Source info: TIMECLK",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(0 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '0' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(1 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '1' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(10 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '10' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(11 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '11' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(12 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '12' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(13 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '13' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(14 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '14' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(15 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '15' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(2 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '2' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(3 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '3' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(4 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '4' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(5 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '5' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(6 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '6' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(7 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '7' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(8 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '8' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/ebu/ahbcacheinterface.sv",
+      "detail": "ahbcacheinterface, \"(9 == BeatCountDelayed)\" A left 32-bit expression is compared to a right 4-bit expression. Comparing '9' of type int with 'BeatCountDelayed' of type logic [(AHBWLOGBWPL - 1):0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM < ((MHPMEVENTBASE + 12'b000000100000) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 12'b000000100000) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM < (HPMCOUNTERBASE + 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(HPMCOUNTERBASE + 3)' of type bit [31:0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM < (HPMCOUNTERBASE + 32))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(HPMCOUNTERBASE + 32)' of type bit [31:0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM < (HPMCOUNTERHBASE + 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(HPMCOUNTERHBASE + 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM < (HPMCOUNTERHBASE + 32))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(HPMCOUNTERHBASE + 32)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM < (MHPMCOUNTERBASE + 32))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 32)' of type bit [31:0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM < (MHPMCOUNTERHBASE + 32))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 32)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 10) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 10) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 11) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 11) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 12) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 12) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 13) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 13) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 14) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 14) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 15) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 15) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 16) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 16) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 17) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 17) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 18) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 18) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 19) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 19) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 20) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 20) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 21) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 21) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 22) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 22) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 23) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 23) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 24) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 24) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 25) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 25) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 26) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 26) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 27) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 27) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 28) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 28) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 29) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 29) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 3) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 3) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 30) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 30) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 31) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 31) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 4) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 4) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 5) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 5) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 6) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 6) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 7) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 7) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 8) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 8) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == ((MHPMEVENTBASE + 9) - 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '((MHPMEVENTBASE + 9) - 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 0))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 0)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 1))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 1)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 10))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 10)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 11))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 11)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 12))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 12)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 13))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 13)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 14))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 14)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 15))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 15)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 16))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 16)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 17))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 17)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 18))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 18)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 19))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 19)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 2))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 2)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 20))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 20)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 21))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 21)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 22))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 22)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 23))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 23)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 24))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 24)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 25))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 25)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 26))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 26)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 27))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 27)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 28))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 28)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 29))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 29)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 30))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 30)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 31))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 31)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 4))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 4)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 5))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 5)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 6))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 6)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 7))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 7)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 8))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 8)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERBASE + 9))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERBASE + 9)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 0))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 0)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 1))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 1)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 10))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 10)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 11))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 11)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 12))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 12)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 13))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 13)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 14))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 14)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 15))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 15)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 16))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 16)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 17))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 17)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 18))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 18)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 19))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 19)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 2))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 2)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 20))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 20)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 21))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 21)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 22))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 22)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 23))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 23)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 24))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 24)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 25))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 25)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 26))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 26)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 27))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 27)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 28))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 28)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 29))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 29)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 30))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 30)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 31))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 31)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 4))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 4)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 5))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 5)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 6))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 6)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 7))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 7)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 8))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 8)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM == (MHPMCOUNTERHBASE + 9))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(MHPMCOUNTERHBASE + 9)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM >= (HPMCOUNTERBASE + 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(HPMCOUNTERBASE + 3)' of type bit [31:0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(CSRAdrM >= (HPMCOUNTERHBASE + 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(HPMCOUNTERHBASE + 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(i < 12'b000000100000)\" A left 32-bit expression is compared to a right 12-bit expression. Comparing 'i' of type integer with '12'b000000100000' of type bit [11:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "csrc, \"(i < P.COUNTERS)\" A left 32-bit expression is compared to a right 12-bit expression. Comparing 'i' of type int with 'P.COUNTERS' of type logic [11:0].",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"($unsigned(CSRAdrM) < (PMPADDR0 + 16))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing '$unsigned(CSRAdrM)' of type logic [11:0] with '(PMPADDR0 + 16)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"($unsigned(CSRAdrM) < (PMPCFG0 + (16 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing '$unsigned(CSRAdrM)' of type logic [11:0] with '(PMPCFG0 + (16 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 0))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 0)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 1))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 1)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 10))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 10)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 11))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 11)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 12))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 12)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 13))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 13)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 14))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 14)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 15))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 15)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 2))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 2)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 3))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 3)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 4))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 4)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 5))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 5)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 6))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 6)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 7))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 7)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 8))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 8)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPADDR0 + 9))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPADDR0 + 9)' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (0 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (0 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (1 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (1 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (10 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (10 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (11 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (11 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (12 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (12 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (13 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (13 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (14 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (14 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (15 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (15 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (2 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (2 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (3 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (3 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (4 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (4 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (5 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (5 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (6 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (6 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (7 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (7 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (8 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (8 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "csrm, \"(CSRAdrM == (PMPCFG0 + (9 / 4)))\" A left 12-bit expression is compared to a right 32-bit expression. Comparing 'CSRAdrM' of type logic [11:0] with '(PMPCFG0 + (9 / 4))' of type bit [31:0].",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[10] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[10]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[10] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[10]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[10] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[10]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[10] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[10]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[10] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[10]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[10] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[10]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[10] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[10]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[11] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[11]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[11] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[11]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[11] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[11]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[11] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[11]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[11] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[11]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[11] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[11]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[11] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[11]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[12] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[12]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[12] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[12]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[12] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[12]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[12] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[12]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[12] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[12]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[12] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[12]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[12] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[12]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[13] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[13]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[13] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[13]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[13] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[13]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[13] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[13]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[13] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[13]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[13] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[13]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[13] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[13]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[14] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[14]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[14] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[14]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[14] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[14]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[14] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[14]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[14] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[14]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[14] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[14]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[14] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[14]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[15] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[15]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[15] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[15]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[15] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[15]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[15] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[15]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[15] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[15]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[15] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[15]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[15] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[15]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[1] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[1]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[1] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[1]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[1] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[1]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[1] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[1]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[1] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[1]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[1] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[1]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[1] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[1]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[2] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[2]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[2] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[2]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[2] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[2]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[2] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[2]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[2] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[2]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[2] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[2]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[2] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[2]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[3] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[3]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[3] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[3]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[3] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[3]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[3] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[3]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[3] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[3]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[3] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[3]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[3] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[3]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[4] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[4]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[4] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[4]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[4] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[4]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[4] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[4]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[4] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[4]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[4] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[4]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[4] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[4]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[5] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[5]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[5] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[5]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[5] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[5]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[5] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[5]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[5] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[5]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[5] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[5]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[5] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[5]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[6] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[6]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[6] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[6]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[6] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[6]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[6] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[6]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[6] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[6]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[6] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[6]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[6] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[6]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[7] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[7]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[7] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[7]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[7] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[7]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[7] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[7]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[7] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[7]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[7] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[7]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[7] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[7]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[8] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[8]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[8] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[8]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[8] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[8]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[8] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[8]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[8] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[8]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[8] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[8]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[8] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[8]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[9] == 1)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[9]' of type logic [2:0] with '1' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[9] == 2)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[9]' of type logic [2:0] with '2' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[9] == 3)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[9]' of type logic [2:0] with '3' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[9] == 4)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[9]' of type logic [2:0] with '4' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[9] == 5)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[9]' of type logic [2:0] with '5' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[9] == 6)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[9]' of type logic [2:0] with '6' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/plic_apb.sv",
+      "detail": "plic_apb, \"(intPriority[9] == 7)\" A left 3-bit expression is compared to a right 32-bit expression. Comparing 'intPriority[9]' of type logic [2:0] with '7' of type int.",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 1)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '1' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 10)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '10' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 11)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '11' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 12)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '12' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 13)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '13' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 14)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '14' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 15)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '15' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 16)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '16' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 17)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '17' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 18)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '18' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 19)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '19' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 2)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '2' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 20)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '20' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 21)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '21' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 22)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '22' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 23)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '23' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 24)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '24' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 25)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '25' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 26)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '26' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 27)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '27' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 28)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '28' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 29)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '29' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 3)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '3' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 30)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '30' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 31)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '31' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 4)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '4' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 5)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '5' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 6)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '6' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 7)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '7' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 8)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '8' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"(rxfifotailunwrapped != 9)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing 'rxfifotailunwrapped' of type logic [4:0] with '9' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 1)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '1' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 10)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '10' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 11)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '11' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 12)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '12' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 13)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '13' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 14)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '14' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 15)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '15' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 16)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '16' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 17)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '17' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 18)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '18' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 19)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '19' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 2)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '2' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 20)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '20' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 21)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '21' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 22)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '22' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 23)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '23' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 24)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '24' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 25)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '25' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 26)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '26' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 27)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '27' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 28)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '28' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 29)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '29' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 3)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '3' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 30)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '30' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 31)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '31' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 4)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '4' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 5)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '5' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 6)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '6' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 7)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '7' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 8)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '8' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "ULCO",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "uartPC16550D, \"({1'b0, rxfifohead} == 9)\" A left 5-bit expression is compared to a right 32-bit expression. Comparing '{1'b0, rxfifohead}' of type logic [4:0] with '9' of type int.",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "VNGS",
+      "file": "wally/src/uncore/spi_apb.sv",
+      "detail": "Following variable has never been set any value. Source info: ReceiveReadWatermarkLevel",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "VNGS",
+      "file": "wally/src/uncore/spi_apb.sv",
+      "detail": "Following variable has never been set any value. Source info: TransmitWriteWatermarkLevel",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/ebu/ebufsmarb.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 4-bit LHS target: Source info: Threshold = (('d2 << HBURST[2:1]) - 'b1); Expression: Threshold",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/generic/mem/ram1p1rwbe.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 128-bit LHS target: Source info: ram.RAM[0] = 'h00002197; Expression: ram.RAM[0]",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/mdu/div.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 5-bit LHS target: Source info: step <= (step + 1); Expression: step",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/mdu/div.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 5-bit LHS target: Source info: step <= 1; Expression: step",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/privileged/csrc.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 64-bit wide expression is assigned to a 32-bit LHS target: Source info: CSRCReadValM = MTIME_CLINT; Expression: CSRCReadValM",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 6-bit LHS target: Source info: entry = ((CSRAdrM - PMPCFG0) * 4); Expression: entry",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 6-bit LHS target: Source info: entry = (({CSRAdrM[11:1], 1'b0} - PMPCFG0) * 4); Expression: entry",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/privileged/csrm.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 64-bit wide expression is assigned to a 32-bit LHS target: Source info: CSRMReadValM = {PMPCFG_ARRAY_REGW[(entry + 7)], PMPCFG_ARRAY_REGW[(entry + 6)], PMPCFG_ARRAY_REGW[(entry + 5)], PMPCFG_ARRAY_REGW[(entry + 4)], PMPCFG_ARRAY_R ... Expression: CSRMReadValM",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/pwm_apb.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 31-bit LHS target: Source info: PWMCount <= (PWMCount + 1); Expression: PWMCount",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/spi_controller.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 1-bit LHS target: Source info: EndOfFrame <= 0; Expression: EndOfFrame",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/spi_controller.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 1-bit LHS target: Source info: SCK <= 0; Expression: SCK",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/spi_controller.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 1-bit LHS target: Source info: SampleEdge <= 0; Expression: SampleEdge",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/spi_controller.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 1-bit LHS target: Source info: ShiftEdge <= 0; Expression: ShiftEdge",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/spi_controller.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 8-bit LHS target: Source info: DelayCounter <= 0; Expression: DelayCounter",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 10-bit LHS target: Source info: rxtimeoutcnt <= (rxtimeoutcnt + 1); Expression: rxtimeoutcnt",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 17-bit LHS target: Source info: baudcount <= (baudpulseComb ? 1 : (baudcount + 1)); Expression: baudcount",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 17-bit LHS target: Source info: baudcount <= 1; Expression: baudcount",
+      "count": 2
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 4-bit LHS target: Source info: rxbitsreceived <= (rxbitsreceived + 1); Expression: rxbitsreceived",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 4-bit LHS target: Source info: rxfifotail <= (rxfifotail + 1); Expression: rxfifotail",
+      "count": 1
+    },
+    {
+      "severity": "Lint",
+      "tag": "WMIA-L",
+      "file": "wally/src/uncore/uartPC16550D.sv",
+      "detail": "Width mismatch between LHS and RHS is found in assignment: The following 32-bit wide expression is assigned to a 4-bit LHS target: Source info: txfifotail <= (txfifotail + 1); Expression: txfifotail",
+      "count": 1
+    }
+  ]
+}

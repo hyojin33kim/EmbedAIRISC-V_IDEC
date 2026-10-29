@@ -1,0 +1,49 @@
+RISCV := riscv64-unknown-elf
+
+# get the absolute path of this Makefrag
+MAKEFRAG_PATH := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+LIB_PATH := $(MAKEFRAG_PATH)151_library
+LIB_SOURCES := $(wildcard $(LIB_PATH)/*.c)
+CSRCS := $(wildcard *.c)
+SSRCS := $(wildcard *.s)
+LDSRC := $(TARGET).ld
+
+ISA ?= imac
+ifeq ($(ISA), imac)
+MARCH := rv32imac_zicsr_zifencei
+MABI  := ilp32
+else
+MARCH := rv32imafc_zicsr_zifencei
+MABI  := ilp32f
+endif
+GCC_OPTS += -mabi=$(MABI) -march=$(MARCH) -static -mcmodel=medany -nostdlib -nostartfiles -T $(LDSRC)
+
+GCC_OPTS += -fno-tree-loop-distribute-patterns -Wl,--no-warn-rwx-segments
+
+LDLIBS += -lgcc
+
+default: $(TARGET).elf
+
+SOURCES = $(CSRCS) $(SSRCS) $(EXTRA_SRCS)
+ifeq ($(INCLUDE_LIB), true)
+	SOURCES += $(LIB_SOURCES)
+
+endif
+
+# objdump is called before strip because it inlines functions and makes the assembly harder to read
+$(TARGET).elf: $(SOURCES)
+	$(RISCV)-gcc $(GCC_OPTS) -iquote $(LIB_PATH) $^ $(LDLIBS) -o $@
+	$(RISCV)-objdump -D -Mnumeric $@ > $(basename $@).dump
+	$(RISCV)-objcopy -R .comment -R .note.gnu.build-id -R .riscv.attributes $@
+	$(RISCV)-objcopy -O binary $@ $(basename $@).bin
+	truncate -s %4 $(basename $@).bin
+	od -An -v -tx4 -w4 $(basename $@).bin | tr -d ' ' > $@.memfile
+	$(RISCV)-objdump -S -D $@ > $@.objdump
+	grep -E '^[0-9a-f]{8} <[0-9a-zA-Z_]+>' $@.objdump | awk '{print $$1}'               > $@.objdump.addr
+	grep -E '^[0-9a-f]{8} <[0-9a-zA-Z_]+>' $@.objdump | awk '{print $$2}' | tr -d '<>:' > $@.objdump.lab
+
+clean:
+
+	rm -f *.elf *.dump *.hex *.bin *.memfile *.objdump*
+
+.PHONY: target

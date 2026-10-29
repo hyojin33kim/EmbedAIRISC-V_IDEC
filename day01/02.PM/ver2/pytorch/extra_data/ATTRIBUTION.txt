@@ -1,0 +1,6 @@
+Rock Paper Scissors images by Laurence Moroney.
+Source: https://laurencemoroney.com/datasets.html
+License: Creative Commons Attribution 2.0
+https://creativecommons.org/licenses/by/2.0/
+The author's prediction examples are reused as supplemental training images.
+Original source images are retained; grayscale/resize/augmentation occurs at runtime.

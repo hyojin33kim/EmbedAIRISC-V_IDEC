@@ -1,0 +1,49 @@
+QuantizableCNN(
+  (features): Sequential(
+    (0): ConvReLU2d(
+      (0): Conv2d(1, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (1): ReLU()
+      (activation_post_process): HistogramObserver(min_val=inf, max_val=-inf)
+    )
+    (1): Identity()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): ConvReLU2d(
+      (0): Conv2d(8, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (1): ReLU()
+      (activation_post_process): HistogramObserver(min_val=inf, max_val=-inf)
+    )
+    (4): Identity()
+    (5): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): ConvReLU2d(
+      (0): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (1): ReLU()
+      (activation_post_process): HistogramObserver(min_val=inf, max_val=-inf)
+    )
+    (7): Identity()
+    (8): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (9): ConvReLU2d(
+      (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (1): ReLU()
+      (activation_post_process): HistogramObserver(min_val=inf, max_val=-inf)
+    )
+    (10): Identity()
+    (11): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classifier): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): LinearReLU(
+      (0): Linear(in_features=128, out_features=32, bias=False)
+      (1): ReLU()
+      (activation_post_process): HistogramObserver(min_val=inf, max_val=-inf)
+    )
+    (2): Identity()
+    (3): Linear(
+      in_features=32, out_features=3, bias=False
+      (activation_post_process): HistogramObserver(min_val=inf, max_val=-inf)
+    )
+  )
+  (quant): QuantStub(
+    (activation_post_process): HistogramObserver(min_val=inf, max_val=-inf)
+  )
+  (dequant): DeQuantStub()
+)

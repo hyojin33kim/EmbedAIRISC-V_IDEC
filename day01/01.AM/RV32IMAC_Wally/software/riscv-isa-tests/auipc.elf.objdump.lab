@@ -1,0 +1,14 @@
+_start
+trap_vector
+reset_vector
+test_2
+test_3
+fail
+pass
+uwrite_dec
+wally_tohost
+uart_init
+uwrite_int8
+uwrite_int8s
+uread_int8
+uread_int8_noecho

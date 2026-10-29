@@ -1,0 +1,115 @@
+{
+  "device": "cuda",
+  "seed": 42,
+  "parameter_count": 31528,
+  "best_epoch": 99,
+  "epochs_completed": 150,
+  "original_train_count": 2160,
+  "extra_train_count": 33,
+  "training_samples_per_epoch": 2688,
+  "training_seconds": 407.13693434599554,
+  "train": {
+    "loss": 0.008718953768260236,
+    "accuracy": 99.81760145918832,
+    "correct": 2189,
+    "count": 2193,
+    "confusion_matrix": [
+      [
+        731,
+        0,
+        0
+      ],
+      [
+        4,
+        727,
+        0
+      ],
+      [
+        0,
+        0,
+        731
+      ]
+    ]
+  },
+  "validation": {
+    "loss": 0.059291732311248777,
+    "accuracy": 100.0,
+    "correct": 360,
+    "count": 360,
+    "confusion_matrix": [
+      [
+        120,
+        0,
+        0
+      ],
+      [
+        0,
+        120,
+        0
+      ],
+      [
+        0,
+        0,
+        120
+      ]
+    ]
+  },
+  "test": {
+    "loss": 0.030348160163930025,
+    "accuracy": 100.0,
+    "correct": 372,
+    "count": 372,
+    "confusion_matrix": [
+      [
+        124,
+        0,
+        0
+      ],
+      [
+        0,
+        124,
+        0
+      ],
+      [
+        0,
+        0,
+        124
+      ]
+    ]
+  },
+  "target_accuracy": 99.0,
+  "target_met": true,
+  "classes": [
+    "paper",
+    "rock",
+    "scissors"
+  ],
+  "config": {
+    "data_root": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/dataset/rps",
+    "extra_train_dir": "extra_data/train",
+    "extra_repeat": 16,
+    "output_dir": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/pytorch/outputs",
+    "device": "cuda",
+    "epochs": 150,
+    "batch_size": 64,
+    "lr": 0.001,
+    "base_channels": 8,
+    "hidden_dim": 32,
+    "conv_blocks": 4,
+    "use_bias": false,
+    "input_mode": "foreground",
+    "val_ratio": 0.2,
+    "split_mode": "group",
+    "seed": 42,
+    "num_workers": 0,
+    "num_threads": 4,
+    "patience": 0,
+    "no_augment": false,
+    "shape_augment": true,
+    "skip_test": false
+  },
+  "versions": {
+    "torch": "2.14.1+cu126"
+  },
+  "total_seconds": 416.5857341569499
+}

@@ -1,0 +1,443 @@
+{
+  "date": "2026-10-23",
+  "timezone": "Asia/Seoul",
+  "passed": true,
+  "model_source_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+  "firmware_sha256": "87ac0c047756a5b06aea68487a37c903338d4ef6dd533a0b0ab4ddcb4810c624",
+  "input_contract": "unchanged demo_frame gray8 -> existing LUT -> actual NPU six-layer CNN",
+  "actual_commands": [
+    "make -C day02/01.AM/RV32IMAC_Wally/software/npu -j2",
+    "python3 day02/01.AM/RV32IMAC_Wally/software/npu/test_cnn.py",
+    "make run",
+    "make run SAMPLES=\"0 248\""
+  ],
+  "vcs_version": "V-2023.12-SP2-4",
+  "vcs_working_directory": "day02/01.AM/RV32IMAC_Wally/hardware/06.Wally_npu_tests/sim/func_sim",
+  "rtl_test_inputs": [
+    0,
+    124,
+    248
+  ],
+  "repeats_per_input": 2,
+  "full_rtl_simulation_run": true,
+  "verified_cnn_inferences": 6,
+  "verified_npu_layer_commands": 36,
+  "verified_layer_output_bytes": 22482,
+  "cpu_visible_result_and_argmax_checked": true,
+  "uart_completion_checked": true,
+  "cycle_scope": "CPU includes driver/cache/DMA/wait; excludes LUT, UART and validation. NPU is CSR CYCLES.",
+  "network": [
+    {
+      "sample": 0,
+      "run": 0,
+      "cpu_cycles": 3413171,
+      "npu_cycles": 3404567,
+      "predicted_index": 0,
+      "q": [
+        71,
+        53,
+        65
+      ]
+    },
+    {
+      "sample": 0,
+      "run": 1,
+      "cpu_cycles": 3411290,
+      "npu_cycles": 3404555,
+      "predicted_index": 0,
+      "q": [
+        71,
+        53,
+        65
+      ]
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "cpu_cycles": 3413171,
+      "npu_cycles": 3404567,
+      "predicted_index": 1,
+      "q": [
+        54,
+        87,
+        41
+      ]
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "cpu_cycles": 3411290,
+      "npu_cycles": 3404555,
+      "predicted_index": 1,
+      "q": [
+        54,
+        87,
+        41
+      ]
+    },
+    {
+      "sample": 248,
+      "run": 0,
+      "cpu_cycles": 3413171,
+      "npu_cycles": 3404567,
+      "predicted_index": 2,
+      "q": [
+        53,
+        49,
+        92
+      ]
+    },
+    {
+      "sample": 248,
+      "run": 1,
+      "cpu_cycles": 3411290,
+      "npu_cycles": 3404555,
+      "predicted_index": 2,
+      "q": [
+        53,
+        49,
+        92
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "sample": 0,
+      "run": 0,
+      "layer": 0,
+      "cpu_cycles": 345431,
+      "npu_cycles": 343570,
+      "polls": 28629
+    },
+    {
+      "sample": 0,
+      "run": 0,
+      "layer": 1,
+      "cpu_cycles": 1211982,
+      "npu_cycles": 1210606,
+      "polls": 100884
+    },
+    {
+      "sample": 0,
+      "run": 0,
+      "layer": 2,
+      "cpu_cycles": 1206877,
+      "npu_cycles": 1205354,
+      "polls": 100447
+    },
+    {
+      "sample": 0,
+      "run": 0,
+      "layer": 3,
+      "cpu_cycles": 618178,
+      "npu_cycles": 616446,
+      "polls": 51371
+    },
+    {
+      "sample": 0,
+      "run": 0,
+      "layer": 4,
+      "cpu_cycles": 29101,
+      "npu_cycles": 27734,
+      "polls": 2311
+    },
+    {
+      "sample": 0,
+      "run": 0,
+      "layer": 5,
+      "cpu_cycles": 1244,
+      "npu_cycles": 857,
+      "polls": 72
+    },
+    {
+      "sample": 0,
+      "run": 1,
+      "layer": 0,
+      "cpu_cycles": 344386,
+      "npu_cycles": 343558,
+      "polls": 28631
+    },
+    {
+      "sample": 0,
+      "run": 1,
+      "layer": 1,
+      "cpu_cycles": 1211591,
+      "npu_cycles": 1210606,
+      "polls": 100885
+    },
+    {
+      "sample": 0,
+      "run": 1,
+      "layer": 2,
+      "cpu_cycles": 1206785,
+      "npu_cycles": 1205354,
+      "polls": 100447
+    },
+    {
+      "sample": 0,
+      "run": 1,
+      "layer": 3,
+      "cpu_cycles": 618052,
+      "npu_cycles": 616446,
+      "polls": 51371
+    },
+    {
+      "sample": 0,
+      "run": 1,
+      "layer": 4,
+      "cpu_cycles": 28987,
+      "npu_cycles": 27734,
+      "polls": 2311
+    },
+    {
+      "sample": 0,
+      "run": 1,
+      "layer": 5,
+      "cpu_cycles": 1222,
+      "npu_cycles": 857,
+      "polls": 72
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 0,
+      "cpu_cycles": 345431,
+      "npu_cycles": 343570,
+      "polls": 28629
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 1,
+      "cpu_cycles": 1211982,
+      "npu_cycles": 1210606,
+      "polls": 100884
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 2,
+      "cpu_cycles": 1206877,
+      "npu_cycles": 1205354,
+      "polls": 100447
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 3,
+      "cpu_cycles": 618178,
+      "npu_cycles": 616446,
+      "polls": 51371
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 4,
+      "cpu_cycles": 29101,
+      "npu_cycles": 27734,
+      "polls": 2311
+    },
+    {
+      "sample": 124,
+      "run": 0,
+      "layer": 5,
+      "cpu_cycles": 1244,
+      "npu_cycles": 857,
+      "polls": 72
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 0,
+      "cpu_cycles": 344386,
+      "npu_cycles": 343558,
+      "polls": 28631
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 1,
+      "cpu_cycles": 1211591,
+      "npu_cycles": 1210606,
+      "polls": 100885
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 2,
+      "cpu_cycles": 1206785,
+      "npu_cycles": 1205354,
+      "polls": 100447
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 3,
+      "cpu_cycles": 618052,
+      "npu_cycles": 616446,
+      "polls": 51371
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 4,
+      "cpu_cycles": 28987,
+      "npu_cycles": 27734,
+      "polls": 2311
+    },
+    {
+      "sample": 124,
+      "run": 1,
+      "layer": 5,
+      "cpu_cycles": 1222,
+      "npu_cycles": 857,
+      "polls": 72
+    },
+    {
+      "sample": 248,
+      "run": 0,
+      "layer": 0,
+      "cpu_cycles": 345431,
+      "npu_cycles": 343570,
+      "polls": 28629
+    },
+    {
+      "sample": 248,
+      "run": 0,
+      "layer": 1,
+      "cpu_cycles": 1211982,
+      "npu_cycles": 1210606,
+      "polls": 100884
+    },
+    {
+      "sample": 248,
+      "run": 0,
+      "layer": 2,
+      "cpu_cycles": 1206877,
+      "npu_cycles": 1205354,
+      "polls": 100447
+    },
+    {
+      "sample": 248,
+      "run": 0,
+      "layer": 3,
+      "cpu_cycles": 618178,
+      "npu_cycles": 616446,
+      "polls": 51371
+    },
+    {
+      "sample": 248,
+      "run": 0,
+      "layer": 4,
+      "cpu_cycles": 29101,
+      "npu_cycles": 27734,
+      "polls": 2311
+    },
+    {
+      "sample": 248,
+      "run": 0,
+      "layer": 5,
+      "cpu_cycles": 1244,
+      "npu_cycles": 857,
+      "polls": 72
+    },
+    {
+      "sample": 248,
+      "run": 1,
+      "layer": 0,
+      "cpu_cycles": 344386,
+      "npu_cycles": 343558,
+      "polls": 28631
+    },
+    {
+      "sample": 248,
+      "run": 1,
+      "layer": 1,
+      "cpu_cycles": 1211591,
+      "npu_cycles": 1210606,
+      "polls": 100885
+    },
+    {
+      "sample": 248,
+      "run": 1,
+      "layer": 2,
+      "cpu_cycles": 1206785,
+      "npu_cycles": 1205354,
+      "polls": 100447
+    },
+    {
+      "sample": 248,
+      "run": 1,
+      "layer": 3,
+      "cpu_cycles": 618052,
+      "npu_cycles": 616446,
+      "polls": 51371
+    },
+    {
+      "sample": 248,
+      "run": 1,
+      "layer": 4,
+      "cpu_cycles": 28987,
+      "npu_cycles": 27734,
+      "polls": 2311
+    },
+    {
+      "sample": 248,
+      "run": 1,
+      "layer": 5,
+      "cpu_cycles": 1222,
+      "npu_cycles": 857,
+      "polls": 72
+    }
+  ],
+  "elf_checks": {
+    "elf_sha256": "87ac0c047756a5b06aea68487a37c903338d4ef6dd533a0b0ab4ddcb4810c624",
+    "entry": "0x80000000",
+    "undefined_symbols": [],
+    "fp_instructions": [],
+    "linux_ecall": false,
+    "software_mac_kernels_linked": false,
+    "cache_line_alignment_bytes": 64,
+    "binary_bytes": 26428,
+    "memfile_words": 6607,
+    "addresses": {
+      "demo_frame": "0x800062b8",
+      "firmware_result": "0x80006900",
+      "firmware_cycles": "0x80007d40",
+      "firmware_layer_stats": "0x80007d80",
+      "workspace": "0x80006d40",
+      "qparam": "0x80006780",
+      "_stack_bottom": "0x80007e50",
+      "_stack_top": "0x80017e50"
+    },
+    "riscv_attributes": "Attribute Section: riscv\nFile Attributes\n  Tag_RISCV_stack_align: 16-bytes\n  Tag_RISCV_arch: \"rv32i2p1_m2p0_a2p1_c2p0_zicbom1p0_zicsr2p0_zifencei2p0_zmmul1p0_zaamo1p0_zalrsc1p0_zca1p0\"\n  Tag_RISCV_priv_spec: 1\n  Tag_RISCV_priv_spec_minor: 11"
+  },
+  "host_reference": {
+    "tests_passed": 4,
+    "test_images": 372,
+    "outputs_match_ver2": true,
+    "correct_classifications": 360
+  },
+  "compile_errors": 0,
+  "compile_warning_counts": {
+    "IDTS": 7
+  },
+  "lint_diagnostics_by_tag": {
+    "NS": 6,
+    "SV-PIU": 1,
+    "ULCO": 449,
+    "SVA-CE": 29,
+    "UI": 76,
+    "CAWM-L": 17,
+    "WMIA-L": 30,
+    "SVA-DIU": 29,
+    "VNGS": 2,
+    "SVA-UA": 57
+  },
+  "limits": [
+    "VCS execution covers three selected inputs, not the full 372-image dataset.",
+    "No board measurement, FPGA synthesis or STA in this task.",
+    "CPU timing includes cache maintenance and polling; NPU CSR timing includes DMA/control.",
+    "Existing generic testbench dynamic-type sensitivity IDTS warnings are retained."
+  ]
+}

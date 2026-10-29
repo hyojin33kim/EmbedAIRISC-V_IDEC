@@ -1,0 +1,243 @@
+{
+  "source": "https://storage.googleapis.com/learning-datasets/rps-validation.zip",
+  "archive_sha256": "b532690f8124dd105cb919a7f99b79c30d33b5ec68c254e6f5a79ee59a9f5555",
+  "author": "Laurence Moroney",
+  "license": "CC BY 2.0",
+  "homepage": "https://laurencemoroney.com/datasets.html",
+  "original_purpose": "Author-provided prediction examples",
+  "use_here": "Supplemental training images; original test split remains unchanged",
+  "imported": [
+    {
+      "file": "train/paper/paper-hires1.png",
+      "class": "paper",
+      "sha256": "412cc83d2e8fe81f610a35c620dcecddfca826ad30b83a60f5ac595631e426e3",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/paper/paper02-103.png",
+      "mae_64x64": 0.07759842276573181
+    },
+    {
+      "file": "train/paper/paper-hires2.png",
+      "class": "paper",
+      "sha256": "79224d2d0e758c33bda1c42659c2d48d76f247b4e5f558bf29ab70e58d6c8e58",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/scissors/testscissors03-113.png",
+      "mae_64x64": 0.06506490707397461
+    },
+    {
+      "file": "train/paper/paper1.png",
+      "class": "paper",
+      "sha256": "c98469f449b3f74eaeec77bd9636f494e54e97364e54ced06e9f3e8839ea328c",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/paper/paper05-106.png",
+      "mae_64x64": 0.08677619695663452
+    },
+    {
+      "file": "train/paper/paper2.png",
+      "class": "paper",
+      "sha256": "e720d952db2d6a2d6ea439b06296a710062eb64de5228794af2c9d9f6d398908",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/paper/paper07-080.png",
+      "mae_64x64": 0.062372662127017975
+    },
+    {
+      "file": "train/paper/paper3.png",
+      "class": "paper",
+      "sha256": "209cbe134cba706007667d515a39608e27097cb479ba297a22b54377f638347a",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/scissors/testscissors04-18.png",
+      "mae_64x64": 0.05576363205909729
+    },
+    {
+      "file": "train/paper/paper4.png",
+      "class": "paper",
+      "sha256": "fd76bbf65ab2070707f37ddc8e28b6c1f907883a6af8b60e7dcec0678e022be8",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/paper/testpaper04-14.png",
+      "mae_64x64": 0.0652066096663475
+    },
+    {
+      "file": "train/paper/paper5.png",
+      "class": "paper",
+      "sha256": "21fc962563cdca091f7c1799783c4f5434a44c9a15ae6bef12b44f959f7de7db",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/paper/testpaper04-18.png",
+      "mae_64x64": 0.053834445774555206
+    },
+    {
+      "file": "train/paper/paper6.png",
+      "class": "paper",
+      "sha256": "0fa5dfd929400f154e59d269413663d4ee8897bcec06138411a11ccc0da1e11c",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/paper/testpaper04-23.png",
+      "mae_64x64": 0.07206553220748901
+    },
+    {
+      "file": "train/paper/paper7.png",
+      "class": "paper",
+      "sha256": "111b0a7d39f3f60b1a8aad79ba9fc3d2dabff610ead1008eb8e8278ec1a11386",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/rock/rock07-k03-044.png",
+      "mae_64x64": 0.07442938536405563
+    },
+    {
+      "file": "train/paper/paper8.png",
+      "class": "paper",
+      "sha256": "1e08c6baa30e010c8bf4aad8b2f5ea851ac7c6bda99da69211b2920b4af2e20e",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/paper/paper02-105.png",
+      "mae_64x64": 0.07949122786521912
+    },
+    {
+      "file": "train/paper/paper9.png",
+      "class": "paper",
+      "sha256": "b2067057fe93450691553734b4c1face770a98401da7478279f29865409bdb55",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/paper/paper02-106.png",
+      "mae_64x64": 0.06451248377561569
+    },
+    {
+      "file": "train/rock/rock-hires1.png",
+      "class": "rock",
+      "sha256": "ab92f9b030cdc43eae7621ec34b9a06dd74677b95560bcc488e7b27489fb7b03",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/rock/rock03-052.png",
+      "mae_64x64": 0.11528798937797546
+    },
+    {
+      "file": "train/rock/rock-hires2.png",
+      "class": "rock",
+      "sha256": "952c7ea17532f2ba6c06ae9549ba453b31caa0c1f56dc0a538e323769f50b48d",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/rock/rock07-k03-008.png",
+      "mae_64x64": 0.07929304242134094
+    },
+    {
+      "file": "train/rock/rock1.png",
+      "class": "rock",
+      "sha256": "e160a10bf3b6d6959382b8bc6bc837f9857c89dd5df53a42c6375b070477c3b9",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/scissors/testscissors02-12.png",
+      "mae_64x64": 0.07343653589487076
+    },
+    {
+      "file": "train/rock/rock2.png",
+      "class": "rock",
+      "sha256": "dca383a0af6a18c304afaed5d438d50afa152b1892778d956cea5c1d3abc196b",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/scissors/testscissors01-024.png",
+      "mae_64x64": 0.0696624219417572
+    },
+    {
+      "file": "train/rock/rock3.png",
+      "class": "rock",
+      "sha256": "7a52ecdb966b162adcc2999196da0fff15c12141bfca905ed166a1b02f7bfde8",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/rock/rock02-015.png",
+      "mae_64x64": 0.08850911259651184
+    },
+    {
+      "file": "train/rock/rock4.png",
+      "class": "rock",
+      "sha256": "b30e3262bab444f37862069cc9a0ee75e16ec8465653be816bcf8a13a488171c",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/paper/paper01-099.png",
+      "mae_64x64": 0.06625976413488388
+    },
+    {
+      "file": "train/rock/rock5.png",
+      "class": "rock",
+      "sha256": "5ef79e29ddc1823d244875b55d9b1dfb5999e56960b9c8eb30fa1bac6ee7e514",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock03-08.png",
+      "mae_64x64": 0.04258003830909729
+    },
+    {
+      "file": "train/rock/rock6.png",
+      "class": "rock",
+      "sha256": "c212277b68810c6e979021a4db07739156222670daeb54087de333fa0301ee5b",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/paper/paper01-112.png",
+      "mae_64x64": 0.08257315307855606
+    },
+    {
+      "file": "train/rock/rock7.png",
+      "class": "rock",
+      "sha256": "a1d37b8b174e5be2021485c58215a83867cc17c6a56a8321d228434991b4ad54",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/rock/rock07-k03-102.png",
+      "mae_64x64": 0.06569680571556091
+    },
+    {
+      "file": "train/rock/rock8.png",
+      "class": "rock",
+      "sha256": "5c0949a1c1f9208c09871247944c0bb288ccffb3168b6b90a63092159ee18ac7",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/rock/rock07-k03-090.png",
+      "mae_64x64": 0.061222806572914124
+    },
+    {
+      "file": "train/rock/rock9.png",
+      "class": "rock",
+      "sha256": "98cebbd36af5fb346aa2401e144f62fab3b91c832a75e79155d0b50f421b9653",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock02-30.png",
+      "mae_64x64": 0.061240047216415405
+    },
+    {
+      "file": "train/scissors/scissors-hires1.png",
+      "class": "scissors",
+      "sha256": "2eba5a55d7e6722681204b93800d4c48f0fc98c6b7983b9a87cf95ad4c214486",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/scissors/scissors02-085.png",
+      "mae_64x64": 0.07889954745769501
+    },
+    {
+      "file": "train/scissors/scissors-hires2.png",
+      "class": "scissors",
+      "sha256": "53590c760df7b659f10a2e25a119b72b3924bc969bb1a6fa60e3efedad2c8112",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock02-00.png",
+      "mae_64x64": 0.06118834391236305
+    },
+    {
+      "file": "train/scissors/scissors1.png",
+      "class": "scissors",
+      "sha256": "cff704216b098e0d0051e70d3be6fb8c646b9c69176a9390925f8d9701aeba09",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock04-17.png",
+      "mae_64x64": 0.04655331000685692
+    },
+    {
+      "file": "train/scissors/scissors2.png",
+      "class": "scissors",
+      "sha256": "dba407beab86f75b033480eae1b254be81bafe7a32e598bff1a6679452a32d3c",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/scissors/testscissors03-115.png",
+      "mae_64x64": 0.061564601957798004
+    },
+    {
+      "file": "train/scissors/scissors3.png",
+      "class": "scissors",
+      "sha256": "f526f579ab81bb9374411312a9e2eaf413cbfe001667129b2cb5bd746ef43cc6",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/paper/testpaper02-15.png",
+      "mae_64x64": 0.06272594630718231
+    },
+    {
+      "file": "train/scissors/scissors4.png",
+      "class": "scissors",
+      "sha256": "b89501b21b022048a0a4adcec77d5041b39428b66539cfc6a0a4d1611ea9b8f1",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/scissors/testscissors04-21.png",
+      "mae_64x64": 0.04958926513791084
+    },
+    {
+      "file": "train/scissors/scissors5.png",
+      "class": "scissors",
+      "sha256": "280a7f73028fdf583247ad71cdf78eca9ae7b2f2a1736f7e54d768622e16cc33",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/scissors/testscissors04-18.png",
+      "mae_64x64": 0.055372998118400574
+    },
+    {
+      "file": "train/scissors/scissors6.png",
+      "class": "scissors",
+      "sha256": "7a05614c16348a5ac719fc85abbdcafa1bb1868fe934e456a2bb62e0afb947c0",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/scissors/testscissors04-21.png",
+      "mae_64x64": 0.05413507670164108
+    },
+    {
+      "file": "train/scissors/scissors7.png",
+      "class": "scissors",
+      "sha256": "2fede80e59537776a45c720b2bfbffdaa5b7236d82fc6901d0bb7240f7d88ab3",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock02-00.png",
+      "mae_64x64": 0.08951342850923538
+    },
+    {
+      "file": "train/scissors/scissors8.png",
+      "class": "scissors",
+      "sha256": "a2db8997dc9772cf9ea228146a8ed903a3c8090950afcc430ec5180b8b3ba493",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/scissors/scissors02-091.png",
+      "mae_64x64": 0.06797449290752411
+    },
+    {
+      "file": "train/scissors/scissors9.png",
+      "class": "scissors",
+      "sha256": "09a1f85f6a0bc40ad0a8f932d5933dd0a17133338d11513b05e853cd00ffd7a4",
+      "nearest_original": "/home/user/lectures/EmbedAIRISC-V/day01/02.PM/dataset/rps/train/scissors/scissors02-097.png",
+      "mae_64x64": 0.07921262085437775
+    }
+  ],
+  "excluded_duplicates": []
+}

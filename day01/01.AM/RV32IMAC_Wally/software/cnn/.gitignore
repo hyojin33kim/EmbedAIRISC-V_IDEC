@@ -1,0 +1,7 @@
+/build/
+/cnn.elf
+/cnn.bin
+/cnn.dump
+/cnn.elf.memfile
+/cnn.elf.objdump*
+/cnn.map

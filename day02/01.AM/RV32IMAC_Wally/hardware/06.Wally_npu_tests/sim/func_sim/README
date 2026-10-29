@@ -1,0 +1,16 @@
+NPU 펌웨어의 실제 CPU 및 SoC 시뮬레이션을 실행한다.
+
+make run
+make regression
+
+기본 run은 rock demo 두 번, regression은 paper/rock/scissors 각각 두 번이다.
+펌웨어는 ../../../../software/npu/npu.elf를 사용하며 기존 cnn 심볼릭 링크는 사용하지 않는다.
+소프트웨어 README와 build/results.json 및 build/uart_*.log에서 결과와 사이클을 확인한다.
+
+동일 compare.elf를 사용하는 CPU-only/NPU 비교는 다음과 같이 실행한다.
+
+make compare SAMPLES=124
+
+분리 실행은 make compare-npu SAMPLES=124, make compare-cpu SAMPLES=124, make compare-report 순서다.
+build/comparison.csv의 cpu_only_cycles와 npu_end_to_end_cycles 및 speedup을 확인한다.
+이 비교 경로는 빌드/컴파일만 확인했으며 실제 추론 실행은 사용자 담당이다.

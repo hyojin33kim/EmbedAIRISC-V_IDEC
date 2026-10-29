@@ -1,0 +1,19 @@
+{
+  "input_shape": [
+    1,
+    1,
+    32,
+    32
+  ],
+  "source_sha256": "d57755ad063f98a061d954369d6d54f91af6cf726b596298f34deef5062d53d8",
+  "test_count": 372,
+  "cpu_gpu_prediction_agreement_percent": 100.0,
+  "cpu_gpu_max_probability_abs_error": 8.940696716308594e-07,
+  "all_parameters_fp32": true,
+  "original_split_preserved": true,
+  "train_validation_overlap": 0,
+  "train_validation_group_overlap": 0,
+  "test_used_for_training_or_selection": false,
+  "regression_test_command": "python -m unittest test_model -v",
+  "regression_tests_passed": 9
+}

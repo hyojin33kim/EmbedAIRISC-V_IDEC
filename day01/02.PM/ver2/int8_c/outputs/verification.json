@@ -1,0 +1,79 @@
+{
+  "source_checkpoint": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/qat/outputs/model_int8.pt",
+  "source_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+  "torch_version": "2.14.1+cu126",
+  "count": 372,
+  "labeled_count": 372,
+  "classes": [
+    "paper",
+    "rock",
+    "scissors"
+  ],
+  "weight_arrays_and_parameters_verified": 30,
+  "header_binary_source_arrays_equal": true,
+  "compiled_alignment_verified": true,
+  "c_vs_integer_reference_all_stages_exact_images": 372,
+  "c_fp32_input_quantization_exact_images": 372,
+  "c_gray8_input_exact_images": 372,
+  "c_vs_pytorch_prediction_agreement_percent": 100.0,
+  "c_correct": 360,
+  "c_accuracy_percent": 96.7741935483871,
+  "pytorch_correct": 360,
+  "pytorch_accuracy_percent": 96.7741935483871,
+  "c_vs_pytorch_exact_output_images": 372,
+  "max_output_code_error": 0,
+  "max_logit_abs_error": 0.0,
+  "logit_mean_absolute_error": 0.0,
+  "stage_errors_vs_pytorch": [
+    {
+      "name": "features.0",
+      "compared_values": 761856,
+      "mismatched_values": 1,
+      "max_code_error": 1,
+      "absolute_code_error_sum": 1
+    },
+    {
+      "name": "features.3",
+      "compared_values": 380928,
+      "mismatched_values": 0,
+      "max_code_error": 0,
+      "absolute_code_error_sum": 0
+    },
+    {
+      "name": "features.6",
+      "compared_values": 190464,
+      "mismatched_values": 0,
+      "max_code_error": 0,
+      "absolute_code_error_sum": 0
+    },
+    {
+      "name": "features.9",
+      "compared_values": 47616,
+      "mismatched_values": 0,
+      "max_code_error": 0,
+      "absolute_code_error_sum": 0
+    },
+    {
+      "name": "classifier.1",
+      "compared_values": 11904,
+      "mismatched_values": 0,
+      "max_code_error": 0,
+      "absolute_code_error_sum": 0
+    },
+    {
+      "name": "classifier.3",
+      "compared_values": 1116,
+      "mismatched_values": 0,
+      "max_code_error": 0,
+      "absolute_code_error_sum": 0
+    }
+  ],
+  "cli_u8_gray8_f32le_passed": true,
+  "float_wrapper_passed": true,
+  "input_rounding_boundaries_passed": true,
+  "truncated_empty_input_rejected": true,
+  "weight_bytes": 19240,
+  "workspace_bytes": 4096,
+  "validation_seconds": 2.7694358550361358,
+  "integer_only_all_stages_and_lut_exact_images": 372
+}

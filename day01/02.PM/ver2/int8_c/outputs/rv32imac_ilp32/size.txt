@@ -1,0 +1,2 @@
+   text	   data	    bss	    dec	    hex	filename
+ 116132	      0	  13360	 129492	  1f9d4	/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/int8_c/build/firmware_rv32imac_ilp32.elf

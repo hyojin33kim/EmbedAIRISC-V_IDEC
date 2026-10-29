@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "architecture": "rv32i2p1_m2p0_a2p1_c2p0_zmmul1p0",
+  "abi": "ilp32",
+  "flags": [
+    "-march=rv32imac",
+    "-mabi=ilp32",
+    "-O2",
+    "-std=c11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-fno-stack-protector",
+    "-msmall-data-limit=0",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-DMODEL_INTEGER_ONLY",
+    "-include",
+    "firmware_no_float.h"
+  ],
+  "compiler": "riscv64-unknown-elf-gcc (13.2.0-11ubuntu1+12) 13.2.0",
+  "qemu": "qemu-riscv32 version 8.2.2 (Debian 1:8.2.2+ds-0ubuntu1.18)",
+  "elf": "build/firmware_rv32imac_ilp32.elf",
+  "elf_sha256": "bcf5b178c2bcd2f6d6d62047ffdc9d2a90fcfa8846500565d5cb105834796b1c",
+  "source_model_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+  "sources": [
+    {
+      "source": "model.c",
+      "float_type_tokens": 0,
+      "floating_literals": 0,
+      "preprocessed_sha256": "4a10d282c30be0cbc9687adce40f7336189fe582ff70c4b78a2519a6635ad905"
+    },
+    {
+      "source": "image_preprocess.c",
+      "float_type_tokens": 0,
+      "floating_literals": 0,
+      "preprocessed_sha256": "f39997151b7f0b1c1f4a373a255545fe6d4069a044b68cf3fde0fd6a3ce8620e"
+    },
+    {
+      "source": "firmware_main.c",
+      "float_type_tokens": 0,
+      "floating_literals": 0,
+      "preprocessed_sha256": "17c3ef326fc6f2ea6fb647291bd3b619dd44e1572b795af69b1ddbba5797f9ba"
+    },
+    {
+      "source": "firmware_example.c",
+      "float_type_tokens": 0,
+      "floating_literals": 0,
+      "preprocessed_sha256": "409b15061b9bc9792ac63fee397750eb780b335ae412b6298cf72e8549cb9049"
+    }
+  ],
+  "type_guard_negative_tests": [
+    "float",
+    "double",
+    "long_double",
+    "_Float32"
+  ],
+  "floating_literal_negative_tests": 4,
+  "fp_symbols": [],
+  "fp_instructions": [],
+  "undefined_symbols": [],
+  "instruction_count": 1442,
+  "size": "text\t   data\t    bss\t    dec\t    hex\tfilename\n 116132\t      0\t  13360\t 129492\t  1f9d4\t/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/int8_c/build/firmware_rv32imac_ilp32.elf",
+  "qemu_result_words": [
+    1229870136,
+    1,
+    54,
+    87,
+    41,
+    300,
+    300,
+    0
+  ],
+  "prediction": "rock",
+  "qemu_matches_qat_baseline": true
+}

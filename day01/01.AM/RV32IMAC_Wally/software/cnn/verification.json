@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-23",
+  "timezone": "Asia/Seoul",
+  "passed": true,
+  "model_source_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+  "input_contract": "preprocessed 32x32 gray8; LUT activation quantization retained",
+  "expected_firmware_result": [
+    1229870136,
+    1,
+    54,
+    87,
+    41,
+    32,
+    32,
+    0
+  ],
+  "host_regression_tests_passed": 4,
+  "test_images": 372,
+  "test_correct": 360,
+  "test_accuracy_percent": 96.7741935483871,
+  "all_input_quantization_and_output_codes_match_ver2": true,
+  "architecture": "rv32i2p1_m2p0_a2p1_c2p0_zicsr2p0_zifencei2p0_zmmul1p0_zaamo1p0_zalrsc1p0_zca1p0",
+  "entry_point": "0x80000000",
+  "preprocess_sources_removed": true,
+  "preprocess_symbols": [],
+  "fp_symbols": [],
+  "fp_instructions": [],
+  "undefined_symbols": [],
+  "no_fp_sources": [
+    "model.c",
+    "firmware_main.c",
+    "uprintf.c",
+    "uart.c",
+    "wally_sys.c"
+  ],
+  "type_guard_negative_tests": [
+    "float",
+    "double",
+    "long double",
+    "_Float32"
+  ],
+  "mcycle_wraps_inference_call": true,
+  "linux_syscalls": false,
+  "weight_bytes": 19240,
+  "demo_frame_bytes": 1024,
+  "workspace_bytes": 4096,
+  "binary_bytes": 26332,
+  "memfile_words": 6583,
+  "memfile_matches_binary": true,
+  "symbol_files_match_elf": true,
+  "elf_sha256": "b3be1c485ed7f33dbdd9561fe5d9045ae4db377363e3cafe8876b4cf40c580f0",
+  "addresses": {
+    "firmware_result": "0x800066e0",
+    "begin_signature": "0x800066e0",
+    "sig_end_canary": "0x80006700",
+    "_stack_bottom": "0x80007b20",
+    "_stack_top": "0x80017b20",
+    "end_loop": "0x8000003e",
+    "trap_loop": "0x80000042"
+  },
+  "sections": "cnn.elf  :\nsection              size         addr\n.text                3408   2147483648\n.rodata             22924   2147487056\n.bss                 5184   2147509984\n.stack              65536   2147515168\n.comment               15            0\n.riscv.attributes     103            0\nTotal               97170\n\n\n",
+  "full_rtl_simulation_run": false
+}

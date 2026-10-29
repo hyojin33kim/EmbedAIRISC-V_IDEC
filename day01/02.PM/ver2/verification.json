@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-22",
+  "timezone": "Asia/Seoul",
+  "input_shape": [
+    1,
+    1,
+    32,
+    32
+  ],
+  "validation_order": [
+    "pytorch",
+    "qat",
+    "ptq",
+    "int8_c"
+  ],
+  "model_config": {
+    "num_classes": 3,
+    "base_channels": 8,
+    "hidden_dim": 32,
+    "conv_blocks": 4,
+    "bias": false
+  },
+  "training": {
+    "fp32_device": "cuda",
+    "fp32_epochs": 150,
+    "fp32_selected_epoch": 69,
+    "qat_device": "cuda",
+    "qat_epochs": 5,
+    "qat_selected_epoch": 1,
+    "ptq_calibration_samples": 256
+  },
+  "results": [
+    {
+      "model": "pytorch",
+      "correct": 358,
+      "count": 372,
+      "accuracy_percent": 96.23655913978494
+    },
+    {
+      "model": "qat",
+      "correct": 360,
+      "count": 372,
+      "accuracy_percent": 96.7741935483871
+    },
+    {
+      "model": "ptq",
+      "correct": 356,
+      "count": 372,
+      "accuracy_percent": 95.6989247311828
+    },
+    {
+      "model": "int8_c",
+      "correct": 360,
+      "count": 372,
+      "accuracy_percent": 96.7741935483871
+    }
+  ],
+  "cpu_gpu_fp32_predictions_equal": true,
+  "qat_c_all_stages_equal": true,
+  "qat_c_max_logit_abs_error": 0.0,
+  "int8_weight_bytes": 19240,
+  "c_workspace_bytes": 4096,
+  "regression_tests_passed": 29,
+  "checks": [
+    {
+      "cwd": "pytorch",
+      "command": "python -m unittest test_model -v",
+      "passed": true,
+      "tests": 9
+    },
+    {
+      "cwd": "ptq",
+      "command": "python -m unittest discover -s day01/02.PM/ver2/ptq -p test_quantization.py -v",
+      "passed": true,
+      "tests": 8,
+      "command_cwd": "repository root"
+    },
+    {
+      "cwd": "int8_c",
+      "command": "PYTHON=/home/user/anaconda3/envs/sr_hat/bin/python bash run_all.sh",
+      "passed": true,
+      "exporter_tests": 5,
+      "full_test_images": 372,
+      "native_c_fixtures": 48,
+      "asan_ubsan": true,
+      "optimized_sanitizer_csv_equal": true
+    },
+    {
+      "cwd": "int8_c",
+      "command": "python -m unittest test_image_inference -v",
+      "passed": true,
+      "tests": 7
+    },
+    {
+      "cwd": "int8_c",
+      "command": "PATH=/tmp/int8_c_riscv/root/usr/bin:$PATH make riscv-verify PYTHON=/home/user/anaconda3/envs/sr_hat/bin/python",
+      "passed": true,
+      "target": "rv32imac/ilp32",
+      "qemu": true
+    }
+  ],
+  "limitations": [
+    "동일 조건의 64x64 모델보다 test 정확도가 낮아졌다.",
+    "실물 보드 카메라·UART·성능은 검증하지 않았다."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "source_sha256": "1c9a184c29752d698409fe8e3d3c72f1d3e96225287ff70f11b593d1747e2d7b",
+  "backend": "x86",
+  "fp32_test_accuracy": 100.0,
+  "test_count": 372,
+  "comparable_source_split_test": true,
+  "results": [
+    {
+      "method": "PTQ",
+      "test_accuracy": 100.0,
+      "validation_accuracy": 100.0,
+      "int8_weight_bytes": 31528,
+      "int8_state_dict_bytes": 43715,
+      "cpu_median_ms": 0.5602649762295187,
+      "reload_equal": true
+    },
+    {
+      "method": "QAT",
+      "test_accuracy": 100.0,
+      "validation_accuracy": 100.0,
+      "int8_weight_bytes": 31528,
+      "int8_state_dict_bytes": 43715,
+      "cpu_median_ms": 0.5355279718060046,
+      "reload_equal": true
+    }
+  ]
+}

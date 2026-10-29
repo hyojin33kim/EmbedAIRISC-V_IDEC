@@ -1,0 +1,164 @@
+{
+  "method": "ptq",
+  "backend": "x86",
+  "inference_device": "cpu",
+  "source_checkpoint": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/pytorch/outputs/model_fp32.pth",
+  "source_sha256": "d57755ad063f98a061d954369d6d54f91af6cf726b596298f34deef5062d53d8",
+  "source_epoch": 69,
+  "classes": [
+    "paper",
+    "rock",
+    "scissors"
+  ],
+  "versions": {
+    "python": "3.12.15",
+    "torch": "2.14.1+cu126",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39"
+  },
+  "determinism": "seeded; deterministic_algorithms=False for INT8 kernel support; CUDNN deterministic=True",
+  "config": {
+    "checkpoint": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/pytorch/outputs/model_fp32.pth",
+    "split": null,
+    "data_root": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/dataset/rps",
+    "output_dir": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/ptq/outputs",
+    "backend": "auto",
+    "batch_size": 64,
+    "num_threads": 4,
+    "seed": 42,
+    "benchmark_runs": 50,
+    "stage": "all",
+    "calibration_samples": 256,
+    "layer": "classifier.1",
+    "print_weight": false
+  },
+  "validation": {
+    "fp32": {
+      "loss": 0.1691637520574861,
+      "accuracy": 96.66666666666667,
+      "correct": 348,
+      "count": 360,
+      "confusion_matrix": [
+        [
+          108,
+          0,
+          12
+        ],
+        [
+          0,
+          120,
+          0
+        ],
+        [
+          0,
+          0,
+          120
+        ]
+      ]
+    },
+    "int8": {
+      "loss": 0.17342948036061392,
+      "accuracy": 97.22222222222223,
+      "correct": 350,
+      "count": 360,
+      "confusion_matrix": [
+        [
+          110,
+          0,
+          10
+        ],
+        [
+          0,
+          120,
+          0
+        ],
+        [
+          0,
+          0,
+          120
+        ]
+      ]
+    }
+  },
+  "test": {
+    "fp32": {
+      "loss": 0.12476874839875006,
+      "accuracy": 96.23655913978494,
+      "correct": 358,
+      "count": 372,
+      "confusion_matrix": [
+        [
+          110,
+          14,
+          0
+        ],
+        [
+          0,
+          124,
+          0
+        ],
+        [
+          0,
+          0,
+          124
+        ]
+      ]
+    },
+    "int8": {
+      "loss": 0.12948950788667124,
+      "accuracy": 95.6989247311828,
+      "correct": 356,
+      "count": 372,
+      "confusion_matrix": [
+        [
+          108,
+          16,
+          0
+        ],
+        [
+          0,
+          124,
+          0
+        ],
+        [
+          0,
+          0,
+          124
+        ]
+      ]
+    }
+  },
+  "accuracy_drop_percentage_points": 0.5376344086021447,
+  "test_prediction_agreement_percent": 99.46236559139786,
+  "sizes": {
+    "fp32_conv_linear_weight_bytes": 76960,
+    "int8_conv_linear_weight_bytes": 19240,
+    "fp32_state_dict_bytes": 80149,
+    "int8_state_dict_bytes": 31427,
+    "source_checkpoint_file_bytes": 80633,
+    "int8_checkpoint_file_bytes": 32565
+  },
+  "benchmark": {
+    "fp32": {
+      "batch_size": 1,
+      "device": "cpu",
+      "runs": 50,
+      "warmup": 10,
+      "median_ms": 0.1758860016707331,
+      "mean_ms": 0.18039748072624207
+    },
+    "int8": {
+      "batch_size": 1,
+      "device": "cpu",
+      "runs": 50,
+      "warmup": 10,
+      "median_ms": 0.5168695061001927,
+      "mean_ms": 0.5273098032921553
+    }
+  },
+  "verification": {
+    "all_conv_linear_weights_qint8": true,
+    "quantized_layer_count": 6,
+    "save_reload_max_logit_error": 0.0,
+    "save_reload_all_predictions_equal": true
+  }
+}

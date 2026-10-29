@@ -1,0 +1,3 @@
+-r ../pytorch/requirements.txt
+# Eager quantization API를 검증한 버전 범위. 신규 환경에서는 아래 문서의 검증 버전 권장.
+torch<2.15

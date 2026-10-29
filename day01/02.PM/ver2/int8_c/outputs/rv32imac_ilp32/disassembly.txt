@@ -1,0 +1,1469 @@
+
+/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/int8_c/build/firmware_rv32imac_ilp32.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010094 <main>:
+   10094:	addi	sp,sp,-16
+   10096:	sw	s0,8(sp)
+   10098:	sw	s1,4(sp)
+   1009a:	lui	a6,0x494e5
+   1009e:	lui	s1,0x2d
+   100a2:	lui	s0,0x2d
+   100a6:	lui	a0,0x16
+   100a8:	sw	ra,12(sp)
+   100aa:	addi	s0,s0,1616 # 2d650 <firmware_result>
+   100ae:	addi	a6,a6,1080 # 494e5438 <__BSS_END__+0x494b49b8>
+   100b2:	addi	a5,s1,1652 # 2d674 <gray_input>
+   100b6:	li	a4,1
+   100b8:	li	a3,300
+   100bc:	li	a2,300
+   100c0:	li	a1,300
+   100c4:	addi	a0,a0,1420 # 1658c <demo_frame>
+   100c8:	sw	a6,0(s0)
+   100cc:	jal	10d78 <image_preprocess_gray8>
+   100d0:	beqz	a0,100d8 <main+0x44>
+   100d2:	sw	a0,28(s0)
+   100d4:	li	s1,2
+   100d6:	j	10126 <main+0x92>
+   100d8:	addi	a1,s1,1652
+   100dc:	addi	a0,s1,1652
+   100e0:	jal	106d2 <model_gray_to_input>
+   100e2:	bnez	a0,100d2 <main+0x3e>
+   100e4:	sw	s2,0(sp)
+   100e6:	lui	a2,0x2e
+   100ea:	addi	a0,s1,1652
+   100ee:	addi	a2,a2,-1408 # 2da80 <workspace>
+   100f2:	addi	a1,gp,-2004 # 2d670 <output>
+   100f6:	jal	106cc <model_infer_u8>
+   100f8:	sw	a0,28(s0)
+   100fa:	mv	s1,a0
+   100fc:	bnez	a0,10132 <main+0x9e>
+   100fe:	addi	a0,gp,-2004 # 2d670 <output>
+   10102:	jal	106fe <model_argmax>
+   10104:	addi	a5,gp,-2004 # 2d670 <output>
+   10108:	lbu	a3,-2004(gp) # 2d670 <output>
+   1010c:	lbu	a4,1(a5)
+   10110:	sw	a0,4(s0)
+   10112:	lbu	a5,2(a5)
+   10116:	sw	a3,8(s0)
+   10118:	sw	a4,12(s0)
+   1011a:	sw	a5,16(s0)
+   1011c:	lw	s2,0(sp)
+   1011e:	li	a5,300
+   10122:	sw	a5,20(s0)
+   10124:	sw	a5,24(s0)
+   10126:	lw	ra,12(sp)
+   10128:	lw	s0,8(sp)
+   1012a:	mv	a0,s1
+   1012c:	lw	s1,4(sp)
+   1012e:	addi	sp,sp,16
+   10130:	ret
+   10132:	lw	s2,0(sp)
+   10134:	li	s1,2
+   10136:	j	10126 <main+0x92>
+
+00010138 <model_round_shift_even>:
+   10138:	addi	a5,a2,-32
+   1013c:	bltz	a5,10214 <model_round_shift_even+0xdc>
+   10140:	li	a4,-1
+   10142:	sll	a4,a4,a5
+   10146:	li	a3,0
+   10148:	addi	a6,a2,-33
+   1014c:	not	a3,a3
+   10150:	not	a4,a4
+   10154:	addi	t1,a2,-1
+   10158:	bltz	a6,1020a <model_round_shift_even+0xd2>
+   1015c:	li	a7,1
+   1015e:	sll	a6,a7,a6
+   10162:	li	a7,0
+   10164:	bltz	a1,101d0 <model_round_shift_even+0x98>
+   10168:	bltz	a5,10190 <model_round_shift_even+0x58>
+   1016c:	srl	a5,a1,a5
+   10170:	and	a1,a1,a4
+   10172:	li	a2,0
+   10174:	and	a0,a0,a3
+   10176:	bltu	a6,a1,101b0 <model_round_shift_even+0x78>
+   1017a:	beq	a1,a6,1024e <model_round_shift_even+0x116>
+   1017e:	beq	a7,a0,10254 <model_round_shift_even+0x11c>
+   10182:	bnez	a2,10188 <model_round_shift_even+0x50>
+   10184:	bgez	a5,101cc <model_round_shift_even+0x94>
+   10188:	lui	a0,0x80000
+   1018c:	addi	a0,a0,-1 # 7fffffff <__BSS_END__+0x7ffcf57f>
+   1018e:	ret
+   10190:	li	a5,31
+   10192:	sub	a5,a5,a2
+   10194:	slli	t1,a1,0x1
+   10198:	sll	t1,t1,a5
+   1019c:	srl	a5,a0,a2
+   101a0:	srl	a2,a1,a2
+   101a4:	and	a1,a1,a4
+   101a6:	or	a5,t1,a5
+   101aa:	and	a0,a0,a3
+   101ac:	bgeu	a6,a1,1017a <model_round_shift_even+0x42>
+   101b0:	addi	a4,a5,1
+   101b4:	sltu	a5,a4,a5
+   101b8:	add	a2,a2,a5
+   101ba:	mv	a5,a4
+   101bc:	bgtz	a2,10188 <model_round_shift_even+0x50>
+   101c0:	beqz	a2,10286 <model_round_shift_even+0x14e>
+   101c2:	li	a4,-1
+   101c4:	blt	a2,a4,10294 <model_round_shift_even+0x15c>
+   101c8:	beq	a2,a4,1028c <model_round_shift_even+0x154>
+   101cc:	mv	a0,a5
+   101ce:	ret
+   101d0:	snez	t1,a0
+   101d4:	neg	a1,a1
+   101d8:	neg	a0,a0
+   101dc:	sub	a1,a1,t1
+   101e0:	bltz	a5,1026c <model_round_shift_even+0x134>
+   101e4:	srl	a5,a1,a5
+   101e8:	li	a2,0
+   101ea:	and	a4,a4,a1
+   101ec:	and	a3,a3,a0
+   101ee:	bltu	a6,a4,10234 <model_round_shift_even+0xfc>
+   101f2:	beq	a4,a6,10230 <model_round_shift_even+0xf8>
+   101f6:	beq	a7,a3,10260 <model_round_shift_even+0x128>
+   101fa:	snez	a4,a5
+   101fe:	neg	a2,a2
+   10202:	neg	a5,a5
+   10206:	sub	a2,a2,a4
+   10208:	j	101c2 <model_round_shift_even+0x8a>
+   1020a:	li	a7,1
+   1020c:	li	a6,0
+   1020e:	sll	a7,a7,t1
+   10212:	j	10164 <model_round_shift_even+0x2c>
+   10214:	li	a3,-1
+   10216:	li	a4,31
+   10218:	srli	a6,a3,0x1
+   1021c:	sub	a4,a4,a2
+   1021e:	srl	a6,a6,a4
+   10222:	sll	a4,a3,a2
+   10226:	or	a4,a6,a4
+   1022a:	sll	a3,a3,a2
+   1022e:	j	10148 <model_round_shift_even+0x10>
+   10230:	bgeu	a7,a3,101f6 <model_round_shift_even+0xbe>
+   10234:	addi	a4,a5,1
+   10238:	sltu	a5,a4,a5
+   1023c:	add	a2,a2,a5
+   1023e:	snez	a3,a4
+   10242:	neg	a2,a2
+   10246:	neg	a5,a4
+   1024a:	sub	a2,a2,a3
+   1024c:	j	101bc <model_round_shift_even+0x84>
+   1024e:	bltu	a7,a0,101b0 <model_round_shift_even+0x78>
+   10252:	j	1017e <model_round_shift_even+0x46>
+   10254:	bne	a6,a1,10182 <model_round_shift_even+0x4a>
+   10258:	andi	a4,a5,1
+   1025c:	bnez	a4,101b0 <model_round_shift_even+0x78>
+   1025e:	j	101bc <model_round_shift_even+0x84>
+   10260:	bne	a6,a4,101fa <model_round_shift_even+0xc2>
+   10264:	andi	a4,a5,1
+   10268:	beqz	a4,101fa <model_round_shift_even+0xc2>
+   1026a:	j	10234 <model_round_shift_even+0xfc>
+   1026c:	li	a5,31
+   1026e:	sub	a5,a5,a2
+   10270:	slli	t1,a1,0x1
+   10274:	sll	t1,t1,a5
+   10278:	srl	a5,a0,a2
+   1027c:	or	a5,t1,a5
+   10280:	srl	a2,a1,a2
+   10284:	j	101ea <model_round_shift_even+0xb2>
+   10286:	bgez	a5,101c2 <model_round_shift_even+0x8a>
+   1028a:	j	10188 <model_round_shift_even+0x50>
+   1028c:	lui	a4,0x80000
+   10290:	bgeu	a5,a4,101cc <model_round_shift_even+0x94>
+   10294:	lui	a0,0x80000
+   10298:	ret
+
+0001029a <model_infer_u8_trace>:
+   1029a:	beqz	a0,106b4 <model_infer_u8_trace+0x41a>
+   1029e:	addi	sp,sp,-144
+   102a0:	sw	s2,128(sp)
+   102a2:	sw	ra,140(sp)
+   102a4:	mv	s2,a1
+   102a6:	beqz	a1,106c8 <model_infer_u8_trace+0x42e>
+   102aa:	sw	s4,120(sp)
+   102ac:	mv	s4,a2
+   102ae:	beqz	a2,106c2 <model_infer_u8_trace+0x428>
+   102b2:	sw	s5,116(sp)
+   102b4:	sw	s10,96(sp)
+   102b6:	mv	s5,a3
+   102b8:	mv	s10,a0
+   102ba:	beqz	a3,102c6 <model_infer_u8_trace+0x2c>
+   102bc:	lui	a5,0x1
+   102be:	addi	a5,a5,-350 # ea2 <main-0xf1f2>
+   102c2:	bgeu	a5,a4,106b8 <model_infer_u8_trace+0x41e>
+   102c6:	lui	a5,0x1
+   102c8:	lui	a4,0x11
+   102ca:	addi	a5,a5,-2048 # 800 <main-0xf894>
+   102ce:	add	a5,a5,s4
+   102d0:	sw	s9,100(sp)
+   102d2:	addi	s9,a4,460 # 111cc <model_layers>
+   102d6:	sw	a5,36(sp)
+   102d8:	lw	a5,4(s9)
+   102dc:	sw	s8,104(sp)
+   102de:	sw	s11,92(sp)
+   102e0:	sw	s2,40(sp)
+   102e2:	mv	s8,s4
+   102e4:	li	s11,-1
+   102e6:	beqz	a5,1049e <model_infer_u8_trace+0x204>
+   102ea:	sw	s6,112(sp)
+   102ec:	lw	s6,24(s9)
+   102f0:	blez	s6,106b0 <model_infer_u8_trace+0x416>
+   102f4:	sw	s3,124(sp)
+   102f6:	lw	s3,28(s9)
+   102fa:	sw	s0,136(sp)
+   102fc:	sw	s1,132(sp)
+   102fe:	addi	a5,s3,1
+   10302:	slli	a1,a5,0x1
+   10306:	sw	s7,108(sp)
+   10308:	li	s2,0
+   1030a:	li	a3,0
+   1030c:	mv	a5,a1
+   1030e:	mv	s0,s8
+   10310:	blez	s3,10464 <model_infer_u8_trace+0x1ca>
+   10314:	lw	a6,32(s9)
+   10318:	mul	s1,a6,s2
+   1031c:	li	s8,2
+   1031e:	add	s1,s1,s0
+   10320:	blez	a6,1062c <model_infer_u8_trace+0x392>
+   10324:	mv	a7,a5
+   10326:	slli	s7,a3,0x2
+   1032a:	mv	a5,a3
+   1032c:	sw	s6,44(sp)
+   1032e:	sw	s2,48(sp)
+   10330:	sw	s3,52(sp)
+   10332:	sw	s0,56(sp)
+   10334:	sw	s4,60(sp)
+   10336:	sw	s5,64(sp)
+   10338:	lw	s2,12(s9)
+   1033c:	lw	a4,8(s9)
+   10340:	lw	s6,40(s9)
+   10344:	mul	a2,s2,a5
+   10348:	lw	a1,56(s9)
+   1034c:	snez	a4,a4
+   10350:	neg	a4,a4
+   10354:	and	a3,s6,a4
+   10358:	add	a4,a1,s7
+   1035c:	lw	s3,52(s9)
+   10360:	sw	a4,20(sp)
+   10362:	srai	a4,s6,0x1f
+   10366:	sw	a4,24(sp)
+   10368:	slli	a4,a2,0x3
+   1036c:	add	s5,a4,a2
+   10370:	addi	a1,s8,-2
+   10374:	add	a4,a6,s1
+   10378:	mv	s0,s1
+   1037a:	add	s3,s3,s7
+   1037c:	srai	s4,a3,0x1f
+   10380:	li	a2,0
+   10382:	sw	a1,28(sp)
+   10384:	sw	a7,68(sp)
+   10386:	sw	a5,72(sp)
+   10388:	sw	a3,32(sp)
+   1038a:	sw	a6,76(sp)
+   1038c:	sw	a4,16(sp)
+   1038e:	lw	a5,28(sp)
+   10390:	lui	a0,0x80000
+   10394:	addi	s1,a2,2
+   10398:	mv	a3,a2
+   1039a:	addi	ra,a5,2
+   1039e:	addi	a7,a5,-1
+   103a2:	li	a6,0
+   103a4:	blez	s2,103d8 <model_infer_u8_trace+0x13e>
+   103a8:	addi	t5,a3,2
+   103ac:	mv	t3,s5
+   103ae:	li	a6,0
+   103b0:	li	t1,0
+   103b2:	mv	t6,t5
+   103b4:	mv	a1,a7
+   103b6:	mv	a4,t3
+   103b8:	mv	t2,a5
+   103ba:	beq	a1,s11,103c6 <model_infer_u8_trace+0x12c>
+   103be:	lw	t4,16(s9)
+   103c2:	blt	a1,t4,105cc <model_infer_u8_trace+0x332>
+   103c6:	addi	a1,a1,1
+   103c8:	addi	a4,a4,3
+   103ca:	bne	ra,a1,103ba <model_infer_u8_trace+0x120>
+   103ce:	addi	t1,t1,1
+   103d0:	mv	a5,t2
+   103d2:	addi	t3,t3,9
+   103d4:	bne	t1,s2,103b4 <model_infer_u8_trace+0x11a>
+   103d8:	bge	a0,a6,103de <model_infer_u8_trace+0x144>
+   103dc:	mv	a0,a6
+   103de:	addi	a3,a3,1
+   103e0:	bne	s1,a3,103a2 <model_infer_u8_trace+0x108>
+   103e4:	addi	a5,a5,1
+   103e6:	bne	a5,s8,10398 <model_infer_u8_trace+0xfe>
+   103ea:	lw	a5,0(s3)
+   103ee:	lw	a4,20(sp)
+   103f0:	mulh	a1,a0,a5
+   103f4:	lw	a2,0(a4)
+   103f6:	mul	a0,a0,a5
+   103fa:	jal	10138 <model_round_shift_even>
+   103fc:	lw	a2,24(sp)
+   103fe:	add	a4,a0,s6
+   10402:	srai	a3,a0,0x1f
+   10406:	sltu	a5,a4,a0
+   1040a:	add	a3,a3,a2
+   1040c:	add	a5,a5,a3
+   1040e:	blt	a5,s4,105c2 <model_infer_u8_trace+0x328>
+   10412:	beq	s4,a5,105bc <model_infer_u8_trace+0x322>
+   10416:	blez	a5,1042e <model_infer_u8_trace+0x194>
+   1041a:	li	a4,255
+   1041e:	lw	a5,16(sp)
+   10420:	sb	a4,0(s0)
+   10424:	addi	s0,s0,1
+   10426:	beq	a5,s0,10444 <model_infer_u8_trace+0x1aa>
+   1042a:	mv	a2,s1
+   1042c:	j	1038e <model_infer_u8_trace+0xf4>
+   1042e:	bnez	a5,1041e <model_infer_u8_trace+0x184>
+   10430:	li	a5,255
+   10434:	bltu	a5,a4,1041a <model_infer_u8_trace+0x180>
+   10438:	lw	a5,16(sp)
+   1043a:	sb	a4,0(s0)
+   1043e:	addi	s0,s0,1
+   10440:	bne	a5,s0,1042a <model_infer_u8_trace+0x190>
+   10444:	lw	a4,16(sp)
+   10446:	lw	a7,68(sp)
+   10448:	addi	s8,s8,2
+   1044a:	lw	a5,72(sp)
+   1044c:	lw	a6,76(sp)
+   1044e:	mv	s1,a4
+   10450:	bne	a7,s8,10338 <model_infer_u8_trace+0x9e>
+   10454:	lw	s6,44(sp)
+   10456:	lw	s2,48(sp)
+   10458:	lw	s3,52(sp)
+   1045a:	lw	s0,56(sp)
+   1045c:	lw	s4,60(sp)
+   1045e:	lw	s5,64(sp)
+   10460:	mv	a3,a5
+   10462:	mv	a5,a7
+   10464:	addi	a3,a3,1
+   10466:	add	s2,s2,s3
+   10468:	bne	s6,a3,10310 <model_infer_u8_trace+0x76>
+   1046c:	mv	s8,s0
+   1046e:	lw	s0,136(sp)
+   10470:	lw	s1,132(sp)
+   10472:	lw	s3,124(sp)
+   10474:	lw	s6,112(sp)
+   10476:	lw	s7,108(sp)
+   10478:	bnez	s5,10656 <model_infer_u8_trace+0x3bc>
+   1047c:	lw	a5,36(sp)
+   1047e:	beq	s4,s8,10484 <model_infer_u8_trace+0x1ea>
+   10482:	mv	a5,s4
+   10484:	lui	a4,0x11
+   10486:	addi	s9,s9,68
+   1048a:	addi	a4,a4,868 # 11364 <model_gray8_to_input>
+   1048e:	mv	s10,s8
+   10490:	beq	s9,a4,1067a <model_infer_u8_trace+0x3e0>
+   10494:	mv	s8,a5
+   10496:	lw	a5,4(s9)
+   1049a:	bnez	a5,102ea <model_infer_u8_trace+0x50>
+   1049e:	lw	a4,16(s9)
+   104a2:	sw	s1,132(sp)
+   104a4:	lw	s1,12(s9)
+   104a8:	lw	a5,20(s9)
+   104ac:	sw	s3,124(sp)
+   104ae:	mul	s1,s1,a4
+   104b2:	lw	s3,24(s9)
+   104b6:	mul	s1,s1,a5
+   104ba:	blez	s3,106aa <model_infer_u8_trace+0x410>
+   104be:	sw	s0,136(sp)
+   104c0:	lw	s0,8(s9)
+   104c4:	lw	t3,40(s9)
+   104c8:	lw	t1,52(s9)
+   104cc:	snez	s0,s0
+   104d0:	neg	s0,s0
+   104d4:	and	s0,t3,s0
+   104d8:	lw	a7,56(s9)
+   104dc:	srai	a3,s0,0x1f
+   104e0:	slli	s3,s3,0x2
+   104e2:	mv	a4,s5
+   104e4:	mv	a5,a3
+   104e6:	sw	s6,112(sp)
+   104e8:	sw	s7,108(sp)
+   104ea:	mv	s5,a7
+   104ec:	mv	s7,s8
+   104ee:	mv	a7,s4
+   104f0:	mv	a3,s8
+   104f2:	mv	s4,t1
+   104f4:	mv	s8,s3
+   104f6:	srai	a6,t3,0x1f
+   104fa:	mv	s3,s0
+   104fc:	li	s2,0
+   104fe:	li	s6,0
+   10500:	add	t6,s10,s1
+   10504:	mv	s0,a5
+   10506:	mv	t1,a4
+   10508:	li	a5,0
+   1050a:	li	a1,0
+   1050c:	blez	s1,10548 <model_infer_u8_trace+0x2ae>
+   10510:	lw	a5,48(s9)
+   10514:	lw	a4,44(s9)
+   10518:	lw	a0,36(s9)
+   1051c:	add	a5,a5,s2
+   1051e:	lw	t5,0(a5)
+   10522:	mv	a1,s10
+   10524:	add	a4,a4,s6
+   10526:	li	a5,0
+   10528:	lbu	a2,0(a1)
+   1052c:	lb	t4,0(a4)
+   10530:	addi	a1,a1,1
+   10532:	sub	a2,a2,a0
+   10534:	sub	t4,t4,t5
+   10538:	mul	a2,a2,t4
+   1053c:	addi	a4,a4,1
+   1053e:	add	a5,a5,a2
+   10540:	bne	a1,t6,10528 <model_infer_u8_trace+0x28e>
+   10544:	srai	a1,a5,0x1f
+   10548:	add	a4,s4,s2
+   1054c:	lw	a0,0(a4)
+   1054e:	add	a4,s5,s2
+   10552:	lw	a2,0(a4)
+   10554:	srai	a4,a0,0x1f
+   10558:	mul	a4,a4,a5
+   1055c:	sw	t6,24(sp)
+   1055e:	sw	a6,20(sp)
+   10560:	sw	t3,16(sp)
+   10562:	sw	t1,12(sp)
+   10564:	sw	a7,8(sp)
+   10566:	sw	a3,4(sp)
+   10568:	mul	a1,a1,a0
+   1056c:	mulhu	t4,a0,a5
+   10570:	add	a1,a1,a4
+   10572:	mul	a0,a0,a5
+   10576:	add	a1,a1,t4
+   10578:	jal	10138 <model_round_shift_even>
+   1057a:	lw	t3,16(sp)
+   1057c:	lw	a6,20(sp)
+   1057e:	srai	a2,a0,0x1f
+   10582:	add	a4,a0,t3
+   10586:	sltu	a5,a4,a0
+   1058a:	add	a2,a2,a6
+   1058c:	add	a5,a5,a2
+   1058e:	lw	a3,4(sp)
+   10590:	lw	a7,8(sp)
+   10592:	lw	t1,12(sp)
+   10594:	lw	t6,24(sp)
+   10596:	blt	a5,s0,10642 <model_infer_u8_trace+0x3a8>
+   1059a:	beq	s0,a5,1063e <model_infer_u8_trace+0x3a4>
+   1059e:	blez	a5,1064a <model_infer_u8_trace+0x3b0>
+   105a2:	li	a4,255
+   105a6:	sb	a4,0(s7)
+   105aa:	addi	s2,s2,4
+   105ac:	addi	s7,s7,1
+   105ae:	add	s6,s6,s1
+   105b0:	bne	s2,s8,10508 <model_infer_u8_trace+0x26e>
+   105b4:	mv	s8,a3
+   105b6:	mv	s4,a7
+   105b8:	mv	s5,t1
+   105ba:	j	1046e <model_infer_u8_trace+0x1d4>
+   105bc:	lw	a3,32(sp)
+   105be:	bgeu	a4,a3,10416 <model_infer_u8_trace+0x17c>
+   105c2:	mv	a5,s4
+   105c4:	lw	a4,32(sp)
+   105c6:	bgtz	a5,1041a <model_infer_u8_trace+0x180>
+   105ca:	j	1042e <model_infer_u8_trace+0x194>
+   105cc:	mul	t4,t4,t1
+   105d0:	addi	t5,a3,-1
+   105d4:	mv	a5,a4
+   105d6:	sw	s8,8(sp)
+   105d8:	sw	a0,12(sp)
+   105da:	add	t4,t4,a1
+   105dc:	sw	t4,4(sp)
+   105de:	add	t4,s10,t5
+   105e2:	beq	t5,s11,1061e <model_infer_u8_trace+0x384>
+   105e6:	lw	t0,20(s9)
+   105ea:	bge	t5,t0,1061e <model_infer_u8_trace+0x384>
+   105ee:	lw	a0,4(sp)
+   105f0:	lw	s8,44(s9)
+   105f4:	mul	t0,t0,a0
+   105f8:	lw	a0,48(s9)
+   105fc:	add	s8,s8,a5
+   105fe:	lb	s8,0(s8)
+   10602:	add	a0,a0,s7
+   10604:	lw	a0,0(a0)
+   10606:	sub	a0,s8,a0
+   1060a:	add	t4,t4,t0
+   1060c:	lbu	t4,0(t4)
+   10610:	lw	t0,36(s9)
+   10614:	sub	t4,t4,t0
+   10618:	mul	a0,a0,t4
+   1061c:	add	a6,a6,a0
+   1061e:	addi	t5,t5,1
+   10620:	addi	a5,a5,1
+   10622:	bne	t6,t5,105de <model_infer_u8_trace+0x344>
+   10626:	lw	s8,8(sp)
+   10628:	lw	a0,12(sp)
+   1062a:	j	103c6 <model_infer_u8_trace+0x12c>
+   1062c:	addi	s8,s8,2
+   1062e:	add	s1,s1,a6
+   10630:	bne	a5,s8,10320 <model_infer_u8_trace+0x86>
+   10634:	addi	a3,a3,1
+   10636:	add	s2,s2,s3
+   10638:	bne	s6,a3,10318 <model_infer_u8_trace+0x7e>
+   1063c:	j	1046c <model_infer_u8_trace+0x1d2>
+   1063e:	bgeu	a4,s3,1059e <model_infer_u8_trace+0x304>
+   10642:	mv	a5,s0
+   10644:	mv	a4,s3
+   10646:	bgtz	a5,105a2 <model_infer_u8_trace+0x308>
+   1064a:	bnez	a5,105a6 <model_infer_u8_trace+0x30c>
+   1064c:	li	a5,255
+   10650:	bgeu	a5,a4,105a6 <model_infer_u8_trace+0x30c>
+   10654:	j	105a2 <model_infer_u8_trace+0x308>
+   10656:	lw	a4,64(s9)
+   1065a:	lw	a5,60(s9)
+   1065e:	beqz	a4,1047c <model_infer_u8_trace+0x1e2>
+   10662:	mv	a3,s8
+   10664:	add	a5,a5,s5
+   10666:	add	a4,a4,s8
+   10668:	lbu	a2,0(a3)
+   1066c:	addi	a3,a3,1
+   1066e:	addi	a5,a5,1
+   10670:	sb	a2,-1(a5)
+   10674:	bne	a4,a3,10668 <model_infer_u8_trace+0x3ce>
+   10678:	j	1047c <model_infer_u8_trace+0x1e2>
+   1067a:	lbu	a5,0(s8)
+   1067e:	lw	s2,40(sp)
+   10680:	li	a0,0
+   10682:	sb	a5,0(s2)
+   10686:	lbu	a5,1(s8)
+   1068a:	sb	a5,1(s2)
+   1068e:	lbu	a5,2(s8)
+   10692:	sb	a5,2(s2)
+   10696:	lw	s4,120(sp)
+   10698:	lw	s5,116(sp)
+   1069a:	lw	s8,104(sp)
+   1069c:	lw	s9,100(sp)
+   1069e:	lw	s10,96(sp)
+   106a0:	lw	s11,92(sp)
+   106a2:	lw	ra,140(sp)
+   106a4:	lw	s2,128(sp)
+   106a6:	addi	sp,sp,144
+   106a8:	ret
+   106aa:	lw	s1,132(sp)
+   106ac:	lw	s3,124(sp)
+   106ae:	j	10478 <model_infer_u8_trace+0x1de>
+   106b0:	lw	s6,112(sp)
+   106b2:	j	10478 <model_infer_u8_trace+0x1de>
+   106b4:	li	a0,-1
+   106b6:	ret
+   106b8:	lw	s4,120(sp)
+   106ba:	lw	s5,116(sp)
+   106bc:	lw	s10,96(sp)
+   106be:	li	a0,-1
+   106c0:	j	106a2 <model_infer_u8_trace+0x408>
+   106c2:	lw	s4,120(sp)
+   106c4:	li	a0,-1
+   106c6:	j	106a2 <model_infer_u8_trace+0x408>
+   106c8:	li	a0,-1
+   106ca:	j	106a2 <model_infer_u8_trace+0x408>
+
+000106cc <model_infer_u8>:
+   106cc:	li	a4,0
+   106ce:	li	a3,0
+   106d0:	j	1029a <model_infer_u8_trace>
+
+000106d2 <model_gray_to_input>:
+   106d2:	beqz	a0,106fa <model_gray_to_input+0x28>
+   106d4:	beqz	a1,106fa <model_gray_to_input+0x28>
+   106d6:	lui	a4,0x11
+   106d8:	addi	a3,a0,1024 # 80000400 <__BSS_END__+0x7ffcf980>
+   106dc:	addi	a4,a4,868 # 11364 <model_gray8_to_input>
+   106e0:	lbu	a5,0(a0)
+   106e4:	addi	a1,a1,1
+   106e6:	addi	a0,a0,1
+   106e8:	add	a5,a5,a4
+   106ea:	lbu	a5,0(a5)
+   106ee:	sb	a5,-1(a1)
+   106f2:	bne	a0,a3,106e0 <model_gray_to_input+0xe>
+   106f6:	li	a0,0
+   106f8:	ret
+   106fa:	li	a0,-1
+   106fc:	ret
+
+000106fe <model_argmax>:
+   106fe:	lbu	a5,0(a0)
+   10702:	lbu	a4,1(a0)
+   10706:	lbu	a3,2(a0)
+   1070a:	sltu	a4,a5,a4
+   1070e:	add	a5,a0,a4
+   10712:	lbu	a5,0(a5)
+   10716:	bltu	a5,a3,1071e <model_argmax+0x20>
+   1071a:	mv	a0,a4
+   1071c:	ret
+   1071e:	li	a0,2
+   10720:	ret
+
+00010722 <make_support>:
+   10722:	addi	sp,sp,-16
+   10724:	sw	s1,8(sp)
+   10726:	slli	s1,a2,0x1
+   1072a:	addi	s1,s1,1
+   1072c:	sw	s2,4(sp)
+   1072e:	sw	s0,12(sp)
+   10730:	li	a5,32
+   10734:	mul	s2,s1,a1
+   10738:	li	a6,32
+   1073c:	mulh	s1,s1,a1
+   10740:	blt	a1,a5,10746 <make_support+0x24>
+   10744:	mv	a6,a1
+   10746:	slli	a6,a6,0x1
+   10748:	srai	t1,a6,0x1f
+   1074c:	sub	t2,s2,a6
+   10750:	sltu	a5,s2,t2
+   10754:	sub	a3,s1,t1
+   10758:	sub	a3,a3,a5
+   1075a:	srai	a5,a3,0x1f
+   1075e:	andi	a5,a5,63
+   10762:	add	t5,s2,a6
+   10766:	add	t2,t2,a5
+   10768:	sltu	a4,t5,s2
+   1076c:	add	a2,s1,t1
+   10770:	sltu	a5,t2,a5
+   10774:	add	a4,a4,a2
+   10776:	add	a5,a5,a3
+   10778:	slli	a4,a4,0x1a
+   1077a:	srli	t5,t5,0x6
+   1077e:	slli	a5,a5,0x1a
+   10780:	srli	t2,t2,0x6
+   10784:	or	t5,a4,t5
+   10788:	or	t2,a5,t2
+   1078c:	addi	t5,t5,2
+   1078e:	addi	t2,t2,-1
+   10790:	bge	a1,t5,10796 <make_support+0x74>
+   10794:	mv	t5,a1
+   10796:	bltz	t2,10840 <make_support+0x11e>
+   1079a:	bge	t2,t5,10844 <make_support+0x122>
+   1079e:	slli	a5,t2,0x1
+   107a2:	addi	a3,a5,1
+   107a6:	srai	a4,a5,0x1f
+   107aa:	slli	a3,a3,0x5
+   107ac:	srli	a2,a5,0x1b
+   107b0:	slli	a4,a4,0x5
+   107b2:	sub	a5,a3,s2
+   107b6:	or	a4,a4,a2
+   107b8:	sltu	a3,a3,a5
+   107bc:	sub	a4,a4,s1
+   107be:	sub	a4,a4,a3
+   107c0:	mv	a1,t2
+   107c2:	li	t3,0
+   107c4:	li	s0,0
+   107c6:	addi	a7,a5,64
+   107ca:	sltu	t6,a7,a5
+   107ce:	addi	a1,a1,1
+   107d0:	snez	a3,a5
+   107d4:	neg	t0,a4
+   107d8:	mv	a2,a4
+   107da:	mv	t4,a5
+   107dc:	bgez	a4,107e8 <make_support+0xc6>
+   107e0:	neg	t4,a5
+   107e4:	sub	a2,t0,a3
+   107e8:	sub	a3,a6,t4
+   107ec:	sltu	t0,a6,a3
+   107f0:	sub	a5,t1,a2
+   107f4:	sub	a5,a5,t0
+   107f8:	add	a3,a3,t3
+   107fa:	sltu	t0,a3,t3
+   107fe:	add	a5,a5,s0
+   10800:	blt	a2,t1,1080c <make_support+0xea>
+   10804:	bne	t1,a2,10812 <make_support+0xf0>
+   10808:	bgeu	t4,a6,10812 <make_support+0xf0>
+   1080c:	mv	t3,a3
+   1080e:	add	s0,t0,a5
+   10812:	mv	a5,a7
+   10814:	add	a4,a4,t6
+   10816:	blt	a1,t5,107c6 <make_support+0xa4>
+   1081a:	sw	s0,12(a0)
+   1081c:	lw	s0,12(sp)
+   1081e:	sw	s2,16(a0)
+   10822:	sw	s1,20(a0)
+   10824:	sw	t2,0(a0)
+   10828:	sw	t5,4(a0)
+   1082c:	sw	t3,8(a0)
+   10830:	sw	a6,24(a0)
+   10834:	sw	t1,28(a0)
+   10838:	lw	s1,8(sp)
+   1083a:	lw	s2,4(sp)
+   1083c:	addi	sp,sp,16
+   1083e:	ret
+   10840:	li	t2,0
+   10842:	j	1079e <make_support+0x7c>
+   10844:	li	t3,0
+   10846:	li	s0,0
+   10848:	j	1081a <make_support+0xf8>
+
+0001084a <preprocess>:
+   1084a:	addi	sp,sp,-1520
+   1084e:	sw	s5,1492(sp)
+   10852:	sw	ra,1516(sp)
+   10856:	sw	a0,20(sp)
+   10858:	sw	a3,24(sp)
+   1085a:	sw	a4,16(sp)
+   1085c:	sw	a5,28(sp)
+   1085e:	sw	a6,124(sp)
+   10860:	mv	s5,a2
+   10862:	beqz	a0,10d62 <preprocess+0x518>
+   10866:	beqz	a6,10d62 <preprocess+0x518>
+   1086a:	sw	s0,1512(sp)
+   1086e:	mv	s0,a1
+   10870:	addi	a2,s0,-1
+   10874:	sw	s3,1500(sp)
+   10878:	mv	a1,a5
+   1087a:	sw	a2,12(sp)
+   1087c:	lui	a5,0x1
+   1087e:	mv	s3,s0
+   10880:	bgeu	a2,a5,10d6c <preprocess+0x522>
+   10884:	addi	a2,s5,-1
+   10888:	sw	a2,80(sp)
+   1088a:	sw	s5,120(sp)
+   1088c:	mv	a0,s5
+   1088e:	bgeu	a2,a5,10d6c <preprocess+0x522>
+   10892:	mul	a5,a1,s0
+   10896:	bltu	a3,a5,10d6c <preprocess+0x522>
+   1089a:	mulhu	a5,a3,s5
+   1089e:	bnez	a5,10d6c <preprocess+0x522>
+   108a2:	mv	a3,a4
+   108a4:	addi	a5,a4,-1
+   108a8:	li	a4,7
+   108aa:	bltu	a4,a5,10d6c <preprocess+0x522>
+   108ae:	sw	s1,1508(sp)
+   108b2:	sw	s2,1504(sp)
+   108b6:	sw	s4,1496(sp)
+   108ba:	sw	s6,1488(sp)
+   108be:	sw	s7,1484(sp)
+   108c2:	sw	s8,1480(sp)
+   108c6:	sw	s9,1476(sp)
+   108ca:	sw	s10,1472(sp)
+   108ce:	sw	s11,1468(sp)
+   108d2:	li	a5,4
+   108d4:	blt	a5,a3,10d5c <preprocess+0x512>
+   108d8:	li	s1,0
+   108da:	li	s2,32
+   108de:	slli	a0,s1,0x5
+   108e2:	addi	a5,a0,1312
+   108e6:	addi	a4,sp,144
+   108e8:	add	a0,a5,a4
+   108ec:	mv	a2,s1
+   108ee:	mv	a1,s0
+   108f0:	addi	a0,a0,-1024
+   108f4:	addi	s1,s1,1
+   108f6:	jal	10722 <make_support>
+   108f8:	bne	s1,s2,108de <preprocess+0x94>
+   108fc:	lw	a5,16(sp)
+   108fe:	li	s1,0
+   10900:	mv	s6,s1
+   10902:	slli	a4,a5,0x2
+   10906:	lui	a5,0x16
+   10908:	addi	a5,a5,1384 # 16568 <model_conv1_weight+0x48>
+   1090c:	add	a5,a5,a4
+   1090e:	sw	a5,32(sp)
+   10910:	mv	s0,s3
+   10912:	mv	s2,s5
+   10914:	mv	a2,s6
+   10916:	mv	a1,s2
+   10918:	addi	a0,sp,144
+   1091a:	jal	10722 <make_support>
+   1091c:	lw	a3,148(sp)
+   1091e:	addi	s10,sp,176
+   10922:	mv	a5,s10
+   10924:	lui	a1,0x200
+   10928:	li	a2,0
+   1092a:	sw	a1,0(a5)
+   1092c:	sw	a2,4(a5)
+   1092e:	addi	a4,sp,432
+   10930:	addi	a5,a5,8
+   10932:	bne	a4,a5,10924 <preprocess+0xda>
+   10936:	lw	a1,144(sp)
+   10938:	bge	a1,a3,10cda <preprocess+0x490>
+   1093c:	slli	a4,a1,0x1
+   10940:	addi	a0,a4,1
+   10944:	srai	a6,a4,0x1f
+   10948:	sltu	a4,a0,a4
+   1094c:	add	a4,a4,a6
+   1094e:	lw	s9,156(sp)
+   10950:	slli	a6,a0,0x5
+   10954:	lw	a7,160(sp)
+   10956:	srli	a0,a0,0x1b
+   10958:	slli	a4,a4,0x5
+   1095a:	lw	s7,152(sp)
+   1095c:	lw	a5,120(sp)
+   1095e:	or	a4,a4,a0
+   10960:	lw	a0,164(sp)
+   10962:	srli	a2,s9,0x1f
+   10966:	sub	a7,a6,a7
+   1096a:	add	t3,a2,s7
+   1096e:	sub	a4,a4,a0
+   10970:	sltu	a6,a6,a7
+   10974:	sub	a0,s0,a1
+   10978:	sub	a1,a5,a1
+   1097c:	sub	s3,a4,a6
+   10980:	sltu	a2,t3,a2
+   10984:	srli	s8,t3,0x1
+   10988:	addi	a4,a1,-1 # 1fffff <__BSS_END__+0x1cf57f>
+   1098c:	lui	t3,0x10
+   1098e:	add	a2,a2,s9
+   10990:	lw	s11,168(sp)
+   10992:	lui	t4,0x9
+   10994:	sw	a4,68(sp)
+   10996:	addi	a4,t3,-384 # fe80 <main-0x214>
+   1099a:	lw	s4,172(sp)
+   1099c:	slli	t1,a2,0x1f
+   109a0:	lui	t5,0x5
+   109a2:	lui	ra,0x2
+   109a4:	sw	a4,36(sp)
+   109a6:	addi	a4,t4,1606 # 9646 <main-0x6a4e>
+   109aa:	srai	a5,a2,0x1
+   109ae:	or	s8,t1,s8
+   109b2:	sw	a4,40(sp)
+   109b4:	addi	ra,ra,-721 # 1d2f <main-0xe365>
+   109b8:	addi	a4,t5,-885 # 4c8b <main-0xb409>
+   109bc:	sw	a5,84(sp)
+   109be:	sw	a4,44(sp)
+   109c0:	addi	a5,a0,-1
+   109c4:	sw	s0,132(sp)
+   109c6:	sw	s2,140(sp)
+   109c8:	sw	s6,128(sp)
+   109ca:	mv	s2,s3
+   109cc:	sw	s10,136(sp)
+   109ce:	mv	s3,a7
+   109d0:	sw	s7,88(sp)
+   109d2:	sw	s9,92(sp)
+   109d4:	sw	s11,100(sp)
+   109d6:	sw	s8,96(sp)
+   109d8:	sw	ra,48(sp)
+   109da:	sub	s5,s0,a3
+   109de:	mv	t3,a5
+   109e0:	mv	s0,s4
+   109e2:	mv	a4,s3
+   109e4:	mv	a5,s2
+   109e6:	bltz	s2,10a54 <preprocess+0x20a>
+   109ea:	blt	a5,s0,109f8 <preprocess+0x1ae>
+   109ee:	bne	s0,a5,10a64 <preprocess+0x21a>
+   109f2:	lw	a3,100(sp)
+   109f4:	bgeu	a4,a3,10a64 <preprocess+0x21a>
+   109f8:	lw	a3,100(sp)
+   109fa:	sub	a5,s0,a5
+   109fe:	lw	a2,96(sp)
+   10a00:	sub	a4,a3,a4
+   10a04:	sltu	a3,a3,a4
+   10a08:	sub	a5,a5,a3
+   10a0a:	slli	a5,a5,0x16
+   10a0c:	slli	a3,a4,0x16
+   10a10:	srli	a4,a4,0xa
+   10a12:	or	a5,a5,a4
+   10a14:	lw	a4,84(sp)
+   10a16:	add	a0,a3,a2
+   10a1a:	sltu	a3,a0,a3
+   10a1e:	add	a5,a5,a4
+   10a20:	add	a1,a3,a5
+   10a24:	lw	a2,88(sp)
+   10a26:	lw	a3,92(sp)
+   10a28:	sw	t3,4(sp)
+   10a2a:	jal	10db6 <__divdi3>
+   10a2c:	lw	t3,4(sp)
+   10a2e:	bnez	a0,10a74 <preprocess+0x22a>
+   10a30:	addi	a5,s3,64
+   10a34:	sltu	a4,a5,s3
+   10a38:	add	s2,s2,a4
+   10a3a:	lw	a4,68(sp)
+   10a3c:	mv	s3,a5
+   10a3e:	addi	a5,t3,-1
+   10a42:	addi	a4,a4,-1
+   10a44:	sw	a4,68(sp)
+   10a46:	beq	s5,t3,10cd2 <preprocess+0x488>
+   10a4a:	mv	t3,a5
+   10a4c:	mv	a4,s3
+   10a4e:	mv	a5,s2
+   10a50:	bgez	s2,109ea <preprocess+0x1a0>
+   10a54:	snez	a3,s3
+   10a58:	neg	a5,s2
+   10a5c:	neg	a4,s3
+   10a60:	sub	a5,a5,a3
+   10a62:	j	109ea <preprocess+0x1a0>
+   10a64:	lw	a0,96(sp)
+   10a66:	lw	a1,84(sp)
+   10a68:	lw	a2,88(sp)
+   10a6a:	lw	a3,92(sp)
+   10a6c:	sw	t3,4(sp)
+   10a6e:	jal	10db6 <__divdi3>
+   10a70:	lw	t3,4(sp)
+   10a72:	beqz	a0,10a30 <preprocess+0x1e6>
+   10a74:	lw	a5,12(sp)
+   10a76:	addi	t5,sp,432
+   10a7a:	addi	t0,sp,176
+   10a7e:	sub	a5,a5,t3
+   10a82:	sw	a5,64(sp)
+   10a84:	srai	a5,a0,0x1f
+   10a88:	sw	a5,76(sp)
+   10a8a:	li	s4,255
+   10a8e:	sw	s5,104(sp)
+   10a90:	sw	t3,72(sp)
+   10a92:	sw	s0,108(sp)
+   10a94:	sw	s3,112(sp)
+   10a96:	sw	s2,116(sp)
+   10a98:	mv	a6,a0
+   10a9a:	lw	t1,0(t5)
+   10a9e:	lw	s2,4(t5)
+   10aa2:	bge	t1,s2,10ccc <preprocess+0x482>
+   10aa6:	slli	s11,t1,0x1
+   10aaa:	addi	a0,s11,1
+   10aae:	lw	a3,12(t5)
+   10ab2:	srai	a5,s11,0x1f
+   10ab6:	lw	a4,16(t5)
+   10aba:	sltu	s11,a0,s11
+   10abe:	lw	a2,8(t5)
+   10ac2:	add	s11,s11,a5
+   10ac4:	lw	a1,20(t5)
+   10ac8:	slli	a5,a0,0x5
+   10acc:	slli	s11,s11,0x5
+   10ace:	srli	a0,a0,0x1b
+   10ad0:	sub	a4,a5,a4
+   10ad4:	srli	s1,a3,0x1f
+   10ad8:	or	s11,a0,s11
+   10adc:	sltu	a5,a5,a4
+   10ae0:	add	t4,s1,a2
+   10ae4:	sub	s11,s11,a1
+   10ae8:	mv	s6,a4
+   10aea:	sub	s11,s11,a5
+   10aee:	lw	a4,80(sp)
+   10af0:	lw	a5,12(sp)
+   10af2:	sltu	s1,t4,s1
+   10af6:	add	s1,s1,a3
+   10af8:	slli	a0,s1,0x1f
+   10afc:	lw	s3,24(t5)
+   10b00:	srai	s1,s1,0x1
+   10b02:	lw	s5,28(t5)
+   10b06:	sub	s9,a4,t1
+   10b0a:	srli	s10,t4,0x1
+   10b0e:	sub	s7,a5,t1
+   10b12:	sub	s2,a5,s2
+   10b16:	mv	a5,s1
+   10b18:	or	s10,a0,s10
+   10b1c:	mv	s1,s11
+   10b1e:	lui	s8,0x200
+   10b22:	mv	s11,s6
+   10b24:	li	s0,0
+   10b26:	mv	s6,s9
+   10b28:	sw	t0,52(sp)
+   10b2a:	sw	t5,56(sp)
+   10b2c:	sw	a2,4(sp)
+   10b2e:	sw	a3,8(sp)
+   10b30:	sw	a6,60(sp)
+   10b32:	mv	s9,a5
+   10b34:	mv	a3,s11
+   10b36:	mv	a5,s1
+   10b38:	bltz	s1,10b88 <preprocess+0x33e>
+   10b3c:	blt	a5,s5,10b48 <preprocess+0x2fe>
+   10b40:	bne	s5,a5,10cc6 <preprocess+0x47c>
+   10b44:	bgeu	a3,s3,10cc6 <preprocess+0x47c>
+   10b48:	sub	a3,s3,a3
+   10b4c:	sltu	a2,s3,a3
+   10b50:	sub	a5,s5,a5
+   10b54:	sub	a5,a5,a2
+   10b56:	slli	a1,a3,0x16
+   10b5a:	slli	a5,a5,0x16
+   10b5c:	srli	a3,a3,0xa
+   10b5e:	add	a0,a1,s10
+   10b62:	or	a5,a5,a3
+   10b64:	sltu	a1,a0,a1
+   10b68:	add	a5,a5,s9
+   10b6a:	add	a1,a1,a5
+   10b6c:	lw	a2,4(sp)
+   10b6e:	lw	a3,8(sp)
+   10b70:	jal	10db6 <__divdi3>
+   10b72:	beqz	a0,10c24 <preprocess+0x3da>
+   10b74:	lw	a5,12(sp)
+   10b76:	li	a4,8
+   10b78:	sub	a2,a5,s7
+   10b7c:	lw	a5,16(sp)
+   10b7e:	bltu	a4,a5,10d66 <preprocess+0x51c>
+   10b82:	lw	a5,32(sp)
+   10b84:	lw	a5,0(a5)
+   10b86:	jr	a5
+   10b88:	snez	a2,s11
+   10b8c:	neg	a5,s1
+   10b90:	neg	a3,s11
+   10b94:	sub	a5,a5,a2
+   10b96:	j	10b3c <preprocess+0x2f2>
+   10b98:	lw	a5,64(sp)
+   10b9a:	lw	a4,24(sp)
+   10b9c:	li	a3,1
+   10b9e:	mul	a2,a2,a4
+   10ba2:	lw	a4,28(sp)
+   10ba4:	mul	a5,a5,a4
+   10ba8:	add	a2,a2,a5
+   10baa:	lw	a5,20(sp)
+   10bac:	add	a2,a2,a5
+   10bae:	lbu	a5,0(a2)
+   10bb2:	beq	a4,a3,10c0e <preprocess+0x3c4>
+   10bb6:	lbu	a3,1(a2)
+   10bba:	lbu	a1,3(a2)
+   10bbe:	addi	a5,a5,-255
+   10bc2:	addi	a3,a3,-255
+   10bc6:	mul	a3,a3,a1
+   10bca:	lbu	a2,2(a2)
+   10bce:	lw	a4,36(sp)
+   10bd0:	addi	a2,a2,-255
+   10bd4:	mul	a5,a5,a1
+   10bd8:	add	a3,a3,a4
+   10bda:	mul	a2,a2,a1
+   10bde:	add	a5,a5,a4
+   10be0:	divu	a3,a3,s4
+   10be4:	add	a2,a2,a4
+   10be6:	lw	a4,40(sp)
+   10be8:	divu	a5,a5,s4
+   10bec:	divu	a2,a2,s4
+   10bf0:	mul	a3,a3,a4
+   10bf4:	lw	a4,44(sp)
+   10bf6:	mul	a5,a5,a4
+   10bfa:	lw	a4,48(sp)
+   10bfc:	mul	a2,a2,a4
+   10c00:	add	a5,a5,a3
+   10c02:	lui	a4,0x8
+   10c04:	add	a5,a5,a4
+   10c06:	add	a5,a5,a2
+   10c08:	srli	a5,a5,0x10
+   10c0a:	zext.b	a5,a5
+   10c0e:	mul	a3,a5,a0
+   10c12:	mulhsu	a5,a0,a5
+   10c16:	add	a3,a3,s8
+   10c18:	sltu	a2,a3,s8
+   10c1c:	mv	s8,a3
+   10c1e:	add	a5,a5,s0
+   10c20:	add	s0,a2,a5
+   10c24:	addi	a5,s11,64
+   10c28:	sltu	a3,a5,s11
+   10c2c:	addi	s7,s7,-1
+   10c2e:	mv	s11,a5
+   10c30:	add	s1,s1,a3
+   10c32:	addi	s6,s6,-1
+   10c34:	bne	s2,s7,10b34 <preprocess+0x2ea>
+   10c38:	slli	a5,s0,0xa
+   10c3c:	srli	a7,s8,0x16
+   10c40:	srai	s0,s0,0x16
+   10c42:	lw	t0,52(sp)
+   10c44:	lw	t5,56(sp)
+   10c46:	lw	a6,60(sp)
+   10c48:	or	a7,a5,a7
+   10c4c:	blez	s0,10cbe <preprocess+0x474>
+   10c50:	li	a7,255
+   10c54:	lw	a5,76(sp)
+   10c56:	zext.b	a7,a7
+   10c5a:	mulhu	a3,a7,a6
+   10c5e:	mul	a5,a5,a7
+   10c62:	mul	a7,a7,a6
+   10c66:	add	a3,a3,a5
+   10c68:	lw	a5,0(t0)
+   10c6c:	lw	a4,4(t0)
+   10c70:	addi	t5,t5,32
+   10c74:	add	a7,a7,a5
+   10c76:	sltu	a5,a7,a5
+   10c7a:	add	a4,a4,a3
+   10c7c:	add	a5,a5,a4
+   10c7e:	sw	a5,4(t0)
+   10c82:	sw	a7,0(t0)
+   10c86:	addi	a5,sp,1456
+   10c8a:	addi	t0,t0,8
+   10c8c:	bne	a5,t5,10a9a <preprocess+0x250>
+   10c90:	lw	s5,104(sp)
+   10c92:	lw	t3,72(sp)
+   10c94:	lw	s0,108(sp)
+   10c96:	lw	s3,112(sp)
+   10c98:	lw	s2,116(sp)
+   10c9a:	j	10a30 <preprocess+0x1e6>
+   10c9c:	lw	a5,64(sp)
+   10c9e:	mv	a2,s6
+   10ca0:	j	10b9a <preprocess+0x350>
+   10ca2:	lw	a5,72(sp)
+   10ca4:	j	10b9a <preprocess+0x350>
+   10ca6:	lw	a5,72(sp)
+   10ca8:	mv	a2,s6
+   10caa:	j	10b9a <preprocess+0x350>
+   10cac:	mv	a5,a2
+   10cae:	lw	a2,68(sp)
+   10cb0:	j	10b9a <preprocess+0x350>
+   10cb2:	lw	a2,64(sp)
+   10cb4:	mv	a5,s7
+   10cb6:	j	10b9a <preprocess+0x350>
+   10cb8:	lw	a2,68(sp)
+   10cba:	mv	a5,s7
+   10cbc:	j	10b9a <preprocess+0x350>
+   10cbe:	bnez	s0,10c54 <preprocess+0x40a>
+   10cc0:	bgeu	s4,a7,10c54 <preprocess+0x40a>
+   10cc4:	j	10c50 <preprocess+0x406>
+   10cc6:	mv	a0,s10
+   10cc8:	mv	a1,s9
+   10cca:	j	10b6c <preprocess+0x322>
+   10ccc:	li	a7,0
+   10cce:	li	a3,0
+   10cd0:	j	10c68 <preprocess+0x41e>
+   10cd2:	lw	s6,128(sp)
+   10cd4:	lw	s0,132(sp)
+   10cd6:	lw	s10,136(sp)
+   10cd8:	lw	s2,140(sp)
+   10cda:	lw	a5,124(sp)
+   10cdc:	slli	a3,s6,0x5
+   10ce0:	li	a1,255
+   10ce4:	add	a3,a3,a5
+   10ce6:	lw	a4,4(s10)
+   10cea:	lw	a5,0(s10)
+   10cee:	slli	a2,a4,0xa
+   10cf2:	srli	a5,a5,0x16
+   10cf4:	srai	a4,a4,0x16
+   10cf6:	or	a5,a5,a2
+   10cf8:	blez	a4,10d54 <preprocess+0x50a>
+   10cfc:	li	a5,255
+   10d00:	sb	a5,0(a3)
+   10d04:	addi	s10,s10,8
+   10d06:	addi	a5,sp,432
+   10d08:	addi	a3,a3,1
+   10d0a:	bne	a5,s10,10ce6 <preprocess+0x49c>
+   10d0e:	addi	s6,s6,1
+   10d10:	li	a5,32
+   10d14:	bne	s6,a5,10914 <preprocess+0xca>
+   10d18:	lw	s0,1512(sp)
+   10d1c:	lw	s1,1508(sp)
+   10d20:	lw	s2,1504(sp)
+   10d24:	lw	s3,1500(sp)
+   10d28:	lw	s4,1496(sp)
+   10d2c:	lw	s6,1488(sp)
+   10d30:	lw	s7,1484(sp)
+   10d34:	lw	s8,1480(sp)
+   10d38:	lw	s9,1476(sp)
+   10d3c:	lw	s10,1472(sp)
+   10d40:	lw	s11,1468(sp)
+   10d44:	li	a0,0
+   10d46:	lw	ra,1516(sp)
+   10d4a:	lw	s5,1492(sp)
+   10d4e:	addi	sp,sp,1520
+   10d52:	ret
+   10d54:	bnez	a4,10d00 <preprocess+0x4b6>
+   10d56:	bgeu	a1,a5,10d00 <preprocess+0x4b6>
+   10d5a:	j	10cfc <preprocess+0x4b2>
+   10d5c:	mv	s5,s0
+   10d5e:	mv	s0,a0
+   10d60:	j	108d8 <preprocess+0x8e>
+   10d62:	li	a0,-1
+   10d64:	j	10d46 <preprocess+0x4fc>
+   10d66:	mv	a5,a2
+   10d68:	lw	a2,64(sp)
+   10d6a:	j	10b9a <preprocess+0x350>
+   10d6c:	lw	s0,1512(sp)
+   10d70:	lw	s3,1500(sp)
+   10d74:	li	a0,-1
+   10d76:	j	10d46 <preprocess+0x4fc>
+
+00010d78 <image_preprocess_gray8>:
+   10d78:	mv	a6,a5
+   10d7a:	li	a5,1
+   10d7c:	j	1084a <preprocess>
+
+00010d7e <_start>:
+   10d7e:	auipc	gp,0x1d
+   10d82:	addi	gp,gp,198 # 2de44 <__global_pointer$>
+   10d86:	auipc	sp,0x20
+   10d8a:	addi	sp,sp,-774 # 30a80 <__BSS_END__>
+   10d8e:	jal	10094 <main>
+   10d92:	mv	s0,a0
+   10d94:	li	a0,1
+   10d96:	auipc	a1,0x1d
+   10d9a:	addi	a1,a1,-1862 # 2d650 <firmware_result>
+   10d9e:	li	a2,32
+   10da2:	li	a7,64
+   10da6:	ecall
+   10daa:	mv	a0,s0
+   10dac:	li	a7,93
+   10db0:	ecall
+   10db4:	j	10db4 <_start+0x36>
+
+00010db6 <__divdi3>:
+   10db6:	mv	t1,a0
+   10db8:	mv	t3,a1
+   10dba:	li	a7,0
+   10dbc:	bgez	a1,10dd2 <__divdi3+0x1c>
+   10dc0:	snez	a5,a0
+   10dc4:	neg	t3,a1
+   10dc8:	sub	t3,t3,a5
+   10dcc:	neg	t1,a0
+   10dd0:	li	a7,-1
+   10dd2:	bgez	a3,10de8 <__divdi3+0x32>
+   10dd6:	snez	a5,a2
+   10dda:	neg	a3,a3
+   10dde:	not	a7,a7
+   10de2:	sub	a3,a3,a5
+   10de4:	neg	a2,a2
+   10de8:	mv	a4,a2
+   10dea:	mv	a6,t1
+   10dec:	mv	a5,t3
+   10dee:	bnez	a3,1100c <__divdi3+0x256>
+   10df2:	auipc	a1,0x1b
+   10df6:	addi	a1,a1,1834 # 2c51c <__clz_tab>
+   10dfa:	bgeu	t3,a2,10ebc <__divdi3+0x106>
+   10dfe:	lui	a3,0x10
+   10e00:	bgeu	a2,a3,10eae <__divdi3+0xf8>
+   10e04:	sltiu	a3,a2,256
+   10e08:	seqz	a3,a3
+   10e0c:	slli	a3,a3,0x3
+   10e0e:	srl	a0,a2,a3
+   10e12:	add	a1,a1,a0
+   10e14:	lbu	a1,0(a1)
+   10e18:	li	a0,32
+   10e1c:	add	a3,a3,a1
+   10e1e:	sub	a1,a0,a3
+   10e22:	beq	a0,a3,10e38 <__divdi3+0x82>
+   10e26:	sll	a5,t3,a1
+   10e2a:	srl	a3,t1,a3
+   10e2e:	sll	a4,a2,a1
+   10e32:	or	a5,a5,a3
+   10e34:	sll	a6,t1,a1
+   10e38:	srli	a1,a4,0x10
+   10e3c:	divu	t3,a5,a1
+   10e40:	slli	a2,a4,0x10
+   10e44:	srli	a2,a2,0x10
+   10e46:	remu	a5,a5,a1
+   10e4a:	mv	a0,t3
+   10e4c:	mul	t1,a2,t3
+   10e50:	slli	a3,a5,0x10
+   10e54:	srli	a5,a6,0x10
+   10e58:	or	a5,a5,a3
+   10e5a:	bgeu	a5,t1,10e72 <__divdi3+0xbc>
+   10e5e:	add	a5,a5,a4
+   10e60:	addi	a0,t3,-1
+   10e64:	bltu	a5,a4,10e72 <__divdi3+0xbc>
+   10e68:	bgeu	a5,t1,10e72 <__divdi3+0xbc>
+   10e6c:	addi	a0,t3,-2
+   10e70:	add	a5,a5,a4
+   10e72:	sub	a5,a5,t1
+   10e76:	divu	t1,a5,a1
+   10e7a:	slli	a6,a6,0x10
+   10e7c:	srli	a6,a6,0x10
+   10e80:	remu	a5,a5,a1
+   10e84:	mul	a3,a2,t1
+   10e88:	slli	a5,a5,0x10
+   10e8a:	or	a6,a6,a5
+   10e8e:	mv	a5,t1
+   10e90:	bgeu	a6,a3,10ea6 <__divdi3+0xf0>
+   10e94:	add	a6,a6,a4
+   10e96:	addi	a5,t1,-1
+   10e9a:	bltu	a6,a4,10ea6 <__divdi3+0xf0>
+   10e9e:	bgeu	a6,a3,10ea6 <__divdi3+0xf0>
+   10ea2:	addi	a5,t1,-2
+   10ea6:	slli	a0,a0,0x10
+   10ea8:	or	a0,a0,a5
+   10eaa:	li	a1,0
+   10eac:	j	10f5e <__divdi3+0x1a8>
+   10eae:	lui	a0,0x1000
+   10eb2:	li	a3,24
+   10eb4:	bgeu	a2,a0,10e0e <__divdi3+0x58>
+   10eb8:	li	a3,16
+   10eba:	j	10e0e <__divdi3+0x58>
+   10ebc:	li	a3,0
+   10ebe:	beqz	a2,10ed0 <__divdi3+0x11a>
+   10ec0:	lui	a5,0x10
+   10ec2:	bgeu	a2,a5,10f72 <__divdi3+0x1bc>
+   10ec6:	sltiu	a3,a2,256
+   10eca:	seqz	a3,a3
+   10ece:	slli	a3,a3,0x3
+   10ed0:	srl	a5,a2,a3
+   10ed4:	add	a1,a1,a5
+   10ed6:	lbu	a5,0(a1)
+   10eda:	add	a5,a5,a3
+   10edc:	li	a3,32
+   10ee0:	sub	a1,a3,a5
+   10ee4:	bne	a3,a5,10f80 <__divdi3+0x1ca>
+   10ee8:	sub	a5,t3,a2
+   10eec:	li	a1,1
+   10eee:	srli	t1,a4,0x10
+   10ef2:	divu	t4,a5,t1
+   10ef6:	slli	a2,a4,0x10
+   10efa:	srli	a2,a2,0x10
+   10efc:	srli	a3,a6,0x10
+   10f00:	remu	a5,a5,t1
+   10f04:	mv	a0,t4
+   10f06:	mul	t3,a2,t4
+   10f0a:	slli	a5,a5,0x10
+   10f0c:	or	a5,a5,a3
+   10f0e:	bgeu	a5,t3,10f26 <__divdi3+0x170>
+   10f12:	add	a5,a5,a4
+   10f14:	addi	a0,t4,-1
+   10f18:	bltu	a5,a4,10f26 <__divdi3+0x170>
+   10f1c:	bgeu	a5,t3,10f26 <__divdi3+0x170>
+   10f20:	addi	a0,t4,-2
+   10f24:	add	a5,a5,a4
+   10f26:	sub	a5,a5,t3
+   10f2a:	divu	t3,a5,t1
+   10f2e:	slli	a6,a6,0x10
+   10f30:	srli	a6,a6,0x10
+   10f34:	remu	a5,a5,t1
+   10f38:	mul	a3,a2,t3
+   10f3c:	slli	a5,a5,0x10
+   10f3e:	or	a6,a6,a5
+   10f42:	mv	a5,t3
+   10f44:	bgeu	a6,a3,10f5a <__divdi3+0x1a4>
+   10f48:	add	a6,a6,a4
+   10f4a:	addi	a5,t3,-1
+   10f4e:	bltu	a6,a4,10f5a <__divdi3+0x1a4>
+   10f52:	bgeu	a6,a3,10f5a <__divdi3+0x1a4>
+   10f56:	addi	a5,t3,-2
+   10f5a:	slli	a0,a0,0x10
+   10f5c:	or	a0,a0,a5
+   10f5e:	beqz	a7,10f70 <__divdi3+0x1ba>
+   10f62:	snez	a5,a0
+   10f66:	neg	a1,a1
+   10f6a:	sub	a1,a1,a5
+   10f6c:	neg	a0,a0
+   10f70:	ret
+   10f72:	lui	a5,0x1000
+   10f76:	li	a3,24
+   10f78:	bgeu	a2,a5,10ed0 <__divdi3+0x11a>
+   10f7c:	li	a3,16
+   10f7e:	j	10ed0 <__divdi3+0x11a>
+   10f80:	sll	a4,a2,a1
+   10f84:	srl	a3,t3,a5
+   10f88:	srli	a0,a4,0x10
+   10f8c:	sll	t3,t3,a1
+   10f90:	srl	a5,t1,a5
+   10f94:	or	a5,a5,t3
+   10f98:	divu	t3,a3,a0
+   10f9c:	slli	a2,a4,0x10
+   10fa0:	srli	a2,a2,0x10
+   10fa2:	sll	a6,t1,a1
+   10fa6:	remu	a3,a3,a0
+   10faa:	mul	t1,a2,t3
+   10fae:	slli	a1,a3,0x10
+   10fb2:	srli	a3,a5,0x10
+   10fb6:	or	a3,a3,a1
+   10fb8:	mv	a1,t3
+   10fba:	bgeu	a3,t1,10fd2 <__divdi3+0x21c>
+   10fbe:	add	a3,a3,a4
+   10fc0:	addi	a1,t3,-1
+   10fc4:	bltu	a3,a4,10fd2 <__divdi3+0x21c>
+   10fc8:	bgeu	a3,t1,10fd2 <__divdi3+0x21c>
+   10fcc:	addi	a1,t3,-2
+   10fd0:	add	a3,a3,a4
+   10fd2:	sub	a3,a3,t1
+   10fd6:	divu	t1,a3,a0
+   10fda:	slli	a5,a5,0x10
+   10fdc:	srli	a5,a5,0x10
+   10fde:	remu	a3,a3,a0
+   10fe2:	mul	a2,a2,t1
+   10fe6:	slli	a3,a3,0x10
+   10fe8:	or	a5,a5,a3
+   10fea:	mv	a3,t1
+   10fec:	bgeu	a5,a2,11004 <__divdi3+0x24e>
+   10ff0:	add	a5,a5,a4
+   10ff2:	addi	a3,t1,-1
+   10ff6:	bltu	a5,a4,11004 <__divdi3+0x24e>
+   10ffa:	bgeu	a5,a2,11004 <__divdi3+0x24e>
+   10ffe:	addi	a3,t1,-2
+   11002:	add	a5,a5,a4
+   11004:	slli	a1,a1,0x10
+   11006:	sub	a5,a5,a2
+   11008:	or	a1,a1,a3
+   1100a:	j	10eee <__divdi3+0x138>
+   1100c:	bltu	t3,a3,1114e <__divdi3+0x398>
+   11010:	lui	a5,0x10
+   11012:	bgeu	a3,a5,11050 <__divdi3+0x29a>
+   11016:	sltiu	a4,a3,256
+   1101a:	seqz	a4,a4
+   1101e:	slli	a4,a4,0x3
+   11020:	srl	a1,a3,a4
+   11024:	auipc	a5,0x1b
+   11028:	addi	a5,a5,1272 # 2c51c <__clz_tab>
+   1102c:	add	a5,a5,a1
+   1102e:	lbu	a5,0(a5)
+   11032:	add	a5,a5,a4
+   11034:	li	a4,32
+   11038:	sub	a1,a4,a5
+   1103c:	bne	a4,a5,1105e <__divdi3+0x2a8>
+   11040:	li	a0,1
+   11042:	bltu	a3,t3,10f5e <__divdi3+0x1a8>
+   11046:	sltu	a0,t1,a2
+   1104a:	seqz	a0,a0
+   1104e:	j	10f5e <__divdi3+0x1a8>
+   11050:	lui	a5,0x1000
+   11054:	li	a4,24
+   11056:	bgeu	a3,a5,11020 <__divdi3+0x26a>
+   1105a:	li	a4,16
+   1105c:	j	11020 <__divdi3+0x26a>
+   1105e:	srl	a4,a2,a5
+   11062:	sll	a3,a3,a1
+   11066:	or	a3,a3,a4
+   11068:	srl	a4,t3,a5
+   1106c:	sll	t3,t3,a1
+   11070:	srl	a5,t1,a5
+   11074:	or	a5,a5,t3
+   11078:	srli	t3,a3,0x10
+   1107c:	divu	t5,a4,t3
+   11080:	slli	a6,a3,0x10
+   11084:	srli	a6,a6,0x10
+   11088:	sll	a2,a2,a1
+   1108c:	remu	a4,a4,t3
+   11090:	mul	t4,a6,t5
+   11094:	slli	a0,a4,0x10
+   11098:	srli	a4,a5,0x10
+   1109c:	or	a4,a4,a0
+   1109e:	mv	a0,t5
+   110a0:	bgeu	a4,t4,110b8 <__divdi3+0x302>
+   110a4:	add	a4,a4,a3
+   110a6:	addi	a0,t5,-1
+   110aa:	bltu	a4,a3,110b8 <__divdi3+0x302>
+   110ae:	bgeu	a4,t4,110b8 <__divdi3+0x302>
+   110b2:	addi	a0,t5,-2
+   110b6:	add	a4,a4,a3
+   110b8:	sub	a4,a4,t4
+   110bc:	divu	t4,a4,t3
+   110c0:	slli	a5,a5,0x10
+   110c2:	srli	a5,a5,0x10
+   110c4:	remu	a4,a4,t3
+   110c8:	mul	a6,a6,t4
+   110cc:	slli	a4,a4,0x10
+   110ce:	or	a5,a5,a4
+   110d0:	mv	a4,t4
+   110d2:	bgeu	a5,a6,110ea <__divdi3+0x334>
+   110d6:	add	a5,a5,a3
+   110d8:	addi	a4,t4,-1
+   110dc:	bltu	a5,a3,110ea <__divdi3+0x334>
+   110e0:	bgeu	a5,a6,110ea <__divdi3+0x334>
+   110e4:	addi	a4,t4,-2
+   110e8:	add	a5,a5,a3
+   110ea:	slli	a0,a0,0x10
+   110ec:	lui	t4,0x10
+   110ee:	or	a0,a0,a4
+   110f0:	addi	a3,t4,-1 # ffff <main-0x95>
+   110f4:	and	a4,a0,a3
+   110f8:	sub	a5,a5,a6
+   110fc:	and	a3,a3,a2
+   110fe:	srli	a6,a0,0x10
+   11102:	srli	a2,a2,0x10
+   11104:	mul	t3,a4,a3
+   11108:	mul	a3,a6,a3
+   1110c:	mul	a4,a4,a2
+   11110:	mul	a6,a6,a2
+   11114:	add	a2,a4,a3
+   11118:	srli	a4,t3,0x10
+   1111c:	add	a4,a4,a2
+   1111e:	bgeu	a4,a3,11124 <__divdi3+0x36e>
+   11122:	add	a6,a6,t4
+   11124:	srli	a3,a4,0x10
+   11128:	add	a3,a3,a6
+   1112a:	bltu	a5,a3,1114a <__divdi3+0x394>
+   1112e:	bne	a5,a3,10eaa <__divdi3+0xf4>
+   11132:	lui	a5,0x10
+   11134:	addi	a5,a5,-1 # ffff <main-0x95>
+   11136:	and	a4,a4,a5
+   11138:	slli	a4,a4,0x10
+   1113a:	and	t3,t3,a5
+   1113e:	sll	t1,t1,a1
+   11142:	add	a4,a4,t3
+   11144:	li	a1,0
+   11146:	bgeu	t1,a4,10f5e <__divdi3+0x1a8>
+   1114a:	addi	a0,a0,-1 # ffffff <__BSS_END__+0xfcf57f>
+   1114c:	j	10eaa <__divdi3+0xf4>
+   1114e:	li	a1,0
+   11150:	li	a0,0
+   11152:	j	10f5e <__divdi3+0x1a8>

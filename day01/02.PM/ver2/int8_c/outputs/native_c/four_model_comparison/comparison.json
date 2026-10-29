@@ -1,0 +1,156 @@
+{
+  "image": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock01-00.png",
+  "device": "cpu",
+  "classes": [
+    "paper",
+    "rock",
+    "scissors"
+  ],
+  "results": {
+    "FP32": {
+      "image": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock01-00.png",
+      "device": "cpu",
+      "model_type": "FP32",
+      "runtime": "PyTorch",
+      "checkpoint": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/pytorch/outputs/model_fp32.pth",
+      "model_sha256": "d57755ad063f98a061d954369d6d54f91af6cf726b596298f34deef5062d53d8",
+      "classes": [
+        "paper",
+        "rock",
+        "scissors"
+      ],
+      "preprocessing": {
+        "image_size": 32,
+        "channels": 1,
+        "alpha_background": "white",
+        "input_mode": "foreground",
+        "resize": "bilinear"
+      },
+      "predicted_index": 1,
+      "predicted_label": "rock",
+      "confidence": 0.9905493855476379,
+      "probabilities": {
+        "paper": 0.008463604375720024,
+        "rock": 0.9905493855476379,
+        "scissors": 0.0009870785288512707
+      },
+      "logits": {
+        "paper": -1.0377740859985352,
+        "rock": 3.724710702896118,
+        "scissors": -3.1865549087524414
+      },
+      "max_logit_abs_error_vs_fp32": 0.0
+    },
+    "QAT": {
+      "image": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock01-00.png",
+      "device": "cpu",
+      "model_type": "QAT",
+      "runtime": "PyTorch INT8",
+      "checkpoint": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/qat/outputs/model_int8.pt",
+      "model_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+      "classes": [
+        "paper",
+        "rock",
+        "scissors"
+      ],
+      "preprocessing": {
+        "image_size": 32,
+        "channels": 1,
+        "alpha_background": "white",
+        "input_mode": "foreground",
+        "resize": "bilinear"
+      },
+      "predicted_index": 1,
+      "predicted_label": "rock",
+      "confidence": 0.9895957112312317,
+      "probabilities": {
+        "paper": 0.008992836810648441,
+        "rock": 0.9895957112312317,
+        "scissors": 0.0014113838551566005
+      },
+      "logits": {
+        "paper": -1.1396044492721558,
+        "rock": 3.5612637996673584,
+        "scissors": -2.991461753845215
+      },
+      "max_logit_abs_error_vs_fp32": 0.19509315490722656
+    },
+    "PTQ": {
+      "image": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock01-00.png",
+      "device": "cpu",
+      "model_type": "PTQ",
+      "runtime": "PyTorch INT8",
+      "checkpoint": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/ptq/outputs/model_int8.pt",
+      "model_sha256": "af688113696142da0fb0e9d4fa32bccef6e0a29595af84c91a6ef032ad861239",
+      "classes": [
+        "paper",
+        "rock",
+        "scissors"
+      ],
+      "preprocessing": {
+        "image_size": 32,
+        "channels": 1,
+        "alpha_background": "white",
+        "input_mode": "foreground",
+        "resize": "bilinear"
+      },
+      "predicted_index": 1,
+      "predicted_label": "rock",
+      "confidence": 0.9909831285476685,
+      "probabilities": {
+        "paper": 0.008123278617858887,
+        "rock": 0.9909831285476685,
+        "scissors": 0.0008936037193052471
+      },
+      "logits": {
+        "paper": -1.0386948585510254,
+        "rock": 3.7652688026428223,
+        "scissors": -3.2459213733673096
+      },
+      "max_logit_abs_error_vs_fp32": 0.059366464614868164
+    },
+    "INT8_C": {
+      "image": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock01-00.png",
+      "device": "cpu",
+      "model_type": "INT8_C",
+      "runtime": "C11 standalone",
+      "checkpoint": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/qat/outputs/model_int8.pt",
+      "model_sha256": "efb69dd24b01b645d35fc2c949605c9e5b3b7bea83a759af48643082a4c298a6",
+      "source_method": "qat",
+      "classes": [
+        "paper",
+        "rock",
+        "scissors"
+      ],
+      "preprocessing": {
+        "image_size": 32,
+        "channels": 1,
+        "alpha_background": "white",
+        "resize": "bilinear",
+        "input_mode": "foreground"
+      },
+      "predicted_index": 1,
+      "predicted_label": "rock",
+      "confidence": 0.9895957112312317,
+      "probabilities": {
+        "paper": 0.008992836810648441,
+        "rock": 0.9895957112312317,
+        "scissors": 0.0014113839715719223
+      },
+      "logits": {
+        "paper": -1.1396044492721558,
+        "rock": 3.5612637996673584,
+        "scissors": -2.991461753845215
+      },
+      "quantized_output": [
+        54,
+        87,
+        41
+      ],
+      "max_logit_abs_error_vs_fp32": 0.19509315490722656
+    }
+  },
+  "all_predictions_equal": true,
+  "qat_c_max_logit_abs_error": 0.0,
+  "qat_c_max_probability_abs_error": 1.1641532182693481e-10
+}

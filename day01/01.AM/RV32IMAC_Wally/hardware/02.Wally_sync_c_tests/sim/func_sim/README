@@ -1,0 +1,10 @@
+make
+make run test=all
+
+make run test=cachetest
+make run test=fib
+make run test=replace
+make run test=strcmp
+make run test=sum
+make run test=vecadd
+make run test=ftest

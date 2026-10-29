@@ -1,0 +1,33 @@
+{
+  "image": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/dataset/rps/test/rock/testrock01-00.png",
+  "device": "cpu",
+  "model_type": "FP32",
+  "runtime": "PyTorch",
+  "checkpoint": "/home/user/lectures/B/EmbedAIRISC-V/day01/02.PM/ver2/pytorch/outputs/model_fp32.pth",
+  "model_sha256": "d57755ad063f98a061d954369d6d54f91af6cf726b596298f34deef5062d53d8",
+  "classes": [
+    "paper",
+    "rock",
+    "scissors"
+  ],
+  "preprocessing": {
+    "image_size": 32,
+    "channels": 1,
+    "alpha_background": "white",
+    "input_mode": "foreground",
+    "resize": "bilinear"
+  },
+  "predicted_index": 1,
+  "predicted_label": "rock",
+  "confidence": 0.9905493855476379,
+  "probabilities": {
+    "paper": 0.008463604375720024,
+    "rock": 0.9905493855476379,
+    "scissors": 0.0009870785288512707
+  },
+  "logits": {
+    "paper": -1.0377740859985352,
+    "rock": 3.724710702896118,
+    "scissors": -3.1865549087524414
+  }
+}
